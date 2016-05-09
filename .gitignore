@@ -1,3 +1,5 @@
+*.eggplant
+
 # Built application files
 *.apk
 *.ap_
