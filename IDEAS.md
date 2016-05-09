@@ -9,5 +9,12 @@ Possible Ideas
 - can be updated at any time if you don't follow the schedule and will recalculate as needed
 - optionally deploy to Google Calendar
 
+
+## Schedular
+
+## Alarm
+
+## studyroom booking
+
 #### NOTE
 Other group members feel free to add your own suggestions here.
