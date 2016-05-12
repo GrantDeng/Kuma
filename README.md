@@ -1,2 +1,0 @@
-# kuma
-Software Architecture Project
