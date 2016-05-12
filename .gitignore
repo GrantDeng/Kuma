@@ -1,5 +1,20 @@
+<<<<<<< HEAD
 *.eggplant
 
+=======
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+
+# Created by https://www.gitignore.io/api/android
+
+### Android ###
+>>>>>>> 0297b758b35f0791dfc8d459804ff22388370d43
 # Built application files
 *.apk
 *.ap_
@@ -13,6 +28,10 @@
 # Generated files
 bin/
 gen/
+<<<<<<< HEAD
+=======
+out/
+>>>>>>> 0297b758b35f0791dfc8d459804ff22388370d43
 
 # Gradle files
 .gradle/
@@ -32,3 +51,16 @@ proguard/
 
 # Android Studio captures folder
 captures/
+<<<<<<< HEAD
+=======
+
+# Intellij
+*.iml
+
+# Keystore files
+*.jks
+
+### Android Patch ###
+gen-external-apklibs
+
+>>>>>>> 0297b758b35f0791dfc8d459804ff22388370d43
