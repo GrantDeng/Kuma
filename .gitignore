@@ -1,3 +1,7 @@
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
 /.idea/gradle.xml
 *.ap_
 *.apk
@@ -13,7 +17,6 @@ gen-external-apklibs
 .gradle/
 /.idea/libraries
 /.idea/workspace.xml
-*.iml
 *.jks
 /local.properties
 *.log
