@@ -43,3 +43,4 @@ gen-external-apklibs
 *.log
 .navigation/
 proguard/
+.idea/dictionaries
