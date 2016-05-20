@@ -44,3 +44,5 @@ gen-external-apklibs
 .navigation/
 proguard/
 .idea/dictionaries
+.idea
+*.iml
