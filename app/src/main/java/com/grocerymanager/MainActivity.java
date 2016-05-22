@@ -1,4 +1,4 @@
-package kuma.github.com.grocerymanager;
+package com.github.kuma.grocerymanager;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
