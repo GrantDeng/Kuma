@@ -3,3 +3,9 @@
 ## the api key
 9cbhlo1UzpmshuBjs1ZpuDiUhWCFp1tiWnujsn5pVwsZTtNhG7
 
+## ideas for UI
+
+- search bar, show history
+- switch
+- calendar within one week
+- sort by expiration day
