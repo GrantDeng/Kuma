@@ -1,4 +1,4 @@
-package kuma.github.com.grocerymanager;
+package com.github.kuma.grocerymanager;
 
 import org.junit.Test;
 

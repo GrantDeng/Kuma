@@ -1,4 +1,4 @@
-package kuma.github.com.grocerymanager;
+package com.github.kuma.grocerymanager;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
