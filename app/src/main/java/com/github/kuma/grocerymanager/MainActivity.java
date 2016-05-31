@@ -10,5 +10,6 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //String DO_NOT_DO_THIS = "/sdcard";
     }
 }

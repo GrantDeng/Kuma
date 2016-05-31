@@ -1,4 +1,31 @@
 apply plugin: 'com.android.application'
+apply plugin: 'pmd'
+
+// thanks to http://vincentbrison.com/2014/07/19/how-to-improve-quality-and-syntax-of-your-android-code/#PMD
+task pmd(type: Pmd) {
+    ignoreFailures = false
+    ruleSets = [
+            "java-android",
+            "java-basic",
+            "java-braces",
+            "java-coupling",
+            "java-design",
+            "java-unusedcode"
+    ]
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    consoleOutput = true
+
+    reports {
+        html.enabled = true
+        html {
+            destination "$project.buildDir/reports/pmd.html"
+        }
+    }
+}
 
 android {
     compileSdkVersion 19
