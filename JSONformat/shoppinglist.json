@@ -1,0 +1,4 @@
+{
+	"bought":,	// status showing whether this item is bought
+	"data_name":		// a single data name
+}

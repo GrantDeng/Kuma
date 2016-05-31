@@ -1,0 +1,6 @@
+{
+	"id":,
+	"nutrition": [],	   // list of strings
+
+	"ingredients_names":[] // list of food data names
+}
