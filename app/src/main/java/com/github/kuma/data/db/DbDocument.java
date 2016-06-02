@@ -1,21 +1,28 @@
 package com.github.kuma.data.db;
 
+import android.content.Context;
+
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.Document;
 
 import java.io.IOException;
 
-public abstract class DbDocument<T>
+public class DbDocument
 {
-    protected Document document;
-    protected Database db;
-    protected static final String LOG_TAG = "document";
+    private Document document;
+    private Database db;
+    private static final String LOG_TAG = "document";
 
-    protected DbDocument(String documentId) throws CouchbaseLiteException, IOException
+    public DbDocument(Context context, String documentId) throws CouchbaseLiteException, IOException
     {
-        this.db = CouchbaseHandler.getInstance().getDbInstance();
+        this.db = new CouchbaseHandler(context).getDbInstance();
         this.document = this.db.getDocument(documentId);
+    }
+
+    public String getName()
+    {
+        return this.document.getId();
     }
 
     public void delete() throws CouchbaseLiteException

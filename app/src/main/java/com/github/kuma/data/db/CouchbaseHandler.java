@@ -1,6 +1,7 @@
 package com.github.kuma.data.db;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
@@ -14,29 +15,21 @@ import java.io.IOException;
  * CouchbaseHandler provides singleton access to a Couchbase Database and Manager.
  * Thanks to http://developer.couchbase.com/documentation/mobile/1.2/develop/training/build-first-android-app/starter-code-android/index.html
  */
-public class CouchbaseHandler extends Application
+public class CouchbaseHandler
 {
-    private static CouchbaseHandler ourInstance = new CouchbaseHandler();
     private Manager manager;
     private Database db;
+    private Context context;
 
     private static final String DB_NAME = "kuma"; // must be lowercase to prevent exception
     private static final String LOG_TAG = "couchbase";
 
-    /**
-     * Returns the singleton CouchbaseHandler.
-     * @return the singleton CouchbaseHandler.
-     */
-    public static CouchbaseHandler getInstance()
-    {
-        return ourInstance;
-    }
-
-    private CouchbaseHandler()
+    public CouchbaseHandler(Context context)
     {
         // FIXME: this should go into a specific configuration handler
         final int LOG_LEVEL = Log.DEBUG;
         Log.enableLogging(LOG_TAG, LOG_LEVEL);
+        this.context = context;
     }
 
     /**
@@ -67,7 +60,7 @@ public class CouchbaseHandler extends Application
     {
         if(this.manager == null)
         {
-            this.manager = new Manager(new AndroidContext(this.getApplicationContext()), Manager.DEFAULT_OPTIONS);
+            this.manager = new Manager(new AndroidContext(this.context), Manager.DEFAULT_OPTIONS);
         }
         return this.manager;
     }
