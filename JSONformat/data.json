@@ -1,0 +1,27 @@
+{
+	"name":,
+	"guess_duration":,
+
+	"data_type":,		// food or personal item
+	"grocery_ids": [],		// list of grocery ids
+	"tot_quantity":,
+	
+	// if food
+	"category":,
+	"nutrition": [],		// list of strings
+	"image":
+}
+
+// example
+{
+	"name": "apple",
+	"guess_duration":,	//
+
+	"data_type": "food",
+	"grocery_ids": ["apple1","apple2"],
+	"tot_quantity": "low",
+
+	"category": "fruit",
+	"nutrition": [],	//
+	"image": "https://spoonacular.com/cdn/ingredients_100x100/milk.jpg"
+}

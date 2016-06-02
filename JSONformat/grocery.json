@@ -1,0 +1,11 @@
+{
+	"id":,
+	"quantity":,
+	"duration":,
+	"location":,
+	"purchase_dt":,
+	"dibs":,
+	"data_type": // food or personal item
+}
+
+// example
