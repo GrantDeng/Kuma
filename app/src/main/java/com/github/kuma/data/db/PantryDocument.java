@@ -6,24 +6,24 @@ import com.couchbase.lite.CouchbaseLiteException;
 
 import java.io.IOException;
 
-public class FoodDataDocument extends DbDocument
+public class PantryDocument extends DbDocument
 {
-    private final static String DOCUMENT_ID = "food_data";
+    private final static String DOCUMENT_ID = "pantry";
     private static DbDocument ourInstance;
 
     static
     {
         try
         {
-            ourInstance = new FoodDataDocument();
+            ourInstance = new PantryDocument();
         }
         catch(Exception e)
         {
-            Log.e(DbDocument.LOG_TAG, "FoodDataDocument creation failed!");
+            Log.e(DbDocument.LOG_TAG, "PantryDocument creation failed!");
         }
     }
 
-    private FoodDataDocument() throws CouchbaseLiteException, IOException
+    private PantryDocument() throws CouchbaseLiteException, IOException
     {
         super(DOCUMENT_ID);
     }

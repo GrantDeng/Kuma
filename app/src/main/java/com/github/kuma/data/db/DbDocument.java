@@ -6,10 +6,11 @@ import com.couchbase.lite.Document;
 
 import java.io.IOException;
 
-public class DbDocument
+public abstract class DbDocument<T>
 {
     protected Document document;
     protected Database db;
+    protected static final String LOG_TAG = "document";
 
     protected DbDocument(String documentId) throws CouchbaseLiteException, IOException
     {
