@@ -1,6 +1,0 @@
-food_data
-groceries
-meal_plan
-pantry
-recipes
-shopping_list

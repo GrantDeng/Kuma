@@ -25,6 +25,16 @@ public class DbDocument
         return this.document.getId();
     }
 
+    public Object getProperty(String key)
+    {
+        return this.document.getUserProperties().get(key);
+    }
+
+    public void setProperty(String key, Object value)
+    {
+        this.document.getUserProperties().put(key, value);
+    }
+
     public void delete() throws CouchbaseLiteException
     {
         if(this.document.isDeleted())
