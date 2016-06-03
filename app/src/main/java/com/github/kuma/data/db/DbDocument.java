@@ -7,6 +7,8 @@ import com.couchbase.lite.Database;
 import com.couchbase.lite.Document;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DbDocument
 {
@@ -18,6 +20,7 @@ public class DbDocument
     {
         this.db = new CouchbaseHandler(context).getDbInstance();
         this.document = this.db.getDocument(documentId);
+        this.document.putProperties(new HashMap<String, Object>());
     }
 
     public String getName()
@@ -27,12 +30,13 @@ public class DbDocument
 
     public Object getProperty(String key)
     {
-        return this.document.getUserProperties().get(key);
+        return this.document.getProperties().get(key);
     }
 
     public void setProperty(String key, Object value)
     {
-        this.document.getUserProperties().put(key, value);
+        Map<String, Object> properties = this.document.getProperties();
+        properties.put(key, value);
     }
 
     public void delete() throws CouchbaseLiteException
