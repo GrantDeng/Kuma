@@ -23,6 +23,10 @@ public class CouchbaseHandler
     private static final String DB_NAME = "kuma"; // must be lowercase to prevent exception
     private static final String LOG_TAG = "couchbase";
 
+    /**
+     * Constructor starts up logging for the CouchbaseHandler
+     * @param context The context associated with Couchbase. Only pass application contexts!
+     */
     public CouchbaseHandler(Context context)
     {
         // FIXME: this should go into a specific configuration handler
