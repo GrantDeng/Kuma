@@ -5,6 +5,7 @@ import android.content.Context;
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.Document;
+import com.couchbase.lite.UnsavedRevision;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -28,7 +29,11 @@ public class DbDocument
     {
         this.db = new CouchbaseHandler(context).getDbInstance();
         this.document = this.db.getDocument(documentId);
-        this.document.putProperties(new HashMap<String, Object>());
+        Map<String, Object> properties = this.document.getUserProperties();
+        if(properties == null)
+        {
+            this.document.putProperties(new HashMap<String, Object>());
+        }
     }
 
     /**
@@ -47,7 +52,7 @@ public class DbDocument
      */
     public Object getProperty(String key)
     {
-        return this.document.getProperties().get(key);
+        return this.document.getUserProperties().get(key);
     }
 
     /**
@@ -55,10 +60,19 @@ public class DbDocument
      * @param key The key to set the property value for.
      * @param value The value to set the property to.
      */
-    public void setProperty(String key, Object value)
+    public void setProperty(final String key, final Object value) throws CouchbaseLiteException
     {
-        Map<String, Object> properties = this.document.getProperties();
-        properties.put(key, value);
+        this.document.update(new Document.DocumentUpdater()
+        {
+            @Override
+            public boolean update(UnsavedRevision newRevision)
+            {
+                Map<String, Object> properties = newRevision.getUserProperties();
+                properties.put(key, value);
+                newRevision.setUserProperties(properties);
+                return true;
+            }
+        });
     }
 
     /**
@@ -71,5 +85,41 @@ public class DbDocument
             return;
         }
         this.document.delete();
+    }
+
+    /**
+     * Return the database from which this document originated.
+     * @return The database from which this document originated.
+     */
+    public Database getDb()
+    {
+        return this.db;
+    }
+
+    /**
+     * Return the data type of this document.
+     * @return The data type of this document, or null if it is not defined.
+     */
+    public String getDataType()
+    {
+        return DbDocument.getDataType(this);
+    }
+
+    /**
+     * Return the data type of a given document.
+     * @return The data type of the given document, or null if it is not defined.
+     */
+    public static String getDataType(DbDocument document)
+    {
+        return (String) document.getProperty("data_type");
+    }
+
+    /**
+     * Return the data type of a given document.
+     * @return The data type of the given document, or null if it is not defined.
+     */
+    public static String getDataType(Document document)
+    {
+        return (String) document.getProperty("data_type");
     }
 }
