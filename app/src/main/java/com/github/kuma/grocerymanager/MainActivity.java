@@ -9,7 +9,7 @@ import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.View;
 import com.github.kuma.data.db.DbDocument;
-import com.github.kuma.data.db.ViewUtils;
+//import com.github.kuma.data.db.ViewUtils;
 
 import java.util.HashSet;
 import java.util.Iterator;
