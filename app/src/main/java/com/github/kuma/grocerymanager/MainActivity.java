@@ -1,9 +1,9 @@
 package com.github.kuma.grocerymanager;
 
-import android.os.Bundle;
+import android.app.DownloadManager;
 import android.gesture.GestureOverlayView;
 import android.support.v7.app.ActionBarActivity;
-
+import android.os.Bundle;
 import com.github.kuma.grocerymanager.api.Spoonacular_api;
 import com.github.kuma.grocerymanager.api_data.Recipe_detail_model;
 import com.github.kuma.grocerymanager.api_data.SummarizeRecipe;
@@ -16,6 +16,7 @@ import java.util.List;
 import java.lang.Object;
 import java.io.*;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Query;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
@@ -43,15 +44,15 @@ public class MainActivity extends ActionBarActivity
 
         //Spoonacular_api service = Spoonacular_api.retrofit.create(Spoonacular_api.class);
 
-        final Call<List<Github>> result = Spoonacular_api.Spoonacular_service.getIstance().list("square", "retrofit");
+        final Call<SummarizeRecipe> result = Spoonacular_api.Spoonacular_service.getIstance().list(4632);
 
 
 
 
-        result.enqueue(new Callback<List<Github>>()
+        result.enqueue(new Callback<SummarizeRecipe>()
         {
             @Override
-            public void onResponse(Call<List<Github>> call, Response<List<Github>> response)
+            public void onResponse(Call<SummarizeRecipe> call, Response<SummarizeRecipe> response)
             {
 
                 if (response.body() == null){
@@ -61,16 +62,19 @@ public class MainActivity extends ActionBarActivity
                     System.err.println("not null!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 }
 
-                System.err.println(response.errorBody().toString());
+                //System.err.println(response.errorBody().toString());
                 System.err.println(response.code());
                 System.err.println(response.isSuccessful());
                 System.err.println(response.message());
+                //Query query = response.body().getQuery();
+                System.err.println(response.body().getId());
+                System.err.println(response.body().getSummary());
 
-                System.err.println(response.body().toString());
+
             }
 
             @Override
-            public void onFailure(Call<List<Github>> call, Throwable t)
+            public void onFailure(Call<SummarizeRecipe> call, Throwable t)
             {
                 System.err.println("error");
             }

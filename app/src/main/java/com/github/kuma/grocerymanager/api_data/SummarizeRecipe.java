@@ -10,7 +10,7 @@ public class SummarizeRecipe {
 
     @SerializedName("id")
     @Expose
-    private int id;
+    public int id;
     @SerializedName("title")
     @Expose
     private String title;

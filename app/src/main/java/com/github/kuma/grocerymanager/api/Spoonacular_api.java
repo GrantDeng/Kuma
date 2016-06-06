@@ -22,20 +22,18 @@ import java.lang.*;
 public interface Spoonacular_api
 {
     //String URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/";
-    String URL = "https://api.github.com";
-    //@Headers({
-    //        "X-Mashape-Key: 9cbhlo1UzpmshuBjs1ZpuDiUhWCFp1tiWnujsn5pVwsZTtNhG7",
-    //        "Accept: "
-    //})
+    String URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/";
+    @Headers(
+            "X-Mashape-Key: 9cbhlo1UzpmshuBjs1ZpuDiUhWCFp1tiWnujsn5pVwsZTtNhG7"
+    )
     //@GET("recipes/{id}/summary")
-    @GET("/repos/{owner}/{repo}/contributors")
-    //@Headers({"X-Mashape-Key","9cbhlo1UzpmshuBjs1ZpuDiUhWCFp1tiWnujsn5pVwsZTtNhG7"});
-
-
-    Call<List<Github>> list (
-            @Path("owner") String owner,
-            @Path("owner") String repo
+    @GET("recipes/{id}/summary")
+    Call<SummarizeRecipe> list (
+            @Path("id") int id
     );
+
+
+
 
     public class Spoonacular_service
     {
