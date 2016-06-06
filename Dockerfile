@@ -11,3 +11,4 @@ ENV JAVA_HOME=/usr/lib64/jvm/jre-1.8.0-openjdk
 COPY . /app
 WORKDIR /app
 RUN ./gradlew --info
+RUN ./gradlew --info assembleDebug
