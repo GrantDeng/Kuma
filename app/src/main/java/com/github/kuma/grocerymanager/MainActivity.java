@@ -1,10 +1,19 @@
 package com.github.kuma.grocerymanager;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 
-import com.github.kuma.data.db.CouchbaseHandler;
+import com.couchbase.lite.CouchbaseLiteException;
+import com.couchbase.lite.Database;
+import com.couchbase.lite.Query;
+import com.couchbase.lite.QueryRow;
+import com.couchbase.lite.View;
 import com.github.kuma.data.db.DbDocument;
+//import com.github.kuma.data.db.ViewUtils;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 
 public class MainActivity extends ActionBarActivity
 {
@@ -22,8 +31,10 @@ public class MainActivity extends ActionBarActivity
             try
             {
                 dummyDocuments[i] = new DbDocument(this.getApplicationContext(), keys[i]);
-                dummyDocuments[i].setProperty("a", "b");
-                System.err.println(dummyDocuments[i].getProperty("a"));
+                dummyDocuments[i].setProperty("data_type", "food_data");
+                dummyDocuments[i].setProperty("name", keys[i]);
+                System.err.println("name: " + dummyDocuments[i].getProperty("name") +
+                    ", data type: " + dummyDocuments[i].getProperty("data_type"));
             }
             catch(Exception e)
             {
@@ -32,5 +43,28 @@ public class MainActivity extends ActionBarActivity
             }
         }
 
+        // view test
+/*        Database db = dummyDocuments[0].getDb();
+        View foodDataView = db.getView("food_data");
+        HashSet<String> keys2 = new HashSet<String>();
+        keys2.add("name");
+        foodDataView.setMap(ViewUtils.dataTypeMapper("food_data", keys2), "1");
+        Query totalQuery = foodDataView.createQuery();
+        try
+        {
+            Iterator<QueryRow> queryData = totalQuery.run();
+            while(queryData.hasNext())
+            {
+                Map<String, Object> data = queryData.next().asJSONDictionary();
+                for(String key: data.keySet())
+                {
+                    System.err.println("Key: " + key + ", value: " + data.get(key));
+                }
+            }
+        }
+        catch(CouchbaseLiteException cle)
+        {
+            System.err.println("Very inexcusably bad");
+        }*/
     }
 }
