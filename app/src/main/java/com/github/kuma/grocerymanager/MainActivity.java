@@ -70,7 +70,6 @@ public class MainActivity extends ActionBarActivity
                 System.err.println(response.body().getId());
                 System.err.println(response.body().getSummary());
 
-
             }
 
             @Override

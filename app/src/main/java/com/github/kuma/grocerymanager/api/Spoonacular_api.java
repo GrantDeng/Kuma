@@ -21,17 +21,18 @@ import java.lang.*;
 
 public interface Spoonacular_api
 {
-    //String URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/";
+
     String URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/";
+
+
+    // for calling summary of recipe: require id
     @Headers(
             "X-Mashape-Key: 9cbhlo1UzpmshuBjs1ZpuDiUhWCFp1tiWnujsn5pVwsZTtNhG7"
     )
-    //@GET("recipes/{id}/summary")
     @GET("recipes/{id}/summary")
     Call<SummarizeRecipe> list (
             @Path("id") int id
     );
-
 
 
 
