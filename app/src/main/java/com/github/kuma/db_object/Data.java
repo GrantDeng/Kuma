@@ -1,13 +1,10 @@
-
 package com.github.kuma.db_object;
 
 import java.util.HashMap;
 import java.util.Map;
-//import javax.annotation.Generated;
 
-//@Generated("org.jsonschema2pojo")
-public class Data {
-
+public class Data
+{
     private String name;
     private int guessDuration;
     private String dataType;
@@ -22,7 +19,8 @@ public class Data {
      * @return
      *     The name
      */
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
@@ -31,7 +29,8 @@ public class Data {
      * @param name
      *     The name
      */
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
@@ -40,7 +39,8 @@ public class Data {
      * @return
      *     The guessDuration
      */
-    public int getGuessDuration() {
+    public int getGuessDuration()
+    {
         return guessDuration;
     }
 
@@ -49,7 +49,8 @@ public class Data {
      * @param guessDuration
      *     The guess_duration
      */
-    public void setGuessDuration(int guessDuration) {
+    public void setGuessDuration(int guessDuration)
+    {
         this.guessDuration = guessDuration;
     }
 
@@ -58,7 +59,8 @@ public class Data {
      * @return
      *     The dataType
      */
-    public String getDataType() {
+    public String getDataType()
+    {
         return dataType;
     }
 
@@ -67,7 +69,8 @@ public class Data {
      * @param dataType
      *     The data_type
      */
-    public void setDataType(String dataType) {
+    public void setDataType(String dataType)
+    {
         this.dataType = dataType;
     }
 
@@ -76,7 +79,8 @@ public class Data {
      * @return
      *     The totalQuantity
      */
-    public int getTotalQuantity() {
+    public int getTotalQuantity()
+    {
         return totalQuantity;
     }
 
@@ -85,7 +89,8 @@ public class Data {
      * @param totalQuantity
      *     The total_quantity
      */
-    public void setTotalQuantity(int totalQuantity) {
+    public void setTotalQuantity(int totalQuantity)
+    {
         this.totalQuantity = totalQuantity;
     }
 
@@ -94,7 +99,8 @@ public class Data {
      * @return
      *     The category
      */
-    public String getCategory() {
+    public String getCategory()
+    {
         return category;
     }
 
@@ -103,7 +109,8 @@ public class Data {
      * @param category
      *     The category
      */
-    public void setCategory(String category) {
+    public void setCategory(String category)
+    {
         this.category = category;
     }
 
@@ -112,7 +119,8 @@ public class Data {
      * @return
      *     The image
      */
-    public String getImage() {
+    public String getImage()
+    {
         return image;
     }
 
@@ -121,7 +129,8 @@ public class Data {
      * @param image
      *     The image
      */
-    public void setImage(String image) {
+    public void setImage(String image)
+    {
         this.image = image;
     }
 
@@ -130,7 +139,8 @@ public class Data {
      * @return
      *     The objectType
      */
-    public String getObjectType() {
+    public String getObjectType()
+    {
         return objectType;
     }
 
@@ -139,16 +149,18 @@ public class Data {
      * @param objectType
      *     The objectType
      */
-    public void setObjectType(String objectType) {
+    public void setObjectType(String objectType)
+    {
         this.objectType = objectType;
     }
 
-    public Map<String, Object> getAdditionalProperties() {
+    public Map<String, Object> getAdditionalProperties()
+    {
         return this.additionalProperties;
     }
 
-    public void setAdditionalProperty(String name, Object value) {
+    public void setAdditionalProperty(String name, Object value)
+    {
         this.additionalProperties.put(name, value);
     }
-
 }
