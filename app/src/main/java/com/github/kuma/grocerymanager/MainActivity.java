@@ -10,6 +10,7 @@ import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.View;
 import com.github.kuma.data.db.DbDocument;
 import com.github.kuma.data.db.ViewUtils;
+import com.github.kuma.db_object.Data;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -31,10 +32,8 @@ public class MainActivity extends ActionBarActivity
             try
             {
                 dummyDocuments[i] = new DbDocument(this.getApplicationContext(), keys[i]);
-                dummyDocuments[i].setProperty("objectType", "Data");
+                dummyDocuments[i].setProperty("objectType", Data.class.toString());
                 dummyDocuments[i].setProperty("name", keys[i]);
-                System.err.println("name: " + dummyDocuments[i].getProperty("name") +
-                    ", data type: " + dummyDocuments[i].getProperty("objectType"));
             }
             catch(Exception e)
             {
@@ -58,6 +57,7 @@ public class MainActivity extends ActionBarActivity
                     {
                         System.err.println("Key: " + key + ", value: " + data.get(key));
                     }
+                    System.err.println("=======");
                 }
             } catch(CouchbaseLiteException cle)
             {
