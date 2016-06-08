@@ -2,7 +2,6 @@ package com.github.kuma.data.db;
 
 import com.couchbase.lite.Emitter;
 import com.couchbase.lite.Mapper;
-import com.couchbase.lite.View;
 
 import java.util.Map;
 import java.util.Set;
