@@ -1,11 +1,24 @@
 {
-	"id":,
-	"quantity":,
-	"duration":,
-	"location":,
-	"purchase_dt":,
-	"dibs":,
-	"data_type": // food or personal item
+	"id": int ,
+	"quantity": int ,
+	"duration": int ,
+	"location": String ,
+	"purchase_date": Date ,
+	"dibs": String,
+	"data_type": String// food or personal item
 }
 
 // example
+
+
+
+{
+	"id": 11111,
+	"quantity": ,
+	"duration":,
+	"location":,
+	"purchase_dt": ,
+	"dibs": "Grant",
+	"data_type": // food or personal item
+}
+

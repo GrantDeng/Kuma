@@ -1,10 +1,11 @@
 {
-	"date":,
-	"meal_type":,	// breakfast, lunch or dinner
+	"date": date,
+	"meal_type": String,	// breakfast, lunch or dinner
 
-	"recipes_ids":[],	// list of recipe data ids
+	"recipes_ids": []int,	// list of recipe data ids
 
 	// in case some user consumes one item (i.e. apple) but still want to mark
 	// it down in meal planner
-	"food_names": []	// list of food data names
+	
+	"food_names": []String	// list of food data names
 }

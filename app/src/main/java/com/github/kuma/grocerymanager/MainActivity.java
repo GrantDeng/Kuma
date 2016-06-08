@@ -1,33 +1,12 @@
 package com.github.kuma.grocerymanager;
 
-import android.app.DownloadManager;
-import android.gesture.GestureOverlayView;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import com.github.kuma.grocerymanager.api.Spoonacular_api;
-import com.github.kuma.grocerymanager.api_data.Recipe_detail_model;
 import com.github.kuma.grocerymanager.api_data.SummarizeRecipe;
-import com.github.kuma.grocerymanager.api_github.Github;
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.Call;
-import java.util.List;
-import java.lang.Object;
-import java.io.*;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Query;
-
-import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Database;
-import com.couchbase.lite.Query;
-import com.couchbase.lite.QueryRow;
-import com.couchbase.lite.View;
-import com.github.kuma.data.db.DbDocument;
-
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
 
 public class MainActivity extends ActionBarActivity
 {
