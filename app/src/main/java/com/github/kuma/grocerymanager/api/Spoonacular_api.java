@@ -6,7 +6,6 @@ package com.github.kuma.grocerymanager.api;
 
 import com.github.kuma.grocerymanager.api_data.Recipe_detail_model;
 import com.github.kuma.grocerymanager.api_data.SummarizeRecipe;
-import com.github.kuma.grocerymanager.api_github.Github;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import retrofit2.Retrofit;
