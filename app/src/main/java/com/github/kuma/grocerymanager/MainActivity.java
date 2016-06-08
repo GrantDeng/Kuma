@@ -31,10 +31,10 @@ public class MainActivity extends ActionBarActivity
             try
             {
                 dummyDocuments[i] = new DbDocument(this.getApplicationContext(), keys[i]);
-                dummyDocuments[i].setProperty("data_type", "food_data");
+                dummyDocuments[i].setProperty("objectType", "Data");
                 dummyDocuments[i].setProperty("name", keys[i]);
                 System.err.println("name: " + dummyDocuments[i].getProperty("name") +
-                    ", data type: " + dummyDocuments[i].getProperty("data_type"));
+                    ", data type: " + dummyDocuments[i].getProperty("objectType"));
             }
             catch(Exception e)
             {
@@ -44,27 +44,31 @@ public class MainActivity extends ActionBarActivity
         }
 
         // view test
-        Database db = dummyDocuments[0].getDb();
-        View foodDataView = db.getView("food_data");
-        HashSet<String> keys2 = new HashSet<String>();
-        keys2.add("name");
-        foodDataView.setMap(ViewUtils.dataTypeMapper("food_data", keys2), "1");
-        Query totalQuery = foodDataView.createQuery();
         try
         {
-            Iterator<QueryRow> queryData = totalQuery.run();
-            while(queryData.hasNext())
+            View foodDataView = AvailableViews.getDataView(dummyDocuments[0].getHandler());
+            Query totalQuery = foodDataView.createQuery();
+            try
             {
-                Map<String, Object> data = queryData.next().asJSONDictionary();
-                for(String key: data.keySet())
+                Iterator<QueryRow> queryData = totalQuery.run();
+                while(queryData.hasNext())
                 {
-                    System.err.println("Key: " + key + ", value: " + data.get(key));
+                    Map<String, Object> data = queryData.next().asJSONDictionary();
+                    for(String key : data.keySet())
+                    {
+                        System.err.println("Key: " + key + ", value: " + data.get(key));
+                    }
                 }
+            } catch(CouchbaseLiteException cle)
+            {
+                System.err.println("Very inexcusably bad");
+                cle.printStackTrace();
             }
         }
-        catch(CouchbaseLiteException cle)
+        catch(Exception e)
         {
-            System.err.println("Very inexcusably bad");
+            System.err.println("Good grief.");
+            e.printStackTrace();
         }
     }
 }

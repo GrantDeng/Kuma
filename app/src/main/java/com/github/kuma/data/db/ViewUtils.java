@@ -2,6 +2,7 @@ package com.github.kuma.data.db;
 
 import com.couchbase.lite.Emitter;
 import com.couchbase.lite.Mapper;
+import com.couchbase.lite.View;
 
 import java.util.Map;
 import java.util.Set;
@@ -10,6 +11,8 @@ public class ViewUtils
 {
     private ViewUtils() {}
 
+    public final static String DB_TYPE_KEY = "objectType";
+
     public static Mapper dataTypeMapper(final String dataType, final Set<String> keys)
     {
         return new Mapper()
@@ -17,7 +20,7 @@ public class ViewUtils
             @Override
             public void map(Map<String, Object> document, Emitter emitter)
             {
-                if(!document.get("data_type").equals(dataType))
+                if(!document.get(ViewUtils.DB_TYPE_KEY).equals(dataType))
                 {
                     return;
                 }
