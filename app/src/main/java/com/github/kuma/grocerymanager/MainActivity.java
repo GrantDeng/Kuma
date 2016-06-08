@@ -25,9 +25,9 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
 
         // Dummy data
-        DbDocument[] dummyDocuments = new DbDocument[5];
-        String[] keys = { "pizza", "apple", "cottage cheese", "peanut butter", "whole wheat bread" };
-        for(int i = 0; i < 5; i++)
+        DbDocument[] dummyDocuments = new DbDocument[2];
+        String[] keys = { "jam", "red grapes" };
+        for(int i = 0; i < 2; i++)
         {
             try
             {
