@@ -1,4 +1,3 @@
-
 package com.github.kuma.db_object;
 
 import java.util.ArrayList;
@@ -6,11 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Date;
-//import javax.annotation.Generated;
 
-//@Generated("org.jsonschema2pojo")
-public class Mealplan {
-
+public class Mealplan
+{
     private Date date;
     private String mealType;
     private List<Integer> recipesIds = new ArrayList<Integer>();
@@ -23,7 +20,8 @@ public class Mealplan {
      * @return
      *     The date
      */
-    public Date getDate() {
+    public Date getDate()
+    {
         return date;
     }
 
@@ -32,7 +30,8 @@ public class Mealplan {
      * @param date
      *     The date
      */
-    public void setDate(Date date) {
+    public void setDate(Date date)
+    {
         this.date = date;
     }
 
@@ -41,7 +40,8 @@ public class Mealplan {
      * @return
      *     The mealType
      */
-    public String getMealType() {
+    public String getMealType()
+    {
         return mealType;
     }
 
@@ -50,7 +50,8 @@ public class Mealplan {
      * @param mealType
      *     The meal_type
      */
-    public void setMealType(String mealType) {
+    public void setMealType(String mealType)
+    {
         this.mealType = mealType;
     }
 
@@ -59,7 +60,8 @@ public class Mealplan {
      * @return
      *     The recipesIds
      */
-    public List<Integer> getRecipesIds() {
+    public List<Integer> getRecipesIds()
+    {
         return recipesIds;
     }
 
@@ -68,7 +70,8 @@ public class Mealplan {
      * @param recipesIds
      *     The recipes_ids
      */
-    public void setRecipesIds(List<Integer> recipesIds) {
+    public void setRecipesIds(List<Integer> recipesIds)
+    {
         this.recipesIds = recipesIds;
     }
 
@@ -77,7 +80,8 @@ public class Mealplan {
      * @return
      *     The objectType
      */
-    public String getObjectType() {
+    public String getObjectType()
+    {
         return objectType;
     }
 
@@ -86,7 +90,8 @@ public class Mealplan {
      * @param objectType
      *     The object_type
      */
-    public void setObjectType(String objectType) {
+    public void setObjectType(String objectType)
+    {
         this.objectType = objectType;
     }
 
@@ -95,7 +100,8 @@ public class Mealplan {
      * @return
      *     The foodNames
      */
-    public List<String> getFoodNames() {
+    public List<String> getFoodNames()
+    {
         return foodNames;
     }
 
@@ -104,17 +110,18 @@ public class Mealplan {
      * @param foodNames
      *     The food_names
      */
-    public void setFoodNames(List<String> foodNames) {
+    public void setFoodNames(List<String> foodNames)
+    {
         this.foodNames = foodNames;
     }
 
-    public Map<String, Object> getAdditionalProperties() {
+    public Map<String, Object> getAdditionalProperties()
+    {
         return this.additionalProperties;
     }
 
-    public void setAdditionalProperty(String name, Object value) {
+    public void setAdditionalProperty(String name, Object value)
+    {
         this.additionalProperties.put(name, value);
     }
-
 }
-
