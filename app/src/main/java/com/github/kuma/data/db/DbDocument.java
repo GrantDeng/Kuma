@@ -29,8 +29,7 @@ public class DbDocument
     {
         this.db = new CouchbaseHandler(context).getDbInstance();
         this.document = this.db.getDocument(documentId);
-        Map<String, Object> properties = this.document.getUserProperties();
-        if(properties == null)
+        if(this.document.getCurrentRevision() == null)
         {
             this.document.putProperties(new HashMap<String, Object>());
         }
