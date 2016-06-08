@@ -2,18 +2,11 @@ package com.github.kuma.grocerymanager;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-
-import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Database;
-import com.couchbase.lite.Query;
-import com.couchbase.lite.QueryRow;
-import com.couchbase.lite.View;
-import com.github.kuma.data.db.DbDocument;
-//import com.github.kuma.data.db.ViewUtils;
-
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
+import com.github.kuma.grocerymanager.api.Spoonacular_api;
+import com.github.kuma.grocerymanager.api_data.SummarizeRecipe;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends ActionBarActivity
 {
@@ -22,49 +15,51 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /*
+        Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/")
+            .build();*/
 
-        // Dummy data
-        DbDocument[] dummyDocuments = new DbDocument[5];
-        String[] keys = { "pizza", "apple", "cottage cheese", "peanut butter", "whole wheat bread" };
-        for(int i = 0; i < 5; i++)
-        {
-            try
-            {
-                dummyDocuments[i] = new DbDocument(this.getApplicationContext(), keys[i]);
-                dummyDocuments[i].setProperty("data_type", "food_data");
-                dummyDocuments[i].setProperty("name", keys[i]);
-                System.err.println("name: " + dummyDocuments[i].getProperty("name") +
-                    ", data type: " + dummyDocuments[i].getProperty("data_type"));
-            }
-            catch(Exception e)
-            {
-                System.err.println("NOT GOOD");
-                e.printStackTrace();
-            }
-        }
 
-        // view test
-/*        Database db = dummyDocuments[0].getDb();
-        View foodDataView = db.getView("food_data");
-        HashSet<String> keys2 = new HashSet<String>();
-        keys2.add("name");
-        foodDataView.setMap(ViewUtils.dataTypeMapper("food_data", keys2), "1");
-        Query totalQuery = foodDataView.createQuery();
-        try
+        //Spoonacular_api service = Spoonacular_api.retrofit.create(Spoonacular_api.class);
+
+        final Call<SummarizeRecipe> result = Spoonacular_api.Spoonacular_service.getIstance().list(4632);
+
+
+
+
+        result.enqueue(new Callback<SummarizeRecipe>()
         {
-            Iterator<QueryRow> queryData = totalQuery.run();
-            while(queryData.hasNext())
+            @Override
+            public void onResponse(Call<SummarizeRecipe> call, Response<SummarizeRecipe> response)
             {
-                Map<String, Object> data = queryData.next().asJSONDictionary();
-                for(String key: data.keySet())
-                {
-                    System.err.println("Key: " + key + ", value: " + data.get(key));
+
+                if (response.body() == null){
+                    System.err.println("null!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 }
+                else {
+                    System.err.println("not null!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                }
+
+                //System.err.println(response.errorBody().toString());
+                System.err.println(response.code());
+                System.err.println(response.isSuccessful());
+                System.err.println(response.message());
+                //Query query = response.body().getQuery();
+                System.err.println(response.body().getId());
+                System.err.println(response.body().getSummary());
+
             }
-        }
-        catch(CouchbaseLiteException cle)
-        {
-            System.err.println("Very inexcusably bad");
-        }*/
+
+            @Override
+            public void onFailure(Call<SummarizeRecipe> call, Throwable t)
+            {
+                System.err.println("error");
+            }
+        });
+
+
+        //System.err.println("woooooooooooooooo!!!!!!!!!!!!!!!!!!!!!!!!");
+        //System.err.println(result.toString());
     }
 }

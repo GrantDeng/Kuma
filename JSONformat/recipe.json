@@ -1,6 +1,5 @@
 {
-	"id":,
-	"nutrition": [],	   // list of strings
-
-	"ingredients_names":[] // list of food data names
+	"id": int,
+	"nutrition": String;	   // list of strings
+	"ingredients_names":[]String   // list of food data names
 }
