@@ -25,7 +25,7 @@ public final class AvailableViews
         Set<String> fieldNames = new HashSet<String>();
         for(Field field: fields)
         {
-            fieldNames.add(field.toString());
+            fieldNames.add(field.getName().toString());
         }
         return fieldNames;
     }
