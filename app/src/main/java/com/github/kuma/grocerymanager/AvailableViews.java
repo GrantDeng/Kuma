@@ -37,8 +37,11 @@ public final class AvailableViews
         {
             String classString = Data.class.toString();
             AvailableViews.dataView = handler.getDbInstance().getView(classString);
-            Mapper mapper = ViewUtils.dataTypeMapper(classString, AvailableViews.getFieldNamesForClass(Data.class));
-            dataView.setMap(mapper, AvailableViews.VERSION_NUMBER);
+            AvailableViews.dataView.setDocumentType(classString);
+            AvailableViews.dataView.setMap(
+                ViewUtils.dummyMapper(),
+                AvailableViews.VERSION_NUMBER
+            );
         }
         return AvailableViews.dataView;
     }

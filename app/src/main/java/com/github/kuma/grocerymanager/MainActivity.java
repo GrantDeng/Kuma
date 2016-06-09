@@ -30,7 +30,7 @@ public class MainActivity extends ActionBarActivity
             try
             {
                 dummyDocuments[i] = new DbDocument(this.getApplicationContext(), keys[i]);
-                dummyDocuments[i].setProperty("objectType", Data.class.toString());
+                dummyDocuments[i].setProperty("type", Data.class.toString());
                 dummyDocuments[i].setProperty("name", keys[i]);
             }
             catch(Exception e)
@@ -50,11 +50,8 @@ public class MainActivity extends ActionBarActivity
                 Iterator<QueryRow> queryData = totalQuery.run();
                 while(queryData.hasNext())
                 {
-                    Map<String, Object> data = queryData.next().asJSONDictionary();
-                    for(String key : data.keySet())
-                    {
-                        System.err.println("Key: " + key + ", value: " + data.get(key));
-                    }
+                    QueryRow row = queryData.next();
+                    System.err.println("Document: " + row.getDocumentId() + ", Key: " + row.getKey() + ", Value: " + row.getValue());
                     System.err.println("=======");
                 }
             } catch(CouchbaseLiteException cle)
