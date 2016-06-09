@@ -16,7 +16,7 @@ public class Grocery {
     private Date purchaseDate;
     private String dibs;
     private String dataType;
-    private String objectType;
+    private String type;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
@@ -148,19 +148,19 @@ public class Grocery {
     /**
      * 
      * @return
-     *     The objectType
+     *     The type
      */
-    public String getObjectType() {
-        return objectType;
+    public String getType() {
+        return type;
     }
 
     /**
      * 
-     * @param objectType
-     *     The objectType
+     * @param type
+     *     The type
      */
-    public void setObjectType(String objectType) {
-        this.objectType = objectType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Map<String, Object> getAdditionalProperties() {
