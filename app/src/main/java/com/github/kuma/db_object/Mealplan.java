@@ -11,7 +11,7 @@ public class Mealplan
     private Date date;
     private String mealType;
     private List<Integer> recipesIds = new ArrayList<Integer>();
-    private String objectType;
+    private String type;
     private List<String> foodNames = new ArrayList<String>();
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -78,21 +78,21 @@ public class Mealplan
     /**
      * 
      * @return
-     *     The objectType
+     *     The type
      */
-    public String getObjectType()
+    public String getType()
     {
-        return objectType;
+        return type;
     }
 
     /**
      * 
-     * @param objectType
+     * @param type
      *     The object_type
      */
-    public void setObjectType(String objectType)
+    public void setType(String type)
     {
-        this.objectType = objectType;
+        this.type = type;
     }
 
     /**

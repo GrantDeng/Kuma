@@ -10,7 +10,7 @@ public class Recipe
     private int id;
     private String nutrition;
     private List<String> ingredientsNames = new ArrayList<String>();
-    private String objectType;
+    private String type;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
@@ -76,21 +76,21 @@ public class Recipe
     /**
      *
      * @return
-     *     The objectType
+     *     The type
      */
-    public String getObjectType()
+    public String getType()
     {
-        return objectType;
+        return type;
     }
 
     /**
      *
-     * @param objectType
-     *     The objectType
+     * @param type
+     *     The type
      */
-    public void setObjectType(String objectType)
+    public void setType(String type)
     {
-        this.objectType = objectType;
+        this.type = type;
     }
 
     public Map<String, Object> getAdditionalProperties()

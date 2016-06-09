@@ -11,7 +11,7 @@ public class Data
     private int totalQuantity;
     private String category;
     private String image;
-    private String objectType;
+    private String type;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
@@ -139,19 +139,19 @@ public class Data
      * @return
      *     The objectType
      */
-    public String getObjectType()
+    public String getType()
     {
-        return objectType;
+        return type;
     }
 
     /**
      * 
-     * @param objectType
-     *     The objectType
+     * @param type
+     *     The type
      */
-    public void setObjectType(String objectType)
+    public void setType(String type)
     {
-        this.objectType = objectType;
+        this.type = type;
     }
 
     public Map<String, Object> getAdditionalProperties()
