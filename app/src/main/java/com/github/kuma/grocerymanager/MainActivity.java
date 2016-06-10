@@ -3,17 +3,8 @@ package com.github.kuma.grocerymanager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
-import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Database;
-import com.couchbase.lite.Query;
-import com.couchbase.lite.QueryRow;
-import com.couchbase.lite.View;
-import com.github.kuma.data.db.DbDocument;
 //import com.github.kuma.data.db.ViewUtils;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
 
 public class MainActivity extends ActionBarActivity
 {
@@ -21,10 +12,10 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.shoplist);
 
         // Dummy data
-        DbDocument[] dummyDocuments = new DbDocument[5];
+        /*DbDocument[] dummyDocuments = new DbDocument[5];
         String[] keys = { "pizza", "apple", "cottage cheese", "peanut butter", "whole wheat bread" };
         for(int i = 0; i < 5; i++)
         {
@@ -41,7 +32,7 @@ public class MainActivity extends ActionBarActivity
                 System.err.println("NOT GOOD");
                 e.printStackTrace();
             }
-        }
+        }*/
 
         // view test
 /*        Database db = dummyDocuments[0].getDb();

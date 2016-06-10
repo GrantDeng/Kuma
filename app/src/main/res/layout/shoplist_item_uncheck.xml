@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="0.06"
+    android:clickable="false"
+    android:minHeight="50dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="item name"
+        android:id="@+id/name"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"
+        android:maxLength="250"
+        android:minWidth="200dp"
+        android:layout_alignRight="@+id/check_button" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/check_button"
+        android:src="@mipmap/ic_done_black_24dp"
+        android:background="#ffffff"
+        android:clickable="true"
+        android:minWidth="50dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/delete"
+        android:layout_toStartOf="@+id/delete"
+        android:layout_marginRight="5dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/delete"
+        android:src="@mipmap/ic_delete_forever_black_24dp"
+        android:background="#ffffff"
+        android:minWidth="50dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>
