@@ -1,48 +1,70 @@
 package com.github.kuma.grocerymanager;
 
 import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Mapper;
 import com.couchbase.lite.View;
 import com.github.kuma.data.db.CouchbaseHandler;
 import com.github.kuma.data.db.ViewUtils;
 import com.github.kuma.db_object.Data;
+import com.github.kuma.db_object.Grocery;
+import com.github.kuma.db_object.Mealplan;
+import com.github.kuma.db_object.Recipe;
+import com.github.kuma.db_object.Shoppinglist;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class AvailableViews
 {
     private static final String VERSION_NUMBER = "1";
 
-    private static View dataView;
+    private static Map<Class<?>, View> viewMap = new HashMap<Class<?>, View>();
 
-    // FIXME: SHOULDN'T BE HERE!
-    static Set<String> getFieldNamesForClass(Class<?> klass) throws ClassNotFoundException
+    private static View getViewForClass(CouchbaseHandler handler, Class<?> klass) throws ClassNotFoundException,
+        IOException, CouchbaseLiteException
     {
-        Field[] fields = klass.getDeclaredFields();
-        Set<String> fieldNames = new HashSet<String>();
-        for(Field field: fields)
+        View view = AvailableViews.viewMap.get(klass);
+        if(view == null)
         {
-            fieldNames.add(field.getName().toString());
+            String classString = klass.toString();
+            view = handler.getDbInstance().getView(classString);
+            view.setDocumentType(classString);
+            view.setMap(
+                ViewUtils.typeMapper(klass),
+                AvailableViews.VERSION_NUMBER
+            );
+            AvailableViews.viewMap.put(klass, view);
         }
-        return fieldNames;
+        return view;
     }
 
     public static View getDataView(CouchbaseHandler handler) throws ClassNotFoundException, IOException,
         CouchbaseLiteException
     {
-        if(AvailableViews.dataView == null)
-        {
-            String classString = Data.class.toString();
-            AvailableViews.dataView = handler.getDbInstance().getView(classString);
-            AvailableViews.dataView.setDocumentType(classString);
-            AvailableViews.dataView.setMap(
-                ViewUtils.dummyMapper(),
-                AvailableViews.VERSION_NUMBER
-            );
-        }
-        return AvailableViews.dataView;
+        return AvailableViews.getViewForClass(handler, Data.class);
+    }
+
+    public static View getGroceryView(CouchbaseHandler handler) throws ClassNotFoundException, IOException,
+        CouchbaseLiteException
+    {
+        return AvailableViews.getViewForClass(handler, Grocery.class);
+    }
+
+    public static View getMealPlanView(CouchbaseHandler handler) throws ClassNotFoundException, IOException,
+        CouchbaseLiteException
+    {
+        return AvailableViews.getViewForClass(handler, Mealplan.class);
+    }
+
+    public static View getRecipeView(CouchbaseHandler handler) throws ClassNotFoundException, IOException,
+        CouchbaseLiteException
+    {
+        return AvailableViews.getViewForClass(handler, Recipe.class);
+    }
+
+    public static View getShoppingListView(CouchbaseHandler handler) throws ClassNotFoundException, IOException,
+        CouchbaseLiteException
+    {
+        return AvailableViews.getViewForClass(handler, Shoppinglist.class);
     }
 }

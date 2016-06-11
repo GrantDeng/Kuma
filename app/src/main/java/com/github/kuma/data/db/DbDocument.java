@@ -3,7 +3,6 @@ package com.github.kuma.data.db;
 import android.content.Context;
 
 import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Database;
 import com.couchbase.lite.Document;
 import com.couchbase.lite.UnsavedRevision;
 
