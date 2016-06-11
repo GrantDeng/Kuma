@@ -3,7 +3,6 @@ package com.github.kuma.data.db;
 import android.content.Context;
 
 import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Database;
 import com.couchbase.lite.Document;
 import com.couchbase.lite.UnsavedRevision;
 
@@ -17,7 +16,7 @@ import java.util.Map;
 public class DbDocument
 {
     private Document document;
-    private Database db;
+    private CouchbaseHandler handler;
     private static final String LOG_TAG = "document";
 
     /**
@@ -27,8 +26,8 @@ public class DbDocument
      */
     public DbDocument(Context context, String documentId) throws CouchbaseLiteException, IOException
     {
-        this.db = new CouchbaseHandler(context).getDbInstance();
-        this.document = this.db.getDocument(documentId);
+        this.handler = new CouchbaseHandler(context);
+        this.document = this.handler.getDbInstance().getDocument(documentId);
         if(this.document.getCurrentRevision() == null)
         {
             this.document.putProperties(new HashMap<String, Object>());
@@ -61,6 +60,7 @@ public class DbDocument
      */
     public void setProperty(final String key, final Object value) throws CouchbaseLiteException
     {
+        // FIXME: adding properties one at a time is very slow. Provide an override to add multiple at once.
         this.document.update(new Document.DocumentUpdater()
         {
             @Override
@@ -87,12 +87,12 @@ public class DbDocument
     }
 
     /**
-     * Return the database from which this document originated.
-     * @return The database from which this document originated.
+     * Return the handler for the database from which this document originated.
+     * @return The Couchbase handler for the database from which this document originated.
      */
-    public Database getDb()
+    public CouchbaseHandler getHandler()
     {
-        return this.db;
+        return this.handler;
     }
 
     /**
@@ -110,7 +110,7 @@ public class DbDocument
      */
     public static String getDataType(DbDocument document)
     {
-        return (String) document.getProperty("data_type");
+        return (String) document.getProperty("type");
     }
 
     /**
@@ -119,6 +119,6 @@ public class DbDocument
      */
     public static String getDataType(Document document)
     {
-        return (String) document.getProperty("data_type");
+        return (String) document.getProperty("type");
     }
 }
