@@ -102,7 +102,6 @@ public class DbDocument
      */
     public String getDataType()
     {
-        // FIXME: this should probably be called getObjectType, reflecting the name change
         return DbDocument.getDataType(this);
     }
 
@@ -112,8 +111,7 @@ public class DbDocument
      */
     public static String getDataType(DbDocument document)
     {
-        // FIXME: this should probably be called getObjectType, reflecting the name change
-        return (String) document.getProperty("data_type");
+        return (String) document.getProperty("type");
     }
 
     /**
@@ -122,7 +120,6 @@ public class DbDocument
      */
     public static String getDataType(Document document)
     {
-        // FIXME: this should probably be called getObjectType, reflecting the name change
-        return (String) document.getProperty("data_type");
+        return (String) document.getProperty("type");
     }
 }
