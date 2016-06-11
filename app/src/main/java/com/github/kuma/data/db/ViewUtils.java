@@ -2,13 +2,10 @@ package com.github.kuma.data.db;
 
 import com.couchbase.lite.Emitter;
 import com.couchbase.lite.Mapper;
-import com.github.kuma.grocerymanager.AvailableViews;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class ViewUtils
 {

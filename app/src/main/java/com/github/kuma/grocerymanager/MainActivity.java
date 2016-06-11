@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
 import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Database;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.View;
@@ -12,7 +11,6 @@ import com.github.kuma.data.db.DbDocument;
 import com.github.kuma.db_object.Data;
 
 import java.util.Iterator;
-import java.util.Map;
 
 public class MainActivity extends ActionBarActivity
 {
