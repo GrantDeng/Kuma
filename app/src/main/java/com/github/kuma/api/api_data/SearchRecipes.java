@@ -1,16 +1,14 @@
 
-package com.github.kuma.grocerymanager.api_data;
+package com.github.kuma.api.api_data;
 
 import java.util.ArrayList;
 import java.util.List;
-//import javax.annotation.Generated;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-//@Generated("org.jsonschema2pojo")
 public class SearchRecipes
 {
-
     @SerializedName("results")
     @Expose
     private List<Result> results = new ArrayList<Result>();
@@ -31,7 +29,7 @@ public class SearchRecipes
     private int processingTimeMs;
     @SerializedName("expires")
     @Expose
-    private int expires;
+    private String expires;
     @SerializedName("isStale")
     @Expose
     private boolean isStale;
@@ -161,7 +159,7 @@ public class SearchRecipes
      * @return
      *     The expires
      */
-    public int getExpires()
+    public String getExpires()
     {
         return expires;
     }
@@ -171,7 +169,7 @@ public class SearchRecipes
      * @param expires
      *     The expires
      */
-    public void setExpires(int expires)
+    public void setExpires(String expires)
     {
         this.expires = expires;
     }
@@ -195,5 +193,4 @@ public class SearchRecipes
     {
         this.isStale = isStale;
     }
-
 }
