@@ -11,13 +11,16 @@ android:name="android.permission.INTERNET"/>
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.github.kuma.grocerymanager.MainActivity">
+        <activity android:name=".ShopListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".PantryActivity"></activity>
+        <activity android:name=".MealPlanActivity"></activity>
+        <activity android:name=".Input"></activity>
     </application>
 
 </manifest>
