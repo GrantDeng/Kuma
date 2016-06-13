@@ -16,7 +16,7 @@ public class Mealplan
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * 
+     *
      * @return
      *     The date
      */
@@ -26,7 +26,7 @@ public class Mealplan
     }
 
     /**
-     * 
+     *
      * @param date
      *     The date
      */
@@ -36,7 +36,7 @@ public class Mealplan
     }
 
     /**
-     * 
+     *
      * @return
      *     The mealType
      */
@@ -46,7 +46,7 @@ public class Mealplan
     }
 
     /**
-     * 
+     *
      * @param mealType
      *     The meal_type
      */
@@ -56,7 +56,7 @@ public class Mealplan
     }
 
     /**
-     * 
+     *
      * @return
      *     The recipesIds
      */
@@ -66,7 +66,7 @@ public class Mealplan
     }
 
     /**
-     * 
+     *
      * @param recipesIds
      *     The recipes_ids
      */
@@ -76,7 +76,7 @@ public class Mealplan
     }
 
     /**
-     * 
+     *
      * @return
      *     The type
      */
@@ -86,7 +86,7 @@ public class Mealplan
     }
 
     /**
-     * 
+     *
      * @param type
      *     The object_type
      */
@@ -96,7 +96,7 @@ public class Mealplan
     }
 
     /**
-     * 
+     *
      * @return
      *     The foodNames
      */
@@ -106,7 +106,7 @@ public class Mealplan
     }
 
     /**
-     * 
+     *
      * @param foodNames
      *     The food_names
      */

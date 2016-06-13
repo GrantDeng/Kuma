@@ -8,7 +8,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 //@Generated("org.jsonschema2pojo")
-public class SearchRecipes {
+public class SearchRecipes
+{
 
     @SerializedName("results")
     @Expose
@@ -36,146 +37,162 @@ public class SearchRecipes {
     private boolean isStale;
 
     /**
-     * 
+     *
      * @return
      *     The results
      */
-    public List<Result> getResults() {
+    public List<Result> getResults()
+    {
         return results;
     }
 
     /**
-     * 
+     *
      * @param results
      *     The results
      */
-    public void setResults(List<Result> results) {
+    public void setResults(List<Result> results)
+    {
         this.results = results;
     }
 
     /**
-     * 
+     *
      * @return
      *     The baseUri
      */
-    public String getBaseUri() {
+    public String getBaseUri()
+    {
         return baseUri;
     }
 
     /**
-     * 
+     *
      * @param baseUri
      *     The baseUri
      */
-    public void setBaseUri(String baseUri) {
+    public void setBaseUri(String baseUri)
+    {
         this.baseUri = baseUri;
     }
 
     /**
-     * 
+     *
      * @return
      *     The offset
      */
-    public int getOffset() {
+    public int getOffset()
+    {
         return offset;
     }
 
     /**
-     * 
+     *
      * @param offset
      *     The offset
      */
-    public void setOffset(int offset) {
+    public void setOffset(int offset)
+    {
         this.offset = offset;
     }
 
     /**
-     * 
+     *
      * @return
      *     The number
      */
-    public int getNumber() {
+    public int getNumber()
+    {
         return number;
     }
 
     /**
-     * 
+     *
      * @param number
      *     The number
      */
-    public void setNumber(int number) {
+    public void setNumber(int number)
+    {
         this.number = number;
     }
 
     /**
-     * 
+     *
      * @return
      *     The totalResults
      */
-    public int getTotalResults() {
+    public int getTotalResults()
+    {
         return totalResults;
     }
 
     /**
-     * 
+     *
      * @param totalResults
      *     The totalResults
      */
-    public void setTotalResults(int totalResults) {
+    public void setTotalResults(int totalResults)
+    {
         this.totalResults = totalResults;
     }
 
     /**
-     * 
+     *
      * @return
      *     The processingTimeMs
      */
-    public int getProcessingTimeMs() {
+    public int getProcessingTimeMs()
+    {
         return processingTimeMs;
     }
 
     /**
-     * 
+     *
      * @param processingTimeMs
      *     The processingTimeMs
      */
-    public void setProcessingTimeMs(int processingTimeMs) {
+    public void setProcessingTimeMs(int processingTimeMs)
+    {
         this.processingTimeMs = processingTimeMs;
     }
 
     /**
-     * 
+     *
      * @return
      *     The expires
      */
-    public int getExpires() {
+    public int getExpires()
+    {
         return expires;
     }
 
     /**
-     * 
+     *
      * @param expires
      *     The expires
      */
-    public void setExpires(int expires) {
+    public void setExpires(int expires)
+    {
         this.expires = expires;
     }
 
     /**
-     * 
+     *
      * @return
      *     The isStale
      */
-    public boolean isIsStale() {
+    public boolean isIsStale()
+    {
         return isStale;
     }
 
     /**
-     * 
+     *
      * @param isStale
      *     The isStale
      */
-    public void setIsStale(boolean isStale) {
+    public void setIsStale(boolean isStale)
+    {
         this.isStale = isStale;
     }
 

@@ -26,11 +26,11 @@ public interface Spoonacular_api
 
     // for calling summary of recipe: require id
     @Headers(
-            "X-Mashape-Key: 9cbhlo1UzpmshuBjs1ZpuDiUhWCFp1tiWnujsn5pVwsZTtNhG7"
+        "X-Mashape-Key: 9cbhlo1UzpmshuBjs1ZpuDiUhWCFp1tiWnujsn5pVwsZTtNhG7"
     )
     @GET("recipes/{id}/summary")
-    Call<SummarizeRecipe> list (
-            @Path("id") int id
+    Call<SummarizeRecipe> list(
+        @Path("id") int id
     );
 
 
@@ -41,15 +41,17 @@ public interface Spoonacular_api
 
         public static Spoonacular_api getIstance()
         {
-            if (service == null)
+            if(service == null)
             {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+                .baseUrl(URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
                 service = retrofit.create(Spoonacular_api.class);
                 return service;
-            } else {
+            }
+            else
+            {
                 return service;
             }
         }

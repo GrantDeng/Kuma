@@ -42,20 +42,22 @@ public class AddShopListItemDialog extends DialogFragment
         final View v = inflater.inflate(R.layout.dialog_addshoplistitem, null);
 
         builder.setView(v)
-                .setPositiveButton("Add",new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
-                        itemName = (EditText)v.findViewById(R.id.newItemName);
-                        addItemListener.onDialogPositiveClick(itemName.getText().toString());
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        .setPositiveButton("Add",new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                itemName = (EditText)v.findViewById(R.id.newItemName);
+                addItemListener.onDialogPositiveClick(itemName.getText().toString());
+            }
+        })
+        .setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
 
-                    public void onClick(DialogInterface dialog, int id) {
-                        addItemListener.onDialogNegativeClick(AddShopListItemDialog.this);
-                    }
-                });
+            public void onClick(DialogInterface dialog, int id)
+            {
+                addItemListener.onDialogNegativeClick(AddShopListItemDialog.this);
+            }
+        });
 
         return builder.create();
     }

@@ -33,9 +33,10 @@ public final class AvailableViews
      * @throws CouchbaseLiteException
      */
     private static View getViewForClass(CouchbaseHandler handler, Class<?> klass) throws ClassNotFoundException,
-        IOException, CouchbaseLiteException
+                IOException, CouchbaseLiteException
     {
         View view = AvailableViews.viewMap.get(klass);
+
         if(view == null)
         {
             String classString = klass.toString();
@@ -47,6 +48,7 @@ public final class AvailableViews
             );
             AvailableViews.viewMap.put(klass, view);
         }
+
         return view;
     }
 

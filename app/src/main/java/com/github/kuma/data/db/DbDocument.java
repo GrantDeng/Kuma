@@ -28,6 +28,7 @@ public class DbDocument
     {
         this.handler = new CouchbaseHandler(context);
         this.document = this.handler.getDbInstance().getDocument(documentId);
+
         if(this.document.getCurrentRevision() == null)
         {
             this.document.putProperties(new HashMap<String, Object>());
@@ -83,6 +84,7 @@ public class DbDocument
         {
             return;
         }
+
         this.document.delete();
     }
 

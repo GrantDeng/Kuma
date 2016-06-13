@@ -33,7 +33,8 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
         add_new_item.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 showAddItemDialog();
             }
         });
@@ -43,6 +44,7 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
     public void onDialogPositiveClick(String name)
     {
         newItemName = name;
+
         if(newItemName != "")
         {
             Log.e("dialog","New item: " + newItemName);

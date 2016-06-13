@@ -26,10 +26,12 @@ public class ViewUtils
     {
         String fieldName = fieldType.getName();
         String capitalized = Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
+
         for(Method method: klass.getMethods())
         {
             System.err.println("METHOD: " + method.toString());
         }
+
         return klass.getMethod("set" + capitalized, fieldType.getType());
     }
 
@@ -62,16 +64,19 @@ public class ViewUtils
                 {
                     // use reflection to deserialize the object
                     Object modelObject = klass.newInstance();
+
                     for(Field field: fields)
                     {
                         String fieldName = field.getName();
                         Object value = document.get(fieldName);
                         System.err.println("FIELD: " + fieldName + ", VALUE: " + value);
+
                         if(value != null)
                         {
                             ViewUtils.getSetterMethod(klass, field).invoke(modelObject, value);
                         }
                     }
+
                     emitter.emit(document.get("name"), modelObject);
                 }
                 catch(Exception e)

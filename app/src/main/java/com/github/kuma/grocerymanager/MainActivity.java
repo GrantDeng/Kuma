@@ -23,6 +23,7 @@ public class MainActivity extends ActionBarActivity
         // Dummy data
         DbDocument[] dummyDocuments = new DbDocument[2];
         String[] keys = { "jam", "red grapes" };
+
         for(int i = 0; i < 2; i++)
         {
             try
@@ -43,16 +44,19 @@ public class MainActivity extends ActionBarActivity
         {
             View foodDataView = AvailableViews.getDataView(dummyDocuments[0].getHandler());
             Query totalQuery = foodDataView.createQuery();
+
             try
             {
                 Iterator<QueryRow> queryData = totalQuery.run();
+
                 while(queryData.hasNext())
                 {
                     QueryRow row = queryData.next();
                     System.err.println("Document: " + row.getDocumentId() + ", Key: " + row.getKey() + ", Value: " + row.getValue());
                     System.err.println("=======");
                 }
-            } catch(CouchbaseLiteException cle)
+            }
+            catch(CouchbaseLiteException cle)
             {
                 System.err.println("Very inexcusably bad");
                 cle.printStackTrace();

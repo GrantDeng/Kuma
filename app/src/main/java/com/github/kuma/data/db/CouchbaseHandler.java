@@ -49,8 +49,10 @@ public class CouchbaseHandler
             {
                 this.manager = getManagerInstance();
             }
+
             this.db = this.manager.getDatabase(this.DB_NAME);
         }
+
         return this.db;
     }
 
@@ -65,6 +67,7 @@ public class CouchbaseHandler
         {
             this.manager = new Manager(new AndroidContext(this.context), Manager.DEFAULT_OPTIONS);
         }
+
         return this.manager;
     }
 }

@@ -15,7 +15,7 @@ public class Data
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * 
+     *
      * @return
      *     The name
      */
@@ -25,7 +25,7 @@ public class Data
     }
 
     /**
-     * 
+     *
      * @param name
      *     The name
      */
@@ -35,7 +35,7 @@ public class Data
     }
 
     /**
-     * 
+     *
      * @return
      *     The guessDuration
      */
@@ -45,7 +45,7 @@ public class Data
     }
 
     /**
-     * 
+     *
      * @param guessDuration
      *     The guess_duration
      */
@@ -55,7 +55,7 @@ public class Data
     }
 
     /**
-     * 
+     *
      * @return
      *     The dataType
      */
@@ -65,7 +65,7 @@ public class Data
     }
 
     /**
-     * 
+     *
      * @param dataType
      *     The data_type
      */
@@ -75,7 +75,7 @@ public class Data
     }
 
     /**
-     * 
+     *
      * @return
      *     The totalQuantity
      */
@@ -85,7 +85,7 @@ public class Data
     }
 
     /**
-     * 
+     *
      * @param totalQuantity
      *     The total_quantity
      */
@@ -95,7 +95,7 @@ public class Data
     }
 
     /**
-     * 
+     *
      * @return
      *     The category
      */
@@ -105,7 +105,7 @@ public class Data
     }
 
     /**
-     * 
+     *
      * @param category
      *     The category
      */
@@ -115,7 +115,7 @@ public class Data
     }
 
     /**
-     * 
+     *
      * @return
      *     The image
      */
@@ -125,7 +125,7 @@ public class Data
     }
 
     /**
-     * 
+     *
      * @param image
      *     The image
      */
@@ -135,7 +135,7 @@ public class Data
     }
 
     /**
-     * 
+     *
      * @return
      *     The objectType
      */
@@ -145,7 +145,7 @@ public class Data
     }
 
     /**
-     * 
+     *
      * @param type
      *     The type
      */

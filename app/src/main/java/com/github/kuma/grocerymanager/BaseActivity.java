@@ -45,7 +45,7 @@ public abstract class BaseActivity extends Activity
         {
             public void onClick(View v)
             {
-                if (curPage != "pantry")
+                if(curPage != "pantry")
                 {
                     Intent intent = new Intent(context, PantryActivity.class);
                     intent.putExtra("curPage","pantry");
@@ -59,7 +59,7 @@ public abstract class BaseActivity extends Activity
         {
             public void onClick(View v)
             {
-                if (curPage != "shoplist")
+                if(curPage != "shoplist")
                 {
                     Intent intent = new Intent(context, ShopListActivity.class);
                     intent.putExtra("curPage","shoplist");
@@ -73,7 +73,7 @@ public abstract class BaseActivity extends Activity
         {
             public void onClick(View v)
             {
-                if (curPage != "mealplan")
+                if(curPage != "mealplan")
                 {
                     Intent intent = new Intent(context, MealPlanActivity.class);
                     intent.putExtra("curPage","mealplan");
@@ -87,7 +87,7 @@ public abstract class BaseActivity extends Activity
         {
             public void onClick(View V)
             {
-                if (curPage != "input")
+                if(curPage != "input")
                 {
                     Intent intent = new Intent(context, Input.class);
                     intent.putExtra("curPage","input");

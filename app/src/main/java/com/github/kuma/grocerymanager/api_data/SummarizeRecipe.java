@@ -6,7 +6,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 //@Generated("org.jsonschema2pojo")
-public class SummarizeRecipe {
+public class SummarizeRecipe
+{
 
     @SerializedName("id")
     @Expose
@@ -19,56 +20,62 @@ public class SummarizeRecipe {
     private String summary;
 
     /**
-     * 
+     *
      * @return
      *     The id
      */
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
     /**
-     * 
+     *
      * @param id
      *     The id
      */
-    public void setId(int id) {
+    public void setId(int id)
+    {
         this.id = id;
     }
 
     /**
-     * 
+     *
      * @return
      *     The title
      */
-    public String getTitle() {
+    public String getTitle()
+    {
         return title;
     }
 
     /**
-     * 
+     *
      * @param title
      *     The title
      */
-    public void setTitle(String title) {
+    public void setTitle(String title)
+    {
         this.title = title;
     }
 
     /**
-     * 
+     *
      * @return
      *     The summary
      */
-    public String getSummary() {
+    public String getSummary()
+    {
         return summary;
     }
 
     /**
-     * 
+     *
      * @param summary
      *     The summary
      */
-    public void setSummary(String summary) {
+    public void setSummary(String summary)
+    {
         this.summary = summary;
     }
 
