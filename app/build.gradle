@@ -29,7 +29,7 @@ task pmd(type: Pmd) {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '23.0.3'
 
     defaultConfig {
         applicationId "com.github.kuma.grocerymanager"
