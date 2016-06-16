@@ -2,16 +2,11 @@ package com.github.kuma.grocerymanager;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import com.github.kuma.api.api_data.SearchRecipes;
+import com.github.kuma.api.api_data.SummarizeRecipe;
+import java.io.IOException;
 
-import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Query;
-import com.couchbase.lite.QueryRow;
-import com.couchbase.lite.View;
-import com.github.kuma.data.db.DbDocument;
-import com.github.kuma.db_object.Data;
-
-import java.util.Iterator;
-
+import com.github.kuma.api.Spoonacular_getdata;
 public class MainActivity extends ActionBarActivity
 {
     @Override
@@ -19,53 +14,32 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Dummy data
-        DbDocument[] dummyDocuments = new DbDocument[2];
-        String[] keys = { "jam", "red grapes" };
-
-        for(int i = 0; i < 2; i++)
+        /*
+        Thread thread = new Thread()
         {
-            try
+            @Override
+            public void run()
             {
-                dummyDocuments[i] = new DbDocument(this.getApplicationContext(), keys[i]);
-                dummyDocuments[i].setProperty("type", Data.class.toString());
-                dummyDocuments[i].setProperty("name", keys[i]);
-            }
-            catch(Exception e)
-            {
-                System.err.println("NOT GOOD");
-                e.printStackTrace();
-            }
-        }
+                System.err.println("into the new thread");
+                Spoonacular_getdata sp = new Spoonacular_getdata();
 
-        // view test
-        try
-        {
-            View foodDataView = AvailableViews.getDataView(dummyDocuments[0].getHandler());
-            Query totalQuery = foodDataView.createQuery();
+                SearchRecipes a = sp.SearchRecipes("burger", "asac");
 
-            try
-            {
-                Iterator<QueryRow> queryData = totalQuery.run();
+                System.err.println(a.getNumber());
+                System.err.println(a.getBaseUri());
+                SummarizeRecipe s = sp.get_recipe_summary(4632);
+                System.err.println(s.getSummary());
+            }
+        };
+        thread.start();
+        */
+        //try
+        //{
+            //thread.join();
+        //} catch (InterruptedException e)
+        //{
+        //    e.printStackTrace();
+        //}
 
-                while(queryData.hasNext())
-                {
-                    QueryRow row = queryData.next();
-                    System.err.println("Document: " + row.getDocumentId() + ", Key: " + row.getKey() + ", Value: " + row.getValue());
-                    System.err.println("=======");
-                }
-            }
-            catch(CouchbaseLiteException cle)
-            {
-                System.err.println("Very inexcusably bad");
-                cle.printStackTrace();
-            }
-        }
-        catch(Exception e)
-        {
-            System.err.println("Good grief.");
-            e.printStackTrace();
-        }
     }
 }

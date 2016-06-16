@@ -1,15 +1,14 @@
 
-package com.github.kuma.grocerymanager.api_data;
+package com.github.kuma.api.api_data;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
 public class Result
 {
-
     @SerializedName("id")
     @Expose
     private int id;

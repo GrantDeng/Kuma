@@ -6,6 +6,10 @@ import java.util.Map;
 
 public class Grocery
 {
+    final int EMPTY = 0;
+    final int LOW = 1;
+    final int SOME = 2;
+    final int FULL = 3;
     private int id;
     private int quantity;
     private int duration;

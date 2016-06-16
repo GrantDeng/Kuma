@@ -1,14 +1,11 @@
 
-package com.github.kuma.grocerymanager.api_data;
+package com.github.kuma.api.api_data;
 
-//import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-//@Generated("org.jsonschema2pojo")
 public class SummarizeRecipe
 {
-
     @SerializedName("id")
     @Expose
     public int id;
