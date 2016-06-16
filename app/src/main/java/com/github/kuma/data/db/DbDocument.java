@@ -57,6 +57,7 @@ public class DbDocument
 
     /**
      * Sets the property with the given key to the given value.
+     * Don't use this method if you have multiple properties to add; use setProperties() instead.
      * @param key The key to set the property value for.
      * @param value The value to set the property to.
      */
@@ -74,7 +75,6 @@ public class DbDocument
      */
     public void setProperties(final Map<String, Object> newProperties) throws CouchbaseLiteException
     {
-        // FIXME: adding properties one at a time is very slow. Provide an override to add multiple at once.
         this.document.update(new Document.DocumentUpdater()
         {
             @Override
