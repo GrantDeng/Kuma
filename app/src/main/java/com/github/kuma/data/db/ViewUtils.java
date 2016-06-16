@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * ViewUtils is a utility class for handling Couchbase Views.
  */
-public class ViewUtils
+public final class ViewUtils
 {
     private ViewUtils() {}
 
