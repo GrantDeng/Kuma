@@ -1,6 +1,7 @@
 package com.github.kuma.data.db;
 
 import android.content.Context;
+import android.util.Pair;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Document;
@@ -61,6 +62,18 @@ public class DbDocument
      */
     public void setProperty(final String key, final Object value) throws CouchbaseLiteException
     {
+        Map<String, Object> singleMap = new HashMap<String, Object>();
+        singleMap.put(key, value);
+        this.setProperties(singleMap);
+    }
+
+    /**
+     * Sets the given properties.
+     * @param newProperties Properties to add.
+     * @throws CouchbaseLiteException
+     */
+    public void setProperties(final Map<String, Object> newProperties) throws CouchbaseLiteException
+    {
         // FIXME: adding properties one at a time is very slow. Provide an override to add multiple at once.
         this.document.update(new Document.DocumentUpdater()
         {
@@ -68,12 +81,13 @@ public class DbDocument
             public boolean update(UnsavedRevision newRevision)
             {
                 Map<String, Object> properties = newRevision.getUserProperties();
-                properties.put(key, value);
+                properties.putAll(newProperties);
                 newRevision.setUserProperties(properties);
                 return true;
             }
         });
     }
+
 
     /**
      * Deletes this document if it has not been deleted yet.
