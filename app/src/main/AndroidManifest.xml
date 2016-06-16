@@ -20,7 +20,7 @@ android:name="android.permission.INTERNET"/>
         </activity>
         <activity android:name=".PantryActivity"></activity>
         <activity android:name=".MealPlanActivity"></activity>
-        <activity android:name=".Input"></activity>
+        <activity android:name=".InputActivity"></activity>
     </application>
 
 </manifest>

@@ -58,6 +58,5 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.couchbase.lite:couchbase-lite-android:1.2.1'
+    compile group: 'com.google.zxing', name: 'android-integration', version: '3.2.1'
 }
-
-

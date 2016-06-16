@@ -3,11 +3,10 @@ package com.github.kuma.db_object;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Shoppinglist
+public class Shoppinglist extends Savable
 {
     private boolean bought;
     private String dataName;
-    private String type;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
@@ -50,26 +49,6 @@ public class Shoppinglist
         this.dataName = dataName;
     }
 
-    /**
-     *
-     * @return
-     *     The type
-     */
-    public String getType()
-    {
-        return type;
-    }
-
-    /**
-     *
-     * @param type
-     *     The type
-     */
-    public void setType(String type)
-    {
-        this.type = type;
-    }
-
     public Map<String, Object> getAdditionalProperties()
     {
         return this.additionalProperties;
@@ -79,5 +58,4 @@ public class Shoppinglist
     {
         this.additionalProperties.put(name, value);
     }
-
 }

@@ -61,8 +61,8 @@ public abstract class BaseActivity extends Activity
                 if(!curPage.equals("shoplist"))
                 {
                     Intent intent = new Intent(context, ShopListActivity.class);
-                    intent.putExtra("curPage","shoplist");
-                    intent.putExtra("prevPage",curPage);
+                    intent.putExtra("curPage", "shoplist");
+                    intent.putExtra("prevPage", curPage);
                     startActivity(intent);
                 }
             }
@@ -75,8 +75,8 @@ public abstract class BaseActivity extends Activity
                 if(!curPage.equals("mealplan"))
                 {
                     Intent intent = new Intent(context, MealPlanActivity.class);
-                    intent.putExtra("curPage","mealplan");
-                    intent.putExtra("prevPage",curPage);
+                    intent.putExtra("curPage", "mealplan");
+                    intent.putExtra("prevPage", curPage);
                     startActivity(intent);
                 }
             }
@@ -88,7 +88,7 @@ public abstract class BaseActivity extends Activity
             {
                 if(!curPage.equals("input"))
                 {
-                    Intent intent = new Intent(context, Input.class);
+                    Intent intent = new Intent(context, InputActivity.class);
                     intent.putExtra("curPage","input");
                     intent.putExtra("prevPage",curPage);
                     startActivity(intent);

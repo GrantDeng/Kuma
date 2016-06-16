@@ -4,40 +4,39 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Grocery
+public class Grocery extends Savable
 {
     final int EMPTY = 0;
     final int LOW = 1;
     final int SOME = 2;
     final int FULL = 3;
-    private int id;
+    private String name;
     private int quantity;
     private int duration;
     private String location;
     private Date purchaseDate;
     private String dibs;
     private String dataType;
-    private String type;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      *
      * @return
-     *     The id
+     *     The name
      */
-    public int getId()
+    public String getName()
     {
-        return id;
+        return name;
     }
 
     /**
      *
-     * @param id
-     *     The id
+     * @param name
+     *     The name
      */
-    public void setId(int id)
+    public void setName(String name)
     {
-        this.id = id;
+        this.name = name;
     }
 
     /**
@@ -140,6 +139,16 @@ public class Grocery
         this.dibs = dibs;
     }
 
+    public Map<String, Object> getAdditionalProperties()
+    {
+        return this.additionalProperties;
+    }
+
+    public void setAdditionalProperty(String name, Object value)
+    {
+        this.additionalProperties.put(name, value);
+    }
+
     /**
      *
      * @return
@@ -158,35 +167,5 @@ public class Grocery
     public void setDataType(String dataType)
     {
         this.dataType = dataType;
-    }
-
-    /**
-     *
-     * @return
-     *     The type
-     */
-    public String getType()
-    {
-        return type;
-    }
-
-    /**
-     *
-     * @param type
-     *     The type
-     */
-    public void setType(String type)
-    {
-        this.type = type;
-    }
-
-    public Map<String, Object> getAdditionalProperties()
-    {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value)
-    {
-        this.additionalProperties.put(name, value);
     }
 }

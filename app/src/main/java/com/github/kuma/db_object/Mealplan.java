@@ -6,12 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Date;
 
-public class Mealplan
+public class Mealplan extends Savable
 {
     private Date date;
     private String mealType;
-    private List<Integer> recipesIds = new ArrayList<Integer>();
-    private String type;
+    private List<String> recipesIds = new ArrayList<String>();
     private List<String> foodNames = new ArrayList<String>();
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -60,7 +59,7 @@ public class Mealplan
      * @return
      *     The recipesIds
      */
-    public List<Integer> getRecipesIds()
+    public List<String> getRecipesIds()
     {
         return recipesIds;
     }
@@ -70,29 +69,9 @@ public class Mealplan
      * @param recipesIds
      *     The recipes_ids
      */
-    public void setRecipesIds(List<Integer> recipesIds)
+    public void setRecipesIds(List<String> recipesIds)
     {
         this.recipesIds = recipesIds;
-    }
-
-    /**
-     *
-     * @return
-     *     The type
-     */
-    public String getType()
-    {
-        return type;
-    }
-
-    /**
-     *
-     * @param type
-     *     The object_type
-     */
-    public void setType(String type)
-    {
-        this.type = type;
     }
 
     /**
@@ -120,7 +99,7 @@ public class Mealplan
         return this.additionalProperties;
     }
 
-    public void setAdditionalProperty(String name, Object value)
+    public void setAdditionalPropery(String name, Object value)
     {
         this.additionalProperties.put(name, value);
     }

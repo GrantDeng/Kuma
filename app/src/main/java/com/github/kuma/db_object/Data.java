@@ -3,7 +3,7 @@ package com.github.kuma.db_object;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Data
+public class Data extends Savable
 {
     private String name;
     private int guessDuration;
@@ -11,7 +11,6 @@ public class Data
     private int totalQuantity;
     private String category;
     private String image;
-    private String type;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
@@ -132,26 +131,6 @@ public class Data
     public void setImage(String image)
     {
         this.image = image;
-    }
-
-    /**
-     *
-     * @return
-     *     The objectType
-     */
-    public String getType()
-    {
-        return type;
-    }
-
-    /**
-     *
-     * @param type
-     *     The type
-     */
-    public void setType(String type)
-    {
-        this.type = type;
     }
 
     public Map<String, Object> getAdditionalProperties()
