@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 /**
@@ -45,7 +44,7 @@ public abstract class BaseActivity extends Activity
         {
             public void onClick(View v)
             {
-                if(curPage != "pantry")
+                if(!curPage.equals("pantry"))
                 {
                     Intent intent = new Intent(context, PantryActivity.class);
                     intent.putExtra("curPage","pantry");
@@ -59,7 +58,7 @@ public abstract class BaseActivity extends Activity
         {
             public void onClick(View v)
             {
-                if(curPage != "shoplist")
+                if(!curPage.equals("shoplist"))
                 {
                     Intent intent = new Intent(context, ShopListActivity.class);
                     intent.putExtra("curPage","shoplist");
@@ -73,7 +72,7 @@ public abstract class BaseActivity extends Activity
         {
             public void onClick(View v)
             {
-                if(curPage != "mealplan")
+                if(!curPage.equals("mealplan"))
                 {
                     Intent intent = new Intent(context, MealPlanActivity.class);
                     intent.putExtra("curPage","mealplan");
@@ -87,7 +86,7 @@ public abstract class BaseActivity extends Activity
         {
             public void onClick(View V)
             {
-                if(curPage != "input")
+                if(!curPage.equals("input"))
                 {
                     Intent intent = new Intent(context, Input.class);
                     intent.putExtra("curPage","input");
