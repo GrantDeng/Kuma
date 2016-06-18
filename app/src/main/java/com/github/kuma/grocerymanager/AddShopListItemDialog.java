@@ -20,8 +20,8 @@ public class AddShopListItemDialog extends DialogFragment
 
     public interface addShopListItemListenerInterface
     {
-        public void onDialogPositiveClick(String itemName);
-        public void onDialogNegativeClick(DialogFragment dialog);
+        void onDialogPositiveClick(String itemName);
+        void onDialogNegativeClick(DialogFragment dialog);
     }
 
     addShopListItemListenerInterface addItemListener;

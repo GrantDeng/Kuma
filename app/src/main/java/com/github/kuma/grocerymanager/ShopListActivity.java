@@ -3,24 +3,24 @@ package com.github.kuma.grocerymanager;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
-
+import java.util.List;
 
 /**
  *
  */
-public class ShopListActivity extends BaseActivity implements AddShopListItemDialog.addShopListItemListenerInterface
+public class ShopListActivity extends BaseActivity implements AddShopListItemDialog.addShopListItemListenerInterface, ListAdapter.ItemButtonCallBackInterface
 {
     private final String pageTitle = "Shopping List";
     private TextView pageTitleTextView;
     private ImageButton add_new_item;
     private String newItemName = "";
+    private ListView listviewContent;
+    private List<ShopListItem> data;
+    private ShopListViewHandler vh;
 
     public void showAddItemDialog()
     {
@@ -41,13 +41,45 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
     }
 
     @Override
+    public void onItemCheck(int pos)
+    {
+        if(!data.get(pos).isChecked())
+        {
+            // in future, need to modify the database and regenerate the list<listitem>
+            // for now, it just modify the list<listitem> and reset adapter
+            data.get(pos).checkItem();
+            // reset adapter with new data
+            vh.setData(data);
+            vh.setListAdapter();
+        }
+
+    }
+
+    @Override
+    public void onItemDelete(int pos)
+    {
+        // need implement
+    }
+
+    @Override
+    public void onItemInput(int pos)
+    {
+        // need implement
+    }
+
+    @Override
     public void onDialogPositiveClick(String name)
     {
         newItemName = name;
 
         if(newItemName != "")
         {
-            Log.e("dialog","New item: " + newItemName);
+            // in future, should modify the database and regenerate the list<listitem> based on the new dataset and reset adapter
+            // for now it just add the new item to the end
+            ShopListItem newInsertItem = new ShopListSingleItem(newItemName);
+            data.add(newInsertItem);
+            vh.setData(data);
+            vh.setListAdapter();
         }
     }
 
@@ -56,6 +88,7 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
     {
         dialog.getDialog().cancel();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -76,5 +109,15 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
         // set page title
         pageTitleTextView = (TextView)findViewById(R.id.page_title);
         pageTitleTextView.setText(pageTitle);
+
+        // set list view
+        listviewContent = (ListView) findViewById(R.id.shoplistView);
+
+        // fake shop list item handler setup - for test
+        vh = new ShopListViewHandler(listviewContent,this);
+        FakeDataHandler fh = new FakeDataHandler();
+        data = fh.generateList();
+        vh.setData(data);
+        vh.setListAdapter();
     }
 }

@@ -1,5 +1,4 @@
 package com.github.kuma.grocerymanager;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

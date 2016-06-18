@@ -5,13 +5,14 @@
     android:layout_height="wrap_content"
     android:layout_weight="0.06"
     android:clickable="false"
-    android:minHeight="50dp">
+    android:minHeight="50dp"
+    android:id="@+id/single_shop_list_item">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="item name"
-        android:id="@+id/name"
+        android:id="@+id/ShopListItemName"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -30,14 +31,14 @@
         android:clickable="true"
         android:minWidth="50dp"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/delete"
-        android:layout_toStartOf="@+id/delete"
+        android:layout_toLeftOf="@+id/delete_button"
+        android:layout_toStartOf="@+id/delete_button"
         android:layout_marginRight="5dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/delete"
+        android:id="@+id/delete_button"
         android:src="@mipmap/ic_delete_forever_black_24dp"
         android:background="#ffffff"
         android:minWidth="50dp"
