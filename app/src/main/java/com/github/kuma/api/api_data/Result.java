@@ -124,5 +124,4 @@ public class Result
     {
         this.imageUrls = imageUrls;
     }
-
 }

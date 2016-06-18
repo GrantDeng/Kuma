@@ -33,7 +33,8 @@ public class Spoonacular_getdata
             Response<SummarizeRecipe> response = result.execute();
             System.err.println(response.body().getSummary());
             return response.body();
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             e.printStackTrace();
             System.err.println("in error");
@@ -52,7 +53,8 @@ public class Spoonacular_getdata
             //return response.body();
             System.err.println(response.body().getBaseUri());
             return response.body();
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             e.printStackTrace();
             System.err.println("in error");

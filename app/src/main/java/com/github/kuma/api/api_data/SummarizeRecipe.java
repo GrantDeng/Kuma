@@ -75,5 +75,4 @@ public class SummarizeRecipe
     {
         this.summary = summary;
     }
-
 }
