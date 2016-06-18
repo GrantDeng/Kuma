@@ -2,6 +2,8 @@ package com.github.kuma.api;
 
 import com.github.kuma.api.api_data.ClassifiedProduct;
 import com.github.kuma.api.api_data.SummarizeRecipe;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -78,6 +80,12 @@ public class Spoonacular_getdata
         try
         {
             Response<ClassifiedProduct> response = result.execute();
+            ClassifiedProduct body = response.body();
+            if(body == null)
+            {
+                ResponseBody errorBody = response.errorBody();
+                System.err.println(errorBody.string());
+            }
             return response.body();
         }
         catch (IOException e)

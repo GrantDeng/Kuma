@@ -1,8 +1,12 @@
 package com.github.kuma.grocerymanager;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,16 +15,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.couchbase.lite.CouchbaseLiteException;
+import com.github.kuma.api.Nutritionix_UpcLookup;
+import com.github.kuma.api.api_data.NutritionixData;
 import com.github.kuma.data.DbUtils;
-import com.github.kuma.data.db.CouchbaseHandler;
 import com.github.kuma.db_object.Data;
 import com.github.kuma.db_object.Grocery;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,6 +33,12 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     private final String pageTitle = "Input";
     private TextView pageTitleTextView;
     private String selectedLocation;
+    private Handler handler;
+
+    public Handler getHandler()
+    {
+        return this.handler;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -62,6 +70,23 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        // handle network threads
+        final InputActivity thisActivity = this;
+        this.handler = new Handler(Looper.getMainLooper())
+        {
+            @Override
+            public void handleMessage(Message m)
+            {
+                String itemName = (String) m.obj;
+                if(itemName == null)
+                {
+                    super.handleMessage(m);
+                    return;
+                }
+                thisActivity.setGroceryName(itemName);
+            }
+        };
     }
 
     /**
@@ -208,16 +233,21 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
      */
     public void onActivityResult(int requestCode, int resultCode, Intent intent)
     {
-        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        final IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 
-        if(scanResult != null)
+        if(scanResult == null)
         {
-            System.err.println("Barcode is " + scanResult.getContents());
-        }
-        else
-        {
+            // FIXME: have to deal with this case!
             System.err.println("Something is wrong");
+            return;
         }
+        System.err.println("Barcode is " + scanResult.getContents());
+
+        // spawn a new thread to look up the scanned product online.
+        System.err.println("It's a new thread");
+        ClassificationThread thread = new ClassificationThread(this, scanResult.getContents());
+        System.err.println("STARTING NEW THREAD");
+        thread.start();
     }
 
     /**
@@ -233,5 +263,60 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         Date date = KumaDatePicker.makeDate(year, month, day);
         // FIXME: we may want to have a single class instance of SimpleDateFormat
         ((EditText) findViewById(R.id.expire_date)).setText(new SimpleDateFormat().format(date));
+    }
+
+    public void setGroceryName(String name)
+    {
+        System.err.println("Calling setGroceryName with " + name);
+        ((EditText) findViewById(R.id.item_name)).setText(name);
+    }
+
+    public void setGroceryNameFromOtherThread(String itemName)
+    {
+        System.err.println("CALLING SETFROMOTHERTHREAD");
+        Message message = this.handler.obtainMessage();
+        message.obj = itemName;
+        message.sendToTarget();
+    }
+}
+
+class ClassificationThread extends Thread
+{
+    private InputActivity activity;
+    private String upcCode;
+    private String itemName;
+
+    public String getItemName()
+    {
+        return itemName;
+    }
+
+    public InputActivity getActivity()
+    {
+        return this.activity;
+    }
+
+    public ClassificationThread(InputActivity activity, String upcCode)
+    {
+        this.activity = activity;
+        this.upcCode = upcCode;
+    }
+
+    @Override
+    public void run()
+    {
+        System.err.println("RUNNING");
+        android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+
+        NutritionixData data = new Nutritionix_UpcLookup().searchByUpc(this.upcCode);
+        if(data == null)
+        {
+            // FIXME
+            System.err.println("NOT GOOD");
+            return;
+        }
+        this.itemName = data.getItemName(); // FIXME: not sure if this is correct
+        System.err.println("ITEM IS " + this.itemName);
+        this.activity.setGroceryNameFromOtherThread(itemName);
     }
 }

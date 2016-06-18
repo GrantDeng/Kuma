@@ -28,13 +28,13 @@ public class NutritionixData
     private String nfIngredientStatement;
     @SerializedName("nf_calories")
     @Expose
-    private int nfCalories;
+    private double nfCalories;
     @SerializedName("nf_calories_from_fat")
     @Expose
-    private int nfCaloriesFromFat;
+    private double nfCaloriesFromFat;
     @SerializedName("nf_total_fat")
     @Expose
-    private int nfTotalFat;
+    private double nfTotalFat;
     @SerializedName("nf_saturated_fat")
     @Expose
     private Object nfSaturatedFat;
@@ -43,37 +43,37 @@ public class NutritionixData
     private Object nfCholesterol;
     @SerializedName("nf_sodium")
     @Expose
-    private int nfSodium;
+    private double nfSodium;
     @SerializedName("nf_total_carbohydrate")
     @Expose
-    private int nfTotalCarbohydrate;
+    private double nfTotalCarbohydrate;
     @SerializedName("nf_dietary_fiber")
     @Expose
     private Object nfDietaryFiber;
     @SerializedName("nf_sugars")
     @Expose
-    private int nfSugars;
+    private double nfSugars;
     @SerializedName("nf_protein")
     @Expose
-    private int nfProtein;
+    private double nfProtein;
     @SerializedName("nf_vitamin_a_dv")
     @Expose
-    private int nfVitaminADv;
+    private double nfVitaminADv;
     @SerializedName("nf_vitamin_c_dv")
     @Expose
-    private int nfVitaminCDv;
+    private double nfVitaminCDv;
     @SerializedName("nf_calcium_dv")
     @Expose
-    private int nfCalciumDv;
+    private double nfCalciumDv;
     @SerializedName("nf_iron_dv")
     @Expose
-    private int nfIronDv;
+    private double nfIronDv;
     @SerializedName("nf_servings_per_container")
     @Expose
-    private int nfServingsPerContainer;
+    private double nfServingsPerContainer;
     @SerializedName("nf_serving_size_qty")
     @Expose
-    private int nfServingSizeQty;
+    private double nfServingSizeQty;
     @SerializedName("nf_serving_size_unit")
     @Expose
     private String nfServingSizeUnit;
@@ -223,7 +223,7 @@ public class NutritionixData
      * @return
      * The nfCalories
      */
-    public int getNfCalories()
+    public double getNfCalories()
     {
         return nfCalories;
     }
@@ -233,7 +233,7 @@ public class NutritionixData
      * @param nfCalories
      * The nf_calories
      */
-    public void setNfCalories(int nfCalories)
+    public void setNfCalories(double nfCalories)
     {
         this.nfCalories = nfCalories;
     }
@@ -243,7 +243,7 @@ public class NutritionixData
      * @return
      * The nfCaloriesFromFat
      */
-    public int getNfCaloriesFromFat()
+    public double getNfCaloriesFromFat()
     {
         return nfCaloriesFromFat;
     }
@@ -253,7 +253,7 @@ public class NutritionixData
      * @param nfCaloriesFromFat
      * The nf_calories_from_fat
      */
-    public void setNfCaloriesFromFat(int nfCaloriesFromFat)
+    public void setNfCaloriesFromFat(double nfCaloriesFromFat)
     {
         this.nfCaloriesFromFat = nfCaloriesFromFat;
     }
@@ -263,7 +263,7 @@ public class NutritionixData
      * @return
      * The nfTotalFat
      */
-    public int getNfTotalFat()
+    public double getNfTotalFat()
     {
         return nfTotalFat;
     }
@@ -273,7 +273,7 @@ public class NutritionixData
      * @param nfTotalFat
      * The nf_total_fat
      */
-    public void setNfTotalFat(int nfTotalFat)
+    public void setNfTotalFat(double nfTotalFat)
     {
         this.nfTotalFat = nfTotalFat;
     }
@@ -323,7 +323,7 @@ public class NutritionixData
      * @return
      * The nfSodium
      */
-    public int getNfSodium()
+    public double getNfSodium()
     {
         return nfSodium;
     }
@@ -333,7 +333,7 @@ public class NutritionixData
      * @param nfSodium
      * The nf_sodium
      */
-    public void setNfSodium(int nfSodium)
+    public void setNfSodium(double nfSodium)
     {
         this.nfSodium = nfSodium;
     }
@@ -343,7 +343,7 @@ public class NutritionixData
      * @return
      * The nfTotalCarbohydrate
      */
-    public int getNfTotalCarbohydrate()
+    public double getNfTotalCarbohydrate()
     {
         return nfTotalCarbohydrate;
     }
@@ -353,7 +353,7 @@ public class NutritionixData
      * @param nfTotalCarbohydrate
      * The nf_total_carbohydrate
      */
-    public void setNfTotalCarbohydrate(int nfTotalCarbohydrate)
+    public void setNfTotalCarbohydrate(double nfTotalCarbohydrate)
     {
         this.nfTotalCarbohydrate = nfTotalCarbohydrate;
     }
@@ -383,7 +383,7 @@ public class NutritionixData
      * @return
      * The nfSugars
      */
-    public int getNfSugars()
+    public double getNfSugars()
     {
         return nfSugars;
     }
@@ -393,7 +393,7 @@ public class NutritionixData
      * @param nfSugars
      * The nf_sugars
      */
-    public void setNfSugars(int nfSugars)
+    public void setNfSugars(double nfSugars)
     {
         this.nfSugars = nfSugars;
     }
@@ -403,7 +403,7 @@ public class NutritionixData
      * @return
      * The nfProtein
      */
-    public int getNfProtein()
+    public double getNfProtein()
     {
         return nfProtein;
     }
@@ -413,7 +413,7 @@ public class NutritionixData
      * @param nfProtein
      * The nf_protein
      */
-    public void setNfProtein(int nfProtein)
+    public void setNfProtein(double nfProtein)
     {
         this.nfProtein = nfProtein;
     }
@@ -423,7 +423,7 @@ public class NutritionixData
      * @return
      * The nfVitaminADv
      */
-    public int getNfVitaminADv()
+    public double getNfVitaminADv()
     {
         return nfVitaminADv;
     }
@@ -433,7 +433,7 @@ public class NutritionixData
      * @param nfVitaminADv
      * The nf_vitamin_a_dv
      */
-    public void setNfVitaminADv(int nfVitaminADv)
+    public void setNfVitaminADv(double nfVitaminADv)
     {
         this.nfVitaminADv = nfVitaminADv;
     }
@@ -443,7 +443,7 @@ public class NutritionixData
      * @return
      * The nfVitaminCDv
      */
-    public int getNfVitaminCDv()
+    public double getNfVitaminCDv()
     {
         return nfVitaminCDv;
     }
@@ -453,7 +453,7 @@ public class NutritionixData
      * @param nfVitaminCDv
      * The nf_vitamin_c_dv
      */
-    public void setNfVitaminCDv(int nfVitaminCDv)
+    public void setNfVitaminCDv(double nfVitaminCDv)
     {
         this.nfVitaminCDv = nfVitaminCDv;
     }
@@ -463,7 +463,7 @@ public class NutritionixData
      * @return
      * The nfCalciumDv
      */
-    public int getNfCalciumDv()
+    public double getNfCalciumDv()
     {
         return nfCalciumDv;
     }
@@ -473,7 +473,7 @@ public class NutritionixData
      * @param nfCalciumDv
      * The nf_calcium_dv
      */
-    public void setNfCalciumDv(int nfCalciumDv)
+    public void setNfCalciumDv(double nfCalciumDv)
     {
         this.nfCalciumDv = nfCalciumDv;
     }
@@ -483,7 +483,7 @@ public class NutritionixData
      * @return
      * The nfIronDv
      */
-    public int getNfIronDv()
+    public double getNfIronDv()
     {
         return nfIronDv;
     }
@@ -493,7 +493,7 @@ public class NutritionixData
      * @param nfIronDv
      * The nf_iron_dv
      */
-    public void setNfIronDv(int nfIronDv)
+    public void setNfIronDv(double nfIronDv)
     {
         this.nfIronDv = nfIronDv;
     }
@@ -503,7 +503,7 @@ public class NutritionixData
      * @return
      * The nfServingsPerContainer
      */
-    public int getNfServingsPerContainer()
+    public double getNfServingsPerContainer()
     {
         return nfServingsPerContainer;
     }
@@ -513,7 +513,7 @@ public class NutritionixData
      * @param nfServingsPerContainer
      * The nf_servings_per_container
      */
-    public void setNfServingsPerContainer(int nfServingsPerContainer)
+    public void setNfServingsPerContainer(double nfServingsPerContainer)
     {
         this.nfServingsPerContainer = nfServingsPerContainer;
     }
@@ -523,7 +523,7 @@ public class NutritionixData
      * @return
      * The nfServingSizeQty
      */
-    public int getNfServingSizeQty()
+    public double getNfServingSizeQty()
     {
         return nfServingSizeQty;
     }
@@ -533,7 +533,7 @@ public class NutritionixData
      * @param nfServingSizeQty
      * The nf_serving_size_qty
      */
-    public void setNfServingSizeQty(int nfServingSizeQty)
+    public void setNfServingSizeQty(double nfServingSizeQty)
     {
         this.nfServingSizeQty = nfServingSizeQty;
     }
