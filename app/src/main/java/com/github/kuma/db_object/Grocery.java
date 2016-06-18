@@ -6,10 +6,10 @@ import java.util.Map;
 
 public class Grocery extends Savable
 {
-    final int EMPTY = 0;
-    final int LOW = 1;
-    final int SOME = 2;
-    final int FULL = 3;
+    public static final int EMPTY = 0;
+    public static final int LOW = 1;
+    public static final int SOME = 2;
+    public static final int FULL = 3;
     private String name;
     private int quantity;
     private int duration;
