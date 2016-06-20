@@ -76,14 +76,10 @@ public class FakeDataHandler
             ShopAndPantryListItemHeader header = new ShopAndPantryListItemHeader(category);
             list_of_listItem.add(header);
 
-            Log.e("loader",category);
-
             for(FakePantryItem item : list_of_Fakeitems)
             {
                 ShopAndPantryListSingleItem singleListItem = new ShopAndPantryListSingleItem(item.getName(),item.getDateString(),item.getStorageLevel(),false);
                 list_of_listItem.add(singleListItem);
-
-                Log.e("loader",item.getName());
             }
         }
         return list_of_listItem;

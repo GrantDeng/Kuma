@@ -16,28 +16,19 @@
         android:baselineAligned="false"
         android:weightSum="1">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/back_button"
-            android:background="#46ad13"
-            android:src="@mipmap/ic_keyboard_arrow_left_white_24dp"
-            android:clickable="true"
-            android:minWidth="50dp" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:text="page_name"
             android:id="@+id/page_title"
-            android:layout_weight="0.52"
+            android:layout_weight="0.84"
             android:layout_gravity="bottom|left|right|top"
             android:textColor="#ffffff"
             android:typeface="sans"
             android:textSize="24dp"
             android:textIsSelectable="false"
             android:paddingTop="10dp"
-            android:minWidth="250dp" />
+            android:layout_marginLeft="20dp" />
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -55,7 +46,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.32">
+        android:layout_weight="0.32"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -63,7 +56,7 @@
             android:id="@+id/pantry_button"
             android:src="@mipmap/ic_kitchen_white_36dp"
             android:background="#45ac13"
-            android:minWidth="95dp" />
+            android:minWidth="90dp" />
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -71,14 +64,14 @@
             android:id="@+id/shoplist_button"
             android:src="@mipmap/ic_playlist_add_check_white_36dp"
             android:background="#45ab12"
-            android:minWidth="95dp" />
+            android:minWidth="90dp" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:id="@+id/plan_button"
             android:src="@mipmap/ic_date_range_white_36dp"
-            android:minWidth="95dp"
+            android:minWidth="90dp"
             android:background="#46ad13" />
 
         <ImageButton
@@ -86,8 +79,8 @@
             android:layout_height="fill_parent"
             android:id="@+id/input_button"
             android:src="@mipmap/ic_camera_alt_white_36dp"
-            android:minWidth="95dp"
-            android:background="#45ab12" />
+            android:background="#45ab12"
+            android:minWidth="90dp" />
 
     </LinearLayout>
 

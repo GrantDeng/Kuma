@@ -99,13 +99,13 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         grocery.setPurchaseDate(purchaseDate);
 
         // find the associated type of grocery data, if it exists
-        String name = ((EditText) findViewById(R.id.pantry_item_name)).getText().toString();
+        String name = ((EditText) findViewById(R.id.input_item_name)).getText().toString();
         grocery.setName(name);
         Data associatedData = DataUtils.getByName(name);
         // FIXME: have to find a way to create it if it doesn't exist yet
 
         int duration = 0;
-        String expiryDateString = ((EditText) findViewById(R.id.expire_date)).getText().toString();
+        String expiryDateString = ((EditText) findViewById(R.id.input_expire_date)).getText().toString();
         if(expiryDateString == null)
         {
             duration = associatedData.getGuessDuration();
@@ -228,6 +228,6 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     {
         Date date = KumaDatePicker.makeDate(year, month, day);
         // FIXME: we may want to have a single class instance of SimpleDateFormat
-        ((EditText) findViewById(R.id.expire_date)).setText(new SimpleDateFormat().format(date));
+        ((EditText) findViewById(R.id.input_expire_date)).setText(new SimpleDateFormat().format(date));
     }
 }

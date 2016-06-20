@@ -3,6 +3,7 @@ package com.github.kuma.grocerymanager;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -115,6 +116,16 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
         // fake shop list item handler setup - for test
         vh = new ShopListViewHandler(listviewContent,this);
         FakeDataHandler fh = new FakeDataHandler("shoplist");
+/*
+        ShopListDataHandler db_handler = new ShopListDataHandler(getApplicationContext());
+        try{
+            data = db_handler.generateList();
+        }
+        catch (Exception e)
+        {
+            Log.e("Shopping List",e.toString());
+        }
+*/
         data = fh.generateShopList();
         vh.setData(data);
         vh.setListAdapter();

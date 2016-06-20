@@ -114,12 +114,16 @@ public class PantryListAdapter extends ArrayAdapter<ShopAndPantryListItem>
 
         ShopAndPantryListSingleItem item = (ShopAndPantryListSingleItem) getItem(pos);
 
-        TextView Name = (TextView) view.findViewById(R.id.pantry_item_name);
+        // setting text
+        TextView Name = (TextView) view.findViewById(R.id.input_item_name);
         Name.setText(item.getName());
+
         TextView Expiry = (TextView) view.findViewById(R.id.expiry);
-        Expiry.setText(item.getExpiry());
+        Expiry.setText("Expire on: " + item.getExpiry());
+
         TextView StorageLevel = (TextView) view.findViewById(R.id.pantry_storage_level);
         StorageLevel.setText(item.getStorageLevel());
+
         return view;
     }
 }
