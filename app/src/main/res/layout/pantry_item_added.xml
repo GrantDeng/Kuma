@@ -6,7 +6,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/item_name"
+        android:id="@+id/pantry_item_name"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/expiry"
-        android:layout_below="@+id/item_name"
+        android:layout_below="@+id/pantry_item_name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp"
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/level"
+        android:id="@+id/pantry_storage_level"
         android:layout_alignBottom="@+id/expiry"
         android:layout_centerHorizontal="true"
         android:layout_toRightOf="@+id/expiry" />
@@ -42,16 +42,16 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/add_to_list"
+        android:id="@+id/uncheck_button"
         android:src="@mipmap/ic_check_circle_black_24dp"
         android:clickable="true"
         android:background="#ffffff"
         android:minWidth="50dp"
-        android:layout_alignTop="@+id/item_name"
+        android:layout_alignTop="@+id/pantry_item_name"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
-        android:layout_alignBottom="@+id/level" />
+        android:layout_alignBottom="@+id/pantry_storage_level" />
 
 </RelativeLayout>

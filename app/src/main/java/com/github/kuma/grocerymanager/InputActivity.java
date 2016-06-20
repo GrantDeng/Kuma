@@ -11,16 +11,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.couchbase.lite.CouchbaseLiteException;
 import com.github.kuma.data.DbUtils;
-import com.github.kuma.data.db.CouchbaseHandler;
 import com.github.kuma.db_object.Data;
 import com.github.kuma.db_object.Grocery;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -103,7 +99,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         grocery.setPurchaseDate(purchaseDate);
 
         // find the associated type of grocery data, if it exists
-        String name = ((EditText) findViewById(R.id.item_name)).getText().toString();
+        String name = ((EditText) findViewById(R.id.pantry_item_name)).getText().toString();
         grocery.setName(name);
         Data associatedData = DataUtils.getByName(name);
         // FIXME: have to find a way to create it if it doesn't exist yet

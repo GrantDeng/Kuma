@@ -19,7 +19,7 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
     private ImageButton add_new_item;
     private String newItemName = "";
     private ListView listviewContent;
-    private List<ShopListItem> data;
+    private List<ShopAndPantryListItem> data;
     private ShopListViewHandler vh;
 
     public void showAddItemDialog()
@@ -52,7 +52,6 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
             vh.setData(data);
             vh.setListAdapter();
         }
-
     }
 
     @Override
@@ -76,7 +75,7 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
         {
             // in future, should modify the database and regenerate the list<listitem> based on the new dataset and reset adapter
             // for now it just add the new item to the end
-            ShopListItem newInsertItem = new ShopListSingleItem(newItemName);
+            ShopAndPantryListItem newInsertItem = new ShopAndPantryListSingleItem(newItemName);
             data.add(newInsertItem);
             vh.setData(data);
             vh.setListAdapter();
@@ -115,8 +114,8 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
 
         // fake shop list item handler setup - for test
         vh = new ShopListViewHandler(listviewContent,this);
-        FakeDataHandler fh = new FakeDataHandler();
-        data = fh.generateList();
+        FakeDataHandler fh = new FakeDataHandler("shoplist");
+        data = fh.generateShopList();
         vh.setData(data);
         vh.setListAdapter();
     }

@@ -8,17 +8,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import java.util.List;
 
 /**
  *
  */
-public class ListAdapter extends ArrayAdapter<ShopAndPantryListItem>
+public class PantryListAdapter extends ArrayAdapter<ShopAndPantryListItem>
 {
     private LayoutInflater minflater;
     private Activity activity;
 
-    public ListAdapter(Context context, List<ShopAndPantryListItem> data)
+    public PantryListAdapter(Context context, List<ShopAndPantryListItem> data)
     {
         super(context,0,data);
         minflater = LayoutInflater.from(context);
@@ -28,8 +29,7 @@ public class ListAdapter extends ArrayAdapter<ShopAndPantryListItem>
     public interface ItemButtonCallBackInterface
     {
         void onItemCheck(int pos);
-        void onItemInput(int pos);
-        void onItemDelete(int pos);
+        void onItemUnCheck(int pos);
     }
 
     ItemButtonCallBackInterface buttonCallBack;
@@ -83,29 +83,25 @@ public class ListAdapter extends ArrayAdapter<ShopAndPantryListItem>
     {
         View view;
         ImageButton checkButton;
-        ImageButton deleteButton;
-        ImageButton inputButton;
+        ImageButton unCheckButton;
 
         if(getItem(pos).isChecked())
         {
-            view = minflater.inflate(R.layout.shop_list_item_input,null);
-            inputButton = (ImageButton) view.findViewById(R.id.input_button);
-
-            inputButton.setOnClickListener(new View.OnClickListener()
+            view = minflater.inflate(R.layout.pantry_item_added,null);
+            unCheckButton = (ImageButton) view.findViewById(R.id.uncheck_button);
+            unCheckButton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)
                 {
-                    buttonCallBack.onItemInput(pos);
+                    buttonCallBack.onItemUnCheck(pos);
                 }
             });
         }
         else
         {
-            view = minflater.inflate(R.layout.shoplist_item_uncheck,null);
-            checkButton = (ImageButton) view.findViewById(R.id.check_button);
-            deleteButton = (ImageButton) view.findViewById(R.id.delete_button);
-
+            view = minflater.inflate(R.layout.pantry_item_unadd,null);
+            checkButton = (ImageButton) view.findViewById(R.id.pantry_to_shoplist);
             checkButton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -114,20 +110,16 @@ public class ListAdapter extends ArrayAdapter<ShopAndPantryListItem>
                     buttonCallBack.onItemCheck(pos);
                 }
             });
-
-            deleteButton.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    buttonCallBack.onItemDelete(pos);
-                }
-            });
-
         }
-        TextView text = (TextView) view.findViewById(R.id.ShopListItemName);
-        text.setText(getItem(pos).getName());
+
+        ShopAndPantryListSingleItem item = (ShopAndPantryListSingleItem) getItem(pos);
+
+        TextView Name = (TextView) view.findViewById(R.id.pantry_item_name);
+        Name.setText(item.getName());
+        TextView Expiry = (TextView) view.findViewById(R.id.expiry);
+        Expiry.setText(item.getExpiry());
+        TextView StorageLevel = (TextView) view.findViewById(R.id.pantry_storage_level);
+        StorageLevel.setText(item.getStorageLevel());
         return view;
     }
 }
-
