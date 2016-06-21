@@ -11,7 +11,7 @@ public class SearchRecipes
 {
     @SerializedName("results")
     @Expose
-    private List<Result> results = new ArrayList<Result>();
+    private List<Search_Result> results = new ArrayList<Search_Result>();
     @SerializedName("baseUri")
     @Expose
     private String baseUri;
@@ -39,7 +39,7 @@ public class SearchRecipes
      * @return
      *     The results
      */
-    public List<Result> getResults()
+    public List<Search_Result> getResults()
     {
         return results;
     }
@@ -49,7 +49,7 @@ public class SearchRecipes
      * @param results
      *     The results
      */
-    public void setResults(List<Result> results)
+    public void setResults(List<Search_Result> results)
     {
         this.results = results;
     }

@@ -26,10 +26,11 @@ public class MainActivity extends ActionBarActivity
                 System.err.println("into the new thread");
                 Spoonacular_getdata sp = new Spoonacular_getdata();
 
-                SearchRecipes a = sp.SearchRecipes("burger", "breakfast");
+                SearchRecipes a = sp.SearchRecipes("burger", "main course");
 
                 System.err.println(a.getNumber());
                 System.err.println(a.getBaseUri());
+                System.err.println(a.getResults().get(0).getImage());
 
                 Searchby_Ingredients b = sp.Searchby_Ingredients("apples,flour,sugar");
                 System.err.println(b.getId());
