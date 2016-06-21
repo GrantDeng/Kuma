@@ -1,6 +1,7 @@
 package com.github.kuma.data;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
@@ -12,6 +13,7 @@ import com.couchbase.lite.View;
 import com.github.kuma.data.db.CouchbaseHandler;
 import com.github.kuma.data.db.DbDocument;
 import com.github.kuma.db_object.Savable;
+import com.github.kuma.db_object.Shoppinglist;
 import com.github.kuma.grocerymanager.AvailableViews;
 
 import java.io.IOException;
@@ -41,11 +43,28 @@ public final class DbUtils
         String objectId = object.getId();
         object.setId(objectId != null ? objectId : Savable.generateId());
         object.setType(object.determineTypeString());
-        new DbDocument(context, object.getId());
+
+        DbDocument dbDoc = new DbDocument(context, object.getId());
+    }
+
+    public static void saveShopListItemToDatabase(Savable object, Context context) throws NoSuchMethodException,
+            InvocationTargetException, IllegalAccessException, CouchbaseLiteException, IOException
+    {
+        String objectId = object.getId();
+        object.setId(objectId != null ? objectId : Savable.generateId());
+        object.setType(object.determineTypeString());
+
+        Shoppinglist shoplistobject = (Shoppinglist)object;
+
+        DbDocument dbDoc = new DbDocument(context, object.getId());
+
+        dbDoc.setProperties(object.getAdditionalProperties());
+        dbDoc.setProperty("dataName",shoplistobject.getDataName());
+        dbDoc.setProperty("bought",shoplistobject.isBought());
     }
 
     /**
-     * Retrieve all shoplist documents stored inside database
+     * Retrieve all documents stored inside database
      * @param context
      * @return list of document
      * @throws Exception
@@ -53,6 +72,25 @@ public final class DbUtils
     public static List<DbDocument> getAllDocuments(Context context) throws Exception    // don't know what exceptions to throw
     {
         CouchbaseHandler ch = new CouchbaseHandler(context);
+        Database db =  ch.getDbInstance();
+        List<DbDocument> list_of_doc = new ArrayList<DbDocument>();
+
+        Query query = db.createAllDocumentsQuery();
+        query.setAllDocsMode(Query.AllDocsMode.ALL_DOCS);
+
+        QueryEnumerator result = query.run();
+
+        for (Iterator<QueryRow> it = result; it.hasNext(); ) {
+
+            QueryRow row = it.next();
+            DbDocument dbDoc = new DbDocument(context,row.getDocumentId());
+            if(dbDoc.getProperty(("dataName")) != null){
+                list_of_doc.add(dbDoc);
+            }
+        }
+
+
+       /* CouchbaseHandler ch = new CouchbaseHandler(context);
         Database db =  ch.getDbInstance();
         List<DbDocument> list_of_doc = new ArrayList<DbDocument>();
 
@@ -64,7 +102,9 @@ public final class DbUtils
             QueryRow row = it.next();
             DbDocument dbDoc = new DbDocument(context,row.getDocumentId());
             list_of_doc.add(dbDoc);
+
         }
+*/
         return list_of_doc;
     }
 }

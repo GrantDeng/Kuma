@@ -1,6 +1,7 @@
 package com.github.kuma.grocerymanager;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.github.kuma.data.DbUtils;
 import com.github.kuma.data.db.DbDocument;
@@ -20,18 +21,21 @@ import java.util.Set;
 public class ShopListDataHandler
 {
     List<DbDocument> data;
-    HashMap<String,List<String>> listData;
+    HashMap<String,List<Shoppinglist>> listData;
     Context context;
+    int categoryCount;
 
     public ShopListDataHandler(Context context)
     {
         this.context = context;
+        categoryCount = 0;
     }
 
     public List<ShopAndPantryListItem> generateList() throws Exception
     {
-        List<ShopAndPantryListItem> list_of_listItem = null;
+        List<ShopAndPantryListItem> list_of_listItem;
         data = DbUtils.getAllDocuments(context);
+
         loadListData();
         list_of_listItem = makeList();
         return list_of_listItem;
@@ -39,35 +43,45 @@ public class ShopListDataHandler
 
     public void checkItem(int pos) throws Exception
     {
-        data.get(pos).setProperty("bought",true);
+        int realPos = pos - categoryCount;
+        data.get(realPos).setProperty("bought",true);
     }
 
     public void deleteItem(int pos) throws Exception
     {
-        data.get(pos).delete();
+        int realPos = pos - categoryCount;
+        data.get(realPos).delete();
     }
 
-    public void addItem(String name)
+    public void addItem(String name) throws Exception
     {
         Shoppinglist newItem = new Shoppinglist();
         newItem.setBought(false);
         newItem.setDataName(name);
         newItem.setAdditionalProperty("category","Other");
+
+        DbUtils.saveShopListItemToDatabase(newItem,context);
     }
 
     private List<ShopAndPantryListItem> makeList()
     {
         List<ShopAndPantryListItem> genList = new ArrayList<ShopAndPantryListItem>();
         Set<String> categorySet = listData.keySet();
+        categoryCount = categorySet.size();
+
         for(String category : categorySet)
         {
-            List<String> itemlist = listData.get(category);
+            List<Shoppinglist> itemlist = listData.get(category);
             ShopAndPantryListItemHeader header = new ShopAndPantryListItemHeader(category);
             genList.add(header);
 
-            for(String itemName : itemlist)
+            for(Shoppinglist item: itemlist)
             {
-                ShopAndPantryListSingleItem singleItem = new ShopAndPantryListSingleItem(itemName);
+                ShopAndPantryListSingleItem singleItem = new ShopAndPantryListSingleItem(item.getDataName());
+                if(item.isBought())
+                {
+                    singleItem.checkItem();
+                }
                 genList.add(singleItem);
             }
         }
@@ -76,20 +90,27 @@ public class ShopListDataHandler
 
     private void loadListData()
     {
-        listData = new HashMap<String, List<String>>();
+        listData = new HashMap<String, List<Shoppinglist>>();
+
         for(DbDocument dbDoc : data)
         {
             String category = dbDoc.getProperty("category").toString();
-            String itemName = dbDoc.getName();
+            String itemName = dbDoc.getProperty("dataName").toString();
+            Boolean bought = (Boolean)dbDoc.getProperty("bought");
+
+            Shoppinglist item = new Shoppinglist();
+            item.setDataName(itemName);
+            item.setBought(bought);
 
             if(listData.containsKey(category))
             {
-                listData.get(category).add(itemName);
+                listData.get(category).add(item);
+
             }
             else    // init this category
             {
-                List<String> newList = new ArrayList<String>();
-                newList.add(itemName);
+                List<Shoppinglist> newList = new ArrayList<Shoppinglist>();
+                newList.add(item);
                 listData.put(category,newList);
             }
         }

@@ -7,7 +7,7 @@ public class Shoppinglist extends Savable
 {
     private boolean bought;
     private String dataName;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    //private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      *
@@ -34,10 +34,7 @@ public class Shoppinglist extends Savable
      * @return
      *     The dataName
      */
-    public String getDataName()
-    {
-        return dataName;
-    }
+    public String getDataName() {return dataName;}
 
     /**
      *
@@ -49,7 +46,7 @@ public class Shoppinglist extends Savable
         this.dataName = dataName;
     }
 
-    public Map<String, Object> getAdditionalProperties()
+    /*public Map<String, Object> getAdditionalProperties()
     {
         return this.additionalProperties;
     }
@@ -57,5 +54,5 @@ public class Shoppinglist extends Savable
     public void setAdditionalProperty(String name, Object value)
     {
         this.additionalProperties.put(name, value);
-    }
+    }*/
 }

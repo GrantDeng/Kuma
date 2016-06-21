@@ -22,6 +22,7 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
     private ListView listviewContent;
     private List<ShopAndPantryListItem> data;
     private ShopListViewHandler vh;
+    private ShopListDataHandler db_handler;
 
     public void showAddItemDialog()
     {
@@ -44,15 +45,18 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
     @Override
     public void onItemCheck(int pos)
     {
-        if(!data.get(pos).isChecked())
-        {
-            // in future, need to modify the database and regenerate the list<listitem>
-            // for now, it just modify the list<listitem> and reset adapter
-            data.get(pos).checkItem();
+        try{
+            db_handler.checkItem(pos);
+            data = db_handler.generateList();
             // reset adapter with new data
             vh.setData(data);
             vh.setListAdapter();
         }
+        catch (Exception e)
+        {
+            Log.e("Shopping list", "fail to check item: " + e.toString());
+        }
+
     }
 
     @Override
@@ -76,10 +80,17 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
         {
             // in future, should modify the database and regenerate the list<listitem> based on the new dataset and reset adapter
             // for now it just add the new item to the end
-            ShopAndPantryListItem newInsertItem = new ShopAndPantryListSingleItem(newItemName);
-            data.add(newInsertItem);
-            vh.setData(data);
-            vh.setListAdapter();
+            //ShopAndPantryListItem newInsertItem = new ShopAndPantryListSingleItem(newItemName);
+            try{
+                db_handler.addItem(newItemName);
+                data = db_handler.generateList();
+                vh.setData(data);
+                vh.setListAdapter();
+            }
+            catch (Exception e)
+            {
+                Log.e("Shopping List","Cannot add new shopping list item");
+            }
         }
     }
 
@@ -115,19 +126,22 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
 
         // fake shop list item handler setup - for test
         vh = new ShopListViewHandler(listviewContent,this);
-        FakeDataHandler fh = new FakeDataHandler("shoplist");
-/*
-        ShopListDataHandler db_handler = new ShopListDataHandler(getApplicationContext());
+        //FakeDataHandler fh = new FakeDataHandler("shoplist");
+
+        db_handler = new ShopListDataHandler(getApplicationContext());
         try{
             data = db_handler.generateList();
         }
         catch (Exception e)
         {
-            Log.e("Shopping List",e.toString());
+            Log.e("Shopping List","empty data - " + e.toString());
         }
-*/
-        data = fh.generateShopList();
-        vh.setData(data);
-        vh.setListAdapter();
+
+        //data = fh.generateShopList();
+        if(data != null)
+        {
+            vh.setData(data);
+            vh.setListAdapter();
+        }
     }
 }
