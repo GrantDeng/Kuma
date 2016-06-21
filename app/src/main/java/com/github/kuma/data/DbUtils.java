@@ -44,7 +44,7 @@ public final class DbUtils
         object.setId(objectId != null ? objectId : Savable.generateId());
         object.setType(object.determineTypeString());
 
-        DbDocument dbDoc = new DbDocument(context, object.getId());
+        new DbDocument(context, object.getId());
     }
 
     public static void saveShopListItemToDatabase(Savable object, Context context) throws NoSuchMethodException,
