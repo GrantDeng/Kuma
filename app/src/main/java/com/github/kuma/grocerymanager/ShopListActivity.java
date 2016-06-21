@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.github.kuma.data.DbUtils;
+
 import java.util.List;
 
 /**
@@ -89,7 +92,7 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
             }
             catch (Exception e)
             {
-                Log.e("Shopping List","Cannot add new shopping list item");
+                Log.e("Shopping List","Cannot add new shopping list item : " + e.toString());
             }
         }
     }

@@ -119,7 +119,7 @@ public class PantryListAdapter extends ArrayAdapter<ShopAndPantryListItem>
         Name.setText(item.getName());
 
         TextView Expiry = (TextView) view.findViewById(R.id.expiry);
-        Expiry.setText("Expire on: " + item.getExpiry());
+        Expiry.setText("Expire after " + Integer.toString(item.getExpiry()) + " day(s)");
 
         TextView StorageLevel = (TextView) view.findViewById(R.id.pantry_storage_level);
         StorageLevel.setText(item.getStorageLevel());

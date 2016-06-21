@@ -78,7 +78,7 @@ public class FakeDataHandler
 
             for(FakePantryItem item : list_of_Fakeitems)
             {
-                ShopAndPantryListSingleItem singleListItem = new ShopAndPantryListSingleItem(item.getName(),item.getDateString(),item.getStorageLevel(),false);
+                ShopAndPantryListSingleItem singleListItem = new ShopAndPantryListSingleItem(item.getName(),5,item.getStorageLevel(),false);
                 list_of_listItem.add(singleListItem);
             }
         }

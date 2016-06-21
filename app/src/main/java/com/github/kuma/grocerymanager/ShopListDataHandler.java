@@ -34,7 +34,7 @@ public class ShopListDataHandler
     public List<ShopAndPantryListItem> generateList() throws Exception
     {
         List<ShopAndPantryListItem> list_of_listItem;
-        data = DbUtils.getAllDocuments(context);
+        data = DbUtils.getAllShopListDocuments(context);
 
         loadListData();
         list_of_listItem = makeList();

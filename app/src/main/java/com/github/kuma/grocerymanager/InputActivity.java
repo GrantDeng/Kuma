@@ -135,6 +135,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         grocery.setQuantity(5); // FIXME: this is obviously wrong
         // grocery.setDibs() // FIXME: do we want to do this here?
 
+
         return grocery;
     }
 
