@@ -1,6 +1,7 @@
 package com.github.kuma.api;
 
 import com.github.kuma.api.api_data.ClassifiedProduct;
+import com.github.kuma.api.api_data.Searchby_Ingredients;
 import com.github.kuma.api.api_data.SummarizeRecipe;
 
 import okhttp3.ResponseBody;
@@ -10,6 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import com.github.kuma.api.api_data.SearchRecipes;
 import java.io.IOException;
+import java.util.List;
 
 public class Spoonacular_getdata
 {
@@ -48,9 +50,15 @@ public class Spoonacular_getdata
         return null;
     }
 
-    public SearchRecipes SearchRecipes(String a, String b)
+    /**
+     * Search recipes by name and type of meal
+     * type can be : main course, side dish, dessert, appetizer,
+     * salad, bread, breakfast, soup, beverage, sauce, or drink.
+     */
+
+    public SearchRecipes SearchRecipes(String query, String type)
     {
-        final Call<SearchRecipes> result = service.search(a);
+        final Call<SearchRecipes> result = service.search(query, type);
 
         try
         {
@@ -67,6 +75,26 @@ public class Spoonacular_getdata
         }
         return null;
     }
+
+
+    public Searchby_Ingredients Searchby_Ingredients(String ingra)
+    {
+        final Call<List<Searchby_Ingredients>> result = service.search_by_in(ingra);
+
+        try
+        {
+            Response<List<Searchby_Ingredients>> response = result.execute();
+            return response.body().get(0);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            System.err.println("in error");
+            System.err.println(e.toString());
+        }
+        return null;
+    }
+
 
     /**
      * Classify the given product using the Spoonacular API.
