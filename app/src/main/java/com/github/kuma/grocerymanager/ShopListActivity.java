@@ -130,7 +130,6 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
         // fake shop list item handler setup - for test
         vh = new ShopListViewHandler(listviewContent,this);
         //FakeDataHandler fh = new FakeDataHandler("shoplist");
-
         db_handler = new ShopListDataHandler(getApplicationContext());
         try{
             data = db_handler.generateList();

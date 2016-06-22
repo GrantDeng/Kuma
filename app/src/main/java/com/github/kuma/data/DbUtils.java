@@ -1,8 +1,6 @@
 package com.github.kuma.data;
 
 import android.content.Context;
-import android.util.Log;
-
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.Query;
@@ -81,11 +79,16 @@ public final class DbUtils
         for (Iterator<QueryRow> it = result; it.hasNext(); ) {
             QueryRow row = it.next();
             DbDocument dbDoc = new DbDocument(context, row.getDocumentId());
-            String objectType = dbDoc.getProperty("ObjectType").toString();
 
-            if (objectType.contains("Shoppinglist")) {
-                list_of_doc.add(dbDoc);
+            Object returnProperty = dbDoc.getProperty("ObjectType");
+            if(returnProperty != null)
+            {
+                String objectType = returnProperty.toString();
+                if (objectType.contains("Shoppinglist")) {
+                    list_of_doc.add(dbDoc);
+                }
             }
+
         }
 
 
