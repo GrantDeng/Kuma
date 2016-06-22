@@ -272,7 +272,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     public void setGroceryName(String name)
     {
         System.err.println("Calling setGroceryName with " + name);
-        ((EditText) findViewById(R.id.item_name)).setText(name);
+        ((EditText) findViewById(R.id.input_item_name)).setText(name);
     }
 
     public void setGroceryNameFromOtherThread(String itemName)
