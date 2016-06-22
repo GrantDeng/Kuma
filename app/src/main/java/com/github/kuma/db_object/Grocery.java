@@ -17,10 +17,7 @@ public class Grocery extends Savable
     private Date purchaseDate;
     private String dibs;
     private String dataType;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
     private String relativeDataDocumentId;
-    private boolean isAdded;
 
     /**
      *
@@ -141,17 +138,6 @@ public class Grocery extends Savable
     {
         this.dibs = dibs;
     }
-
-    /*
-    public Map<String, Object> getAdditionalProperties()
-    {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value)
-    {
-        this.additionalProperties.put(name, value);
-    }*/
 
     /**
      *

@@ -9,7 +9,6 @@ public class Recipe extends Savable
 {
     private String nutrition;
     private List<String> ingredientsNames = new ArrayList<String>();
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      *
@@ -50,15 +49,4 @@ public class Recipe extends Savable
     {
         this.ingredientsNames = ingredientsNames;
     }
-
-/*
-    public Map<String, Object> getAdditionalProperties()
-    {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value)
-    {
-        this.additionalProperties.put(name, value);
-    }*/
 }

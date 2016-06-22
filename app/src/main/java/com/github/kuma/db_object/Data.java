@@ -11,8 +11,6 @@ public class Data extends Savable
     private int totalQuantity;
     private String category;
     private String image;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
     private boolean isInShoppingList;
     private String shopListId;
 
@@ -163,15 +161,4 @@ public class Data extends Savable
      *      Set the Shopping List item's document ID
      */
     public void setShopListId(String id) { shopListId = id; }
-
-/*
-    public Map<String, Object> getAdditionalProperties()
-    {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value)
-    {
-        this.additionalProperties.put(name, value);
-    }*/
 }

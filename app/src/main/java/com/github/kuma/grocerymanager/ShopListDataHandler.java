@@ -1,7 +1,6 @@
 package com.github.kuma.grocerymanager;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.github.kuma.data.DbUtils;
 import com.github.kuma.data.db.DbDocument;

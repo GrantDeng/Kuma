@@ -12,7 +12,6 @@ public class Mealplan extends Savable
     private String mealType;
     private List<String> recipesIds = new ArrayList<String>();
     private List<String> foodNames = new ArrayList<String>();
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      *
@@ -92,15 +91,5 @@ public class Mealplan extends Savable
     public void setFoodNames(List<String> foodNames)
     {
         this.foodNames = foodNames;
-    }
-
-    public Map<String, Object> getAdditionalProperties()
-    {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalPropery(String name, Object value)
-    {
-        this.additionalProperties.put(name, value);
     }
 }

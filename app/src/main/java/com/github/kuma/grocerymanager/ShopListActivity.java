@@ -9,8 +9,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.github.kuma.data.DbUtils;
-
 import java.util.List;
 
 /**
