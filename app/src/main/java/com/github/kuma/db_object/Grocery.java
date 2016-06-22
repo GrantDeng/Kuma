@@ -17,7 +17,7 @@ public class Grocery extends Savable
     private Date purchaseDate;
     private String dibs;
     private String dataType;
-    private String relativeDataDocumentId;
+    private String relatedDataId;
 
     /**
      *
@@ -164,5 +164,7 @@ public class Grocery extends Savable
      * @return relativeDataDocumentId
      *      The related Data object's document ID
      */
-    public String getRelativeDataDocumentId(){ return relativeDataDocumentId;}
+    public String getRelatedDataId(){ return relatedDataId;}
+
+    public void setRelatedDataId(String id) { relatedDataId = id; }
 }

@@ -7,7 +7,7 @@ public class Shoppinglist extends Savable
 {
     private boolean bought;
     private String dataName;
-
+    private String relatedDataId;
     /**
      *
      * @return
@@ -44,4 +44,8 @@ public class Shoppinglist extends Savable
     {
         this.dataName = dataName;
     }
+
+    public String getRelatedDataId(){ return relatedDataId; }
+
+    public void setRelatedDataId(String id) { relatedDataId = id; }
 }

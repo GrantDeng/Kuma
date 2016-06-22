@@ -63,7 +63,16 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
     @Override
     public void onItemDelete(int pos)
     {
-        // need implement
+        try{
+            db_handler.deleteItem(pos);
+            data = db_handler.generateList();
+            vh.setData(data);
+            vh.setListAdapter();
+        }
+        catch (Exception e)
+        {
+            Log.e("Shopping list", "fail to delete item: " + e.toString());
+        }
     }
 
     @Override

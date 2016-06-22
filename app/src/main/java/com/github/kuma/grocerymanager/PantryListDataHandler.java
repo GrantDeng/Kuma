@@ -42,7 +42,7 @@ public class PantryListDataHandler
     public void addItemToShopList(int pos) throws Exception
     {
         int realPos = pos - categoryCount;
-        String dataId = data.get(realPos).getProperty("relativeDataDocumentId").toString();
+        String dataId = data.get(realPos).getProperty("relatedDataId").toString();
 
         DbDocument dbDoc = new DbDocument(context,dataId);
         dbDoc.setProperty("isInShoppingList",true);
@@ -54,6 +54,7 @@ public class PantryListDataHandler
         shopListItem.setBought(false);
         shopListItem.setAdditionalProperty("category","Other");
         shopListItem.setId(id);
+        shopListItem.setRelatedDataId(dataId);
 
         DbUtils.saveShopListItemToDatabase(shopListItem,context);
         dbDoc.setProperty("shopListId",id);
@@ -62,7 +63,7 @@ public class PantryListDataHandler
     public void removeItemFromShopList(int pos) throws Exception
     {
         int realPos = pos - categoryCount;
-        String dataId = data.get(realPos).getProperty("relativeDataDocumentId").toString();
+        String dataId = data.get(realPos).getProperty("relatedDataId").toString();
 
         DbDocument dbDoc = new DbDocument(context,dataId);
         dbDoc.setProperty("isInShoppingList",false);
@@ -82,13 +83,13 @@ public class PantryListDataHandler
         {
             String itemName = dbDoc.getProperty("name").toString();
             int duration = (Integer)dbDoc.getProperty("duration");
-            String DataId = dbDoc.getProperty("relativeDataDocumentId").toString();
+            String DataId = dbDoc.getProperty("relatedDataId").toString();
             String category = getDataCategory(DataId);
 
             Grocery item = new Grocery();
             item.setName(itemName);
             item.setDuration(duration);
-            item.setAdditionalProperty("relativeDataDocumentId", DataId);
+            item.setAdditionalProperty("relatedDataId", DataId);
 
             if(listData.containsKey(category))
             {
@@ -125,7 +126,7 @@ public class PantryListDataHandler
             for(Grocery item: itemlist)
             {
                 ShopAndPantryListSingleItem singleItem = new ShopAndPantryListSingleItem(item.getName());
-                DbDocument dbDoc = new DbDocument(context,item.getRelativeDataDocumentId());
+                DbDocument dbDoc = new DbDocument(context,item.getRelatedDataId());
                 boolean isInShoppingList = (Boolean)dbDoc.getProperty("isInShoppingList");
 
                 if(isInShoppingList)

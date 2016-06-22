@@ -49,6 +49,15 @@ public class ShopListDataHandler
     public void deleteItem(int pos) throws Exception
     {
         int realPos = pos - categoryCount;
+
+        // Uncheck relative food item on pantry
+        Object dataIdObject = data.get(realPos).getProperty("relatedDataId");
+        if(dataIdObject != null)
+        {
+            DbDocument data_dbDoc = new DbDocument(context,dataIdObject.toString());
+            data_dbDoc.setProperty("isInShoppingList",false);
+        }
+
         data.get(realPos).delete();
     }
 

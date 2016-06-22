@@ -14,6 +14,7 @@ import com.github.kuma.db_object.Shoppinglist;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -53,10 +54,14 @@ public final class DbUtils
         DbDocument dbDoc = new DbDocument(context, object.getId());
         String objectType = object.determineTypeString();
 
-        dbDoc.setProperties(object.getAdditionalProperties());
-        dbDoc.setProperty("dataName", shoplistobject.getDataName());
-        dbDoc.setProperty("bought", shoplistobject.isBought());
-        dbDoc.setProperty("ObjectType",objectType);
+        HashMap<String,Object> fields = new HashMap<String, Object>();
+        fields.putAll(object.getAdditionalProperties());
+        fields.put("dataName",shoplistobject.getDataName());
+        fields.put("bought",shoplistobject.isBought());
+        fields.put("ObjectType",objectType);
+        fields.put("relatedDataId",shoplistobject.getRelatedDataId());
+
+        dbDoc.setProperties(fields);
     }
 
     /**
@@ -130,10 +135,14 @@ public final class DbUtils
         for (Iterator<QueryRow> it = result; it.hasNext(); ) {
             QueryRow row = it.next();
             DbDocument dbDoc = new DbDocument(context, row.getDocumentId());
-            String objectType = dbDoc.getProperty("ObjectType").toString();
 
-            if (objectType.contains("Grocery")) {
-                list_of_doc.add(dbDoc);
+            Object returnProperty = dbDoc.getProperty("ObjectType");
+            if(returnProperty != null)
+            {
+                String objectType = returnProperty.toString();
+                if (objectType.contains("Grocery")) {
+                    list_of_doc.add(dbDoc);
+                }
             }
         }
         return list_of_doc;
