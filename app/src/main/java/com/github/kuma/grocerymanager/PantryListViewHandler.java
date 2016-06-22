@@ -2,21 +2,20 @@ package com.github.kuma.grocerymanager;
 
 import android.content.Context;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  */
-public class ShopListViewHandler
+public class PantryListViewHandler
 {
-    private ListAdapter adapter;
+    private PantryListAdapter adapter;
     private Context context;
     private ListView listview;
     private List<ShopAndPantryListItem> data;
 
-    public ShopListViewHandler(ListView lv, Context context)
+    public PantryListViewHandler(ListView lv, Context context)
     {
         this.context = context;
         listview = lv;
@@ -28,9 +27,9 @@ public class ShopListViewHandler
         this.data = data;
     }
 
-    public void setListAdapter()
+    public void setPantryListAdapter()
     {
-        adapter = new ListAdapter(context,data);
+        adapter = new PantryListAdapter(context,data);
         listview.setAdapter(adapter);
     }
 }

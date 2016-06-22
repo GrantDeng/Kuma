@@ -3,11 +3,11 @@ package com.github.kuma.grocerymanager;
 /**
  *
  */
-public class ShopListItemHeader implements ShopListItem
+public class ShopAndPantryListItemHeader implements ShopAndPantryListItem
 {
     private final String header;
 
-    public ShopListItemHeader(String header)
+    public ShopAndPantryListItemHeader(String header)
     {
         this.header = header;
     }

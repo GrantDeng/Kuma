@@ -11,7 +11,8 @@ public class Data extends Savable
     private int totalQuantity;
     private String category;
     private String image;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private boolean isInShoppingList;
+    private String shopListId;
 
     /**
      *
@@ -133,13 +134,31 @@ public class Data extends Savable
         this.image = image;
     }
 
-    public Map<String, Object> getAdditionalProperties()
-    {
-        return this.additionalProperties;
-    }
+    /**
+     *
+     * @return isInShoppingList
+     *      Determine whether this food is moved into shopping list
+     */
+    public boolean isInShoppingList() { return isInShoppingList; }
 
-    public void setAdditionalProperty(String name, Object value)
-    {
-        this.additionalProperties.put(name, value);
-    }
+    /**
+     *
+     * @param isInShoppingList
+     *      Set the boolean value for isInShoppingList
+     */
+    public void setInShoppingList(boolean isInShoppingList) { this.isInShoppingList = isInShoppingList; }
+
+    /**
+     *
+     * @return shopListId
+     *      Get the relative Shopping List item's document ID
+     */
+    public String getShopListId() { return shopListId; }
+
+    /**
+     *
+     * @param id
+     *      Set the Shopping List item's document ID
+     */
+    public void setShopListId(String id) { shopListId = id; }
 }

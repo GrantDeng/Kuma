@@ -15,7 +15,7 @@
                   android:layout_width="0dp"
                   android:layout_height="match_parent" /> -->
 
-        <EditText
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -24,13 +24,13 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/expire_date"
-            android:layout_alignBottom="@+id/item_name"
+            android:layout_toLeftOf="@+id/input_expire_date"
+            android:layout_alignBottom="@+id/input_item_name"
             android:textAlignment="center"
             android:gravity="center_vertical"
             android:layout_marginTop="10dp" />
 
-        <EditText
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -54,7 +54,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_toLeftOf="@+id/spinner"
-            android:layout_alignBottom="@+id/spinner"
             android:layout_below="@+id/textView8"
             android:gravity="center_vertical"
             android:textAlignment="center" />
@@ -62,7 +61,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/item_name"
+            android:id="@+id/input_item_name"
             android:layout_toRightOf="@+id/textView6"
             android:layout_toEndOf="@+id/textView6"
             android:minWidth="200dp"
@@ -74,7 +73,7 @@
             android:layout_height="wrap_content"
             android:inputType="date"
             android:ems="10"
-            android:id="@+id/expire_date"
+            android:id="@+id/input_expire_date"
             android:layout_below="@+id/textView6"
             android:layout_toRightOf="@+id/textView8"
             android:layout_toEndOf="@+id/textView8"
@@ -86,16 +85,16 @@
             android:id="@+id/spinner"
             android:layout_toRightOf="@+id/textView6"
             android:layout_toEndOf="@+id/textView6"
-            android:layout_below="@+id/expire_date"
+            android:layout_below="@+id/input_expire_date"
             android:layout_marginLeft="10dp" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/calendar"
-            android:layout_alignBottom="@+id/expire_date"
-            android:layout_below="@+id/item_name"
-            android:layout_toRightOf="@+id/expire_date"
+            android:layout_alignBottom="@+id/input_expire_date"
+            android:layout_below="@+id/input_item_name"
+            android:layout_toRightOf="@+id/input_expire_date"
             android:src="@mipmap/ic_date_range_black_24dp"
             android:background="#fefefe"
             android:layout_alignParentRight="true"

@@ -17,7 +17,7 @@ public class Grocery extends Savable
     private Date purchaseDate;
     private String dibs;
     private String dataType;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private String relatedDataId;
 
     /**
      *
@@ -139,16 +139,6 @@ public class Grocery extends Savable
         this.dibs = dibs;
     }
 
-    public Map<String, Object> getAdditionalProperties()
-    {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value)
-    {
-        this.additionalProperties.put(name, value);
-    }
-
     /**
      *
      * @return
@@ -168,4 +158,13 @@ public class Grocery extends Savable
     {
         this.dataType = dataType;
     }
+
+    /**
+     *
+     * @return relativeDataDocumentId
+     *      The related Data object's document ID
+     */
+    public String getRelatedDataId(){ return relatedDataId;}
+
+    public void setRelatedDataId(String id) { relatedDataId = id; }
 }
