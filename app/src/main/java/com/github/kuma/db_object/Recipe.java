@@ -1,9 +1,7 @@
 package com.github.kuma.db_object;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Recipe extends Savable
 {
