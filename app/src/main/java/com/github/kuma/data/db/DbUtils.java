@@ -1,4 +1,4 @@
-package com.github.kuma.data;
+package com.github.kuma.data.db;
 
 import android.content.Context;
 import com.couchbase.lite.CouchbaseLiteException;

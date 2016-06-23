@@ -1,6 +1,5 @@
 package com.github.kuma.grocerymanager;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,16 +16,12 @@ import android.widget.TextView;
 
 import com.github.kuma.api.Nutritionix_UpcLookup;
 import com.github.kuma.api.api_data.NutritionixData;
-import com.couchbase.lite.CouchbaseLiteException;
-import com.github.kuma.data.DbUtils;
-import com.github.kuma.data.db.CouchbaseHandler;
+import com.github.kuma.data.db.DbUtils;
 import com.github.kuma.db_object.Data;
 import com.github.kuma.db_object.Grocery;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
