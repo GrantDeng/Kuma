@@ -17,11 +17,11 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Simple utility class to handle various database accesses.
+ * Simple database interface class.
  */
-public final class DbUtils
+public final class SimpleDbInterface
 {
-    private DbUtils() {}
+    private SimpleDbInterface() {}
 
     /**
      * Save the given object to the database.

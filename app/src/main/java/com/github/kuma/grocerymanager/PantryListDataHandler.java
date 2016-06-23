@@ -2,7 +2,7 @@ package com.github.kuma.grocerymanager;
 
 import android.content.Context;
 
-import com.github.kuma.data.db.DbUtils;
+import com.github.kuma.data.db.SimpleDbInterface;
 import com.github.kuma.data.db.DbDocument;
 import com.github.kuma.db_object.Grocery;
 import com.github.kuma.db_object.Savable;
@@ -32,7 +32,7 @@ public class PantryListDataHandler
     public List<ShopAndPantryListItem> generateList() throws Exception
     {
         List<ShopAndPantryListItem> list_of_listItem;
-        data = DbUtils.getAllGroceryDocuments(context);
+        data = SimpleDbInterface.getAllGroceryDocuments(context);
 
         loadListData();
         list_of_listItem = makeList();
@@ -56,7 +56,7 @@ public class PantryListDataHandler
         shopListItem.setId(id);
         shopListItem.setRelatedDataId(dataId);
 
-        DbUtils.saveShopListItemToDatabase(shopListItem,context);
+        SimpleDbInterface.saveShopListItemToDatabase(shopListItem,context);
         dbDoc.setProperty("shopListId",id);
     }
 
