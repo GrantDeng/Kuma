@@ -14,17 +14,23 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.couchbase.lite.CouchbaseLiteException;
 import com.github.kuma.api.Nutritionix_UpcLookup;
 import com.github.kuma.api.api_data.NutritionixData;
+import com.github.kuma.data.db.CouchbaseHandler;
 import com.github.kuma.data.db.DbUtils;
 import com.github.kuma.db_object.Data;
 import com.github.kuma.db_object.Grocery;
+import com.github.kuma.db_object.Savable;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 public class InputActivity extends BaseActivity implements AdapterView.OnItemSelectedListener,
     DatePickerDialog.OnDateSetListener
@@ -100,7 +106,16 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
             System.err.println("Your input is wrong!");
             return;
         }
-        Grocery grocery = constructGrocery();
+
+        Grocery grocery = null;
+        try
+        {
+            grocery = constructGrocery();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
 
         // FIXME stub
         System.err.println("Saving to database!");
@@ -118,7 +133,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
      * Create a new Grocery based on the input.
      * @return The constructed grocery.
      */
-    private Grocery constructGrocery()
+    private Grocery constructGrocery() throws ClassNotFoundException, IOException, CouchbaseLiteException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, NoSuchFieldException, InstantiationException
     {
         Grocery grocery = new Grocery();
         grocery.setDataType("food"); // FIXME: this will have to change
@@ -129,8 +144,33 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         // find the associated type of grocery data, if it exists
         String name = ((EditText) findViewById(R.id.input_item_name)).getText().toString();
         grocery.setName(name);
-        Data associatedData = DataUtils.getByName(name);
-        // FIXME: have to find a way to create it if it doesn't exist yet
+
+        // FIXME: BOB DO THIS BETTER
+        CouchbaseHandler cbhandler = new CouchbaseHandler(this.getApplicationContext());
+
+        Data associatedData = DataUtils.getByName(name, cbhandler);
+        if(associatedData == null)
+        {
+            Data newData = new Data();
+
+            // FIXME NEED AN INPUT FIELD FOR THIS
+            newData.setDataType("food");
+
+            // FIXME NEED BETTER CATEGORY HANDLING
+            String category = TEMP_RANDOM_GENERATE_CATEGORY();
+            newData.setCategory(category);
+
+            // FIXME: NEED BETTER DURATION GUESSING
+            newData.setGuessDuration(7);
+
+            newData.setName(name);
+            newData.setIsInShoppingList(false);
+            newData.setTotalQuantity(Grocery.FULL);
+            newData.setId(Savable.generateId());
+            associatedData = newData;
+            DbUtils.saveToDatabase(newData, this.getApplicationContext());
+        }
+        grocery.setRelatedDataId(associatedData.getId());
 
         int duration = 0;
         String expiryDateString = ((EditText) findViewById(R.id.input_expire_date)).getText().toString();
@@ -146,7 +186,8 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
                 // FIXME: have to handle the subtraction
                 duration = 5; // FIXME: obviously wrong
 
-            } catch(ParseException pe)
+            }
+            catch(ParseException pe)
             {
                 System.err.println("HAVE NOT DEALT WITH THIS!");
                 // FIXME: figure out what to do about this
@@ -164,6 +205,14 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         // grocery.setDibs() // FIXME: do we want to do this here?
 
         return grocery;
+    }
+
+    // FIXME THIS IS TEMPORARY
+    private String TEMP_RANDOM_GENERATE_CATEGORY()
+    {
+        String[] categories = { "Vegetables", "Meat", "Junk Food" };
+        int index = ((int) (Math.random() * 2));
+        return categories[index];
     }
 
     /**

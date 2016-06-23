@@ -79,4 +79,9 @@ public abstract class Savable
     {
         this.additionalProperties.put(name, value);
     }
+
+    public void setAdditionalProperties(Map<String, Object> map)
+    {
+        this.additionalProperties = map;
+    }
 }
