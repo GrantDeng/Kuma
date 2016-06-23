@@ -45,6 +45,15 @@ public class DbDocument
     }
 
     /**
+     * Return this document's properties.
+     * @return This document's properties.
+     */
+    public Map<String, Object> getProperties()
+    {
+        return this.document.getUserProperties();
+    }
+
+    /**
      * Returns the property with the given key.
      * @param key The key to get the property for.
      * @return The property with the given key. Null if no such property exists.
