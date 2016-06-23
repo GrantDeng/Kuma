@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.github.kuma.api.Nutritionix_UpcLookup;
 import com.github.kuma.api.api_data.NutritionixData;
-import com.github.kuma.data.db.DbUtils;
+import com.github.kuma.data.db.SimpleDbInterface;
 import com.github.kuma.db_object.Data;
 import com.github.kuma.db_object.Grocery;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -106,7 +106,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         System.err.println("Saving to database!");
         try
         {
-            DbUtils.saveToDatabase(grocery, getApplicationContext());
+            SimpleDbInterface.saveToDatabase(grocery, getApplicationContext());
         }
         catch(Exception e)
         {

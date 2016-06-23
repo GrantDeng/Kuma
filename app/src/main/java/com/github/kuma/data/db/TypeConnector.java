@@ -19,11 +19,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ViewUtils is a utility class for handling Couchbase Views.
+ * TypeConnector is a utility class for handling Couchbase Views.
  */
-public final class ViewUtils
+public final class TypeConnector
 {
-    private ViewUtils() {}
+    private TypeConnector() {}
 
     /**
      * Retrieves a JavaBean-style setter method for a given class that acts on a certain field.
@@ -35,7 +35,7 @@ public final class ViewUtils
      */
     private static Method getSetterMethod(Class<?> klass, Field fieldType) throws NoSuchMethodException
     {
-        return klass.getMethod("set" + ViewUtils.getCapitalizedFieldName(fieldType), fieldType.getType());
+        return klass.getMethod("set" + TypeConnector.getCapitalizedFieldName(fieldType), fieldType.getType());
     }
 
     /**
@@ -60,7 +60,7 @@ public final class ViewUtils
     private static Method getGetterMethod(Class<?> klass, Field fieldType)
         throws NoSuchMethodException
     {
-        return klass.getMethod("get" + ViewUtils.getCapitalizedFieldName(fieldType));
+        return klass.getMethod("get" + TypeConnector.getCapitalizedFieldName(fieldType));
     }
 
     public static DbDocument savable2DbDocument(Context context, Savable obj) throws CouchbaseLiteException,
@@ -70,9 +70,9 @@ public final class ViewUtils
         Class<? extends Savable> objClass = obj.getClass();
         Map<String, Object> properties = new HashMap<String, Object>();
         properties.putAll(objDoc.getProperties());
-        for(Field field: ViewUtils.getSavableFields(obj.getClass()))
+        for(Field field: TypeConnector.getSavableFields(obj.getClass()))
         {
-            Object fieldValue = ViewUtils.getGetterMethod(objClass, field).invoke(obj);
+            Object fieldValue = TypeConnector.getGetterMethod(objClass, field).invoke(obj);
             properties.put(field.getName(), fieldValue);
         }
         objDoc.setProperties(properties);
@@ -87,8 +87,8 @@ public final class ViewUtils
      */
     public static Mapper typeMapper(final Class<? extends Savable> klass) throws ClassNotFoundException
     {
-        Field[] fields = ViewUtils.getSavableFields(klass);
-        return ViewUtils.typeMapper(klass, fields);
+        Field[] fields = TypeConnector.getSavableFields(klass);
+        return TypeConnector.typeMapper(klass, fields);
     }
 
     private static List<Field> getNonStaticFields(Class klass)
@@ -109,11 +109,11 @@ public final class ViewUtils
         Class myKlass = (Class) klass;
         Class savableClass = Savable.class;
         List<Field> fields = new LinkedList<Field>();
-        fields.addAll(ViewUtils.getNonStaticFields(savableClass));
+        fields.addAll(TypeConnector.getNonStaticFields(savableClass));
         final String SAVABLE_NAME = savableClass.getName();
         while(!myKlass.getName().equals(SAVABLE_NAME))
         {
-            fields.addAll(ViewUtils.getNonStaticFields(myKlass));
+            fields.addAll(TypeConnector.getNonStaticFields(myKlass));
             myKlass = myKlass.getSuperclass();
         }
         return fields.toArray(new Field[0]);
@@ -146,7 +146,7 @@ public final class ViewUtils
 
                         if(value != null)
                         {
-                            ViewUtils.getSetterMethod(klass, field).invoke(modelObject, value);
+                            TypeConnector.getSetterMethod(klass, field).invoke(modelObject, value);
                         }
                     }
 

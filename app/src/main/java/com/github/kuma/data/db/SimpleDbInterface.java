@@ -17,11 +17,11 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Simple utility class to handle various database accesses.
+ * Simple database interface class.
  */
-public final class DbUtils
+public final class SimpleDbInterface
 {
-    private DbUtils() {}
+    private SimpleDbInterface() {}
 
     /**
      * Save the given object to the database.
@@ -38,7 +38,7 @@ public final class DbUtils
         String objectId = object.getId();
         object.setId(objectId != null ? objectId : Savable.generateId());
         object.setType(object.determineTypeString());
-        ViewUtils.savable2DbDocument(context, object);
+        TypeConnector.savable2DbDocument(context, object);
     }
 
     public static void saveShopListItemToDatabase(Savable object, Context context) throws NoSuchMethodException,

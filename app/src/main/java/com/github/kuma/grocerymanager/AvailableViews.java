@@ -3,7 +3,7 @@ package com.github.kuma.grocerymanager;
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.View;
 import com.github.kuma.data.db.CouchbaseHandler;
-import com.github.kuma.data.db.ViewUtils;
+import com.github.kuma.data.db.TypeConnector;
 import com.github.kuma.db_object.Data;
 import com.github.kuma.db_object.Grocery;
 import com.github.kuma.db_object.Mealplan;
@@ -46,7 +46,7 @@ public final class AvailableViews
             view = handler.getDbInstance().getView(classString);
             view.setDocumentType(classString);
             view.setMap(
-                ViewUtils.typeMapper(klass),
+                TypeConnector.typeMapper(klass),
                 AvailableViews.VERSION_NUMBER
             );
             AvailableViews.viewMap.put(klass, view);
