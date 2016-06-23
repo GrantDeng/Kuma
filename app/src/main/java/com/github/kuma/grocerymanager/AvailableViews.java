@@ -23,6 +23,8 @@ public final class AvailableViews
 
     private static Map<Class<?>, View> viewMap = new HashMap<Class<?>, View>();
 
+    private AvailableViews() {}
+
     /**
      * getViewForClass returns a View that spits out Objects of the desired class.
      * @param handler CouchbaseHandler to retrieve data from.
