@@ -1,8 +1,5 @@
 package com.github.kuma.db_object;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Shoppinglist extends Savable
 {
     private boolean bought;
