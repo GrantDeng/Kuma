@@ -38,7 +38,7 @@ public final class DbUtils
         String objectId = object.getId();
         object.setId(objectId != null ? objectId : Savable.generateId());
         object.setType(object.determineTypeString());
-        ViewUtils.savable2DbDocument(context, object);
+        TypeConnector.savable2DbDocument(context, object);
     }
 
     public static void saveShopListItemToDatabase(Savable object, Context context) throws NoSuchMethodException,
