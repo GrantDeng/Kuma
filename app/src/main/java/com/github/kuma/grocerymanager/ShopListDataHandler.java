@@ -2,7 +2,7 @@ package com.github.kuma.grocerymanager;
 
 import android.content.Context;
 
-import com.github.kuma.data.DbUtils;
+import com.github.kuma.data.db.DbUtils;
 import com.github.kuma.data.db.DbDocument;
 import com.github.kuma.db_object.Shoppinglist;
 
