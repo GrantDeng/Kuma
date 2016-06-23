@@ -2,11 +2,16 @@ package com.github.kuma.grocerymanager;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.QueryEnumerator;
+import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.View;
+import com.couchbase.lite.support.LazyJsonObject;
 import com.github.kuma.data.db.CouchbaseHandler;
+import com.github.kuma.data.db.ViewUtils;
 import com.github.kuma.db_object.Data;
+import com.github.kuma.db_object.Savable;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Utilities for working with the Data class
@@ -25,13 +30,15 @@ public final class DataUtils
      * @throws ClassNotFoundException
      */
     public static Data getByName(String name, CouchbaseHandler handler) throws CouchbaseLiteException, IOException,
-        ClassNotFoundException
+        ClassNotFoundException, InvocationTargetException, NoSuchMethodException, NoSuchFieldException, InstantiationException, IllegalAccessException
     {
         View dataView = AvailableViews.getDataView(handler);
         QueryEnumerator queryEnumerator = dataView.createQuery().run();
         while(queryEnumerator.hasNext())
         {
-            Data data = (Data) queryEnumerator.next().getValue();
+            QueryRow row = queryEnumerator.next();
+            System.err.println("key: " + row.getKey() + ", value: " + row.getValue());
+            Data data = (Data) ViewUtils.asSavable(row.getValue());
             if(data.getName().equals(name))
             {
                 return data;
@@ -39,4 +46,7 @@ public final class DataUtils
         }
         return null;
     }
+
+
+
 }
