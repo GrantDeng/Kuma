@@ -6,8 +6,6 @@ import com.couchbase.lite.Database;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
-import com.github.kuma.data.db.CouchbaseHandler;
-import com.github.kuma.data.db.DbDocument;
 import com.github.kuma.db_object.Savable;
 import com.github.kuma.db_object.Shoppinglist;
 
@@ -35,12 +33,12 @@ public final class DbUtils
      * @throws IllegalAccessException
      */
     public static void saveToDatabase(Savable object, Context context) throws NoSuchMethodException,
-            InvocationTargetException, IllegalAccessException, CouchbaseLiteException, IOException {
+            InvocationTargetException, IllegalAccessException, CouchbaseLiteException, IOException
+    {
         String objectId = object.getId();
         object.setId(objectId != null ? objectId : Savable.generateId());
         object.setType(object.determineTypeString());
-
-        new DbDocument(context, object.getId());
+        ViewUtils.savable2DbDocument(context, object);
     }
 
     public static void saveShopListItemToDatabase(Savable object, Context context) throws NoSuchMethodException,

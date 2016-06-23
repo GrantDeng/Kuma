@@ -8,6 +8,7 @@ import com.github.kuma.db_object.Data;
 import com.github.kuma.db_object.Grocery;
 import com.github.kuma.db_object.Mealplan;
 import com.github.kuma.db_object.Recipe;
+import com.github.kuma.db_object.Savable;
 import com.github.kuma.db_object.Shoppinglist;
 
 import java.io.IOException;
@@ -34,7 +35,7 @@ public final class AvailableViews
      * @throws IOException
      * @throws CouchbaseLiteException
      */
-    private static View getViewForClass(CouchbaseHandler handler, Class<?> klass) throws ClassNotFoundException,
+    private static View getViewForClass(CouchbaseHandler handler, Class<? extends Savable> klass) throws ClassNotFoundException,
                 IOException, CouchbaseLiteException
     {
         View view = AvailableViews.viewMap.get(klass);
