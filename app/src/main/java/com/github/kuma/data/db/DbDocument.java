@@ -30,7 +30,7 @@ public class DbDocument
             throw new NullDocumentException();
         }
 
-        this.handler = new CouchbaseHandler(context);
+        this.handler = CouchbaseHandler.getCouchbaseHandler(context);
         this.document = this.handler.getDbInstance().getDocument(documentId);
 
         if(this.document.getCurrentRevision() == null)

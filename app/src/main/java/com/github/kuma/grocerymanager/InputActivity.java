@@ -171,7 +171,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         grocery.setName(name);
 
         // FIXME: BOB DO THIS BETTER
-        CouchbaseHandler cbhandler = new CouchbaseHandler(this.getApplicationContext());
+        CouchbaseHandler cbhandler = CouchbaseHandler.getCouchbaseHandler(this.getApplicationContext());
 
         Data associatedData = DataUtils.getByName(name, cbhandler);
         if(associatedData == null)

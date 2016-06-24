@@ -79,7 +79,7 @@ public final class SimpleDbInterface
      */
     public static List<DbDocument> getAllShopListDocuments(Context context) throws Exception
     {
-        CouchbaseHandler ch = new CouchbaseHandler(context);
+        CouchbaseHandler ch = CouchbaseHandler.getCouchbaseHandler(context);
         Database db = ch.getDbInstance();
         List<DbDocument> list_of_doc = new ArrayList<DbDocument>();
 
@@ -115,7 +115,7 @@ public final class SimpleDbInterface
      */
     public static List<DbDocument> getAllGroceryDocuments(Context context) throws Exception    // don't know what exceptions to throw
     {
-        CouchbaseHandler ch = new CouchbaseHandler(context);
+        CouchbaseHandler ch = CouchbaseHandler.getCouchbaseHandler(context);
         Database db = ch.getDbInstance();
         List<DbDocument> list_of_doc = new ArrayList<DbDocument>();
 
@@ -143,7 +143,7 @@ public final class SimpleDbInterface
 
     public static void deleteDB(Context context) throws Exception    // don't know what exceptions to throw
     {
-        CouchbaseHandler ch = new CouchbaseHandler(context);
+        CouchbaseHandler ch = CouchbaseHandler.getCouchbaseHandler(context);
         Database db = ch.getDbInstance();
         List<DbDocument> list_of_doc = new ArrayList<DbDocument>();
 

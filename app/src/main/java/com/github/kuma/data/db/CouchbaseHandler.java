@@ -6,6 +6,7 @@ import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.Manager;
 import com.couchbase.lite.android.AndroidContext;
+import com.couchbase.lite.support.CouchbaseLiteHttpClientFactory;
 import com.couchbase.lite.util.Log;
 
 import java.io.IOException;
@@ -16,23 +17,34 @@ import java.io.IOException;
  */
 public class CouchbaseHandler
 {
-    private Manager manager;
-    private Database db;
-    private Context context;
+    private static CouchbaseHandler handler;
+    private static Manager manager;
+    private static Database db;
+    private static Context context;
 
     private static final String DB_NAME = "kuma"; // must be lowercase to prevent exception
     private static final String LOG_TAG = "couchbase";
 
+    private CouchbaseHandler() {}
+
     /**
-     * Constructor starts up logging for the CouchbaseHandler
+     * Singleton  starts up logging for the CouchbaseHandler
      * @param context The context associated with Couchbase. Only pass application contexts!
      */
-    public CouchbaseHandler(Context context)
+    public static CouchbaseHandler getCouchbaseHandler(Context context)
     {
         // FIXME: this should go into a specific configuration handler
         final int LOG_LEVEL = Log.DEBUG;
         Log.enableLogging(LOG_TAG, LOG_LEVEL);
-        this.context = context;
+        if(CouchbaseHandler.context == null)
+        {
+            CouchbaseHandler.context = context;
+        }
+        if(CouchbaseHandler.handler == null)
+        {
+            CouchbaseHandler.handler = new CouchbaseHandler();
+        }
+        return CouchbaseHandler.handler;
     }
 
     /**
@@ -43,17 +55,17 @@ public class CouchbaseHandler
      */
     public Database getDbInstance() throws CouchbaseLiteException, IOException
     {
-        if(this.db == null)
+        if(CouchbaseHandler.db == null)
         {
-            if(this.manager == null)
+            if(CouchbaseHandler.manager == null)
             {
-                this.manager = getManagerInstance();
+                CouchbaseHandler.manager = getManagerInstance();
             }
 
-            this.db = this.manager.getDatabase(this.DB_NAME);
+            CouchbaseHandler.db = CouchbaseHandler.manager.getDatabase(CouchbaseHandler.DB_NAME);
         }
 
-        return this.db;
+        return CouchbaseHandler.db;
     }
 
     /**
@@ -63,11 +75,14 @@ public class CouchbaseHandler
      */
     public Manager getManagerInstance() throws IOException
     {
-        if(this.manager == null)
+        if(CouchbaseHandler.manager == null)
         {
-            this.manager = new Manager(new AndroidContext(this.context), Manager.DEFAULT_OPTIONS);
+            CouchbaseHandler.manager = new Manager(
+                new AndroidContext(CouchbaseHandler.context),
+                Manager.DEFAULT_OPTIONS
+            );
         }
 
-        return this.manager;
+        return CouchbaseHandler.manager;
     }
 }

@@ -76,7 +76,7 @@ public class ShopListDataHandler
         newItem.setDataName(name);
 
         // search from food data
-        CouchbaseHandler ch = new CouchbaseHandler(context);
+        CouchbaseHandler ch = CouchbaseHandler.getCouchbaseHandler(context);
 
         Data foodData = DataUtils.getByName(name,ch);
         if(foodData != null)
