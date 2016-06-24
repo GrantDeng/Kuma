@@ -229,9 +229,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     // FIXME THIS IS TEMPORARY
     private String TEMP_RANDOM_GENERATE_CATEGORY()
     {
-        String[] categories = { "Vegetables", "Meat", "Junk Food" };
-        int index = ((int) (Math.random() * 2));
-        return categories[index];
+        return "Meat";
     }
 
     /**
@@ -245,7 +243,6 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
                                int pos, long id)
     {
         this.selectedLocation = parent.getItemAtPosition(pos).toString();
-        System.err.println("selected location is " + selectedLocation);
     }
 
     /**
@@ -276,7 +273,6 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
      */
     public void showDatePickerDialog(View view)
     {
-        System.err.println("Are we here");
         KumaDatePicker datePicker = new KumaDatePicker();
         datePicker.show(getFragmentManager(), "datePicker");
     }
@@ -287,7 +283,6 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
      */
     public void scanBarcode(View view)
     {
-        System.err.println("Barcode Button clicked");
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.initiateScan();
     }
@@ -367,7 +362,6 @@ class ClassificationThread extends Thread
     @Override
     public void run()
     {
-        System.err.println("RUNNING");
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
 
         NutritionixData data = new Nutritionix_UpcLookup().searchByUpc(this.upcCode);
@@ -378,7 +372,6 @@ class ClassificationThread extends Thread
             return;
         }
         this.itemName = data.getItemName(); // FIXME: not sure if this is correct
-        System.err.println("ITEM IS " + this.itemName);
         this.activity.setGroceryNameFromOtherThread(itemName);
     }
 }
