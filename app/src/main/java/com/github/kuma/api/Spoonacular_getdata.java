@@ -1,15 +1,13 @@
 package com.github.kuma.api;
 
-import com.github.kuma.api.api_data.ClassifiedProduct;
-import com.github.kuma.api.api_data.Searchby_Ingredients;
-import com.github.kuma.api.api_data.SummarizeRecipe;
+import com.github.kuma.api.api_data.*;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import com.github.kuma.api.api_data.SearchRecipes;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -38,7 +36,25 @@ public class Spoonacular_getdata
         try
         {
             Response<SummarizeRecipe> response = result.execute();
-            System.err.println(response.body().getSummary());
+            return response.body();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            System.err.println("in error");
+            System.err.println(e.toString());
+        }
+        return null;
+    }
+
+
+    public RecipeInformation get_recipe_information(int id)
+    {
+
+        final Call<RecipeInformation> result = service.search_info(id);
+        try
+        {
+            Response<RecipeInformation> response = result.execute();
             return response.body();
         }
         catch (IOException e)
@@ -76,7 +92,7 @@ public class Spoonacular_getdata
         return null;
     }
 
-
+    // search recipes by ingredient
     public Searchby_Ingredients Searchby_Ingredients(String ingra)
     {
         final Call<List<Searchby_Ingredients>> result = service.search_by_in(ingra);
@@ -95,6 +111,24 @@ public class Spoonacular_getdata
         return null;
     }
 
+    // complex search
+    public ComplexSearch ComplexRecipes(String ingredient, String query, String type)
+    {
+        final Call<ComplexSearch> result = service.complex_search(true, ingredient, false, 5, 0, query, 2, type);
+
+        try
+        {
+            Response<ComplexSearch> response = result.execute();
+            return response.body();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            System.err.println("in error");
+            System.err.println(e.toString());
+        }
+        return null;
+    }
 
     /**
      * Classify the given product using the Spoonacular API.
