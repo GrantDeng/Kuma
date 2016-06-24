@@ -4,11 +4,9 @@ import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.View;
-import com.couchbase.lite.support.LazyJsonObject;
 import com.github.kuma.data.db.CouchbaseHandler;
 import com.github.kuma.data.db.TypeConnector;
 import com.github.kuma.db_object.Data;
-import com.github.kuma.db_object.Savable;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;

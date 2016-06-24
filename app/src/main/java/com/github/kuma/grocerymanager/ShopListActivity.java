@@ -9,8 +9,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.github.kuma.data.db.SimpleDbInterface;
-
 import java.util.List;
 
 /**
@@ -48,7 +46,8 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
     @Override
     public void onItemCheck(int pos,int numOfCategoryPass)
     {
-        try{
+        try
+        {
             db_handler.checkItem(pos,numOfCategoryPass);
             data = db_handler.generateList();
             // reset adapter with new data

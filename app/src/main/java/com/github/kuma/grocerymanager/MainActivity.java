@@ -2,12 +2,9 @@ package com.github.kuma.grocerymanager;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import com.github.kuma.api.api_data.SearchRecipes;
-import com.github.kuma.api.api_data.Searchby_Ingredients;
-import com.github.kuma.api.api_data.SummarizeRecipe;
-import java.io.IOException;
 
 import com.github.kuma.api.Spoonacular_getdata;
+import com.github.kuma.api.api_data.SearchRecipes;
 public class MainActivity extends ActionBarActivity
 {
     @Override

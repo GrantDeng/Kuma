@@ -1,20 +1,14 @@
 package com.github.kuma.data.db;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
-import com.couchbase.lite.Document;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
-import com.couchbase.lite.View;
-import com.github.kuma.data.db.CouchbaseHandler;
-import com.github.kuma.data.db.DbDocument;
 import com.github.kuma.db_object.Savable;
 import com.github.kuma.db_object.Shoppinglist;
-import com.github.kuma.grocerymanager.AvailableViews;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;

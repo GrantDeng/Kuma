@@ -24,7 +24,9 @@ public class DbDocument
      * @param context Associated context (needed by the Couchbase handler). Only pass application contexts!
      * @param documentId Name of the document to open
      */
-    public DbDocument(Context context, String documentId) throws CouchbaseLiteException, IOException, NullDocumentException {
+    public DbDocument(Context context, String documentId) throws CouchbaseLiteException, IOException,
+        NullDocumentException
+    {
         if(documentId == null)
         {
             throw new NullDocumentException();
@@ -140,8 +142,6 @@ public class DbDocument
     {
         return (String) document.getProperty("type");
     }
-
-
 
     /**
      * Return the data type of a given document.
