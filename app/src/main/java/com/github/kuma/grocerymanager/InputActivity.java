@@ -1,5 +1,6 @@
 package com.github.kuma.grocerymanager;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -136,6 +137,11 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
             e.printStackTrace();
         }
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(grocery.getName() + " was added!")
+            .setTitle("Success");
+        AlertDialog dialog = builder.create();
+        dialog.show();
         this.clearInput();
     }
 
