@@ -127,6 +127,17 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         {
             e.printStackTrace();
         }
+
+        this.clearInput();
+    }
+
+    /**
+     * Clear the input fields.
+     */
+    private void clearInput()
+    {
+        ((EditText) findViewById(R.id.input_item_name)).setText("");
+        ((EditText) findViewById(R.id.input_expire_date)).setText("");
     }
 
     /**
