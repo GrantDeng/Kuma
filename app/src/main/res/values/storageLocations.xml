@@ -3,6 +3,6 @@
     <string-array name="storage_locations_array">
         <item>Refrigerator</item>
         <item>Pantry</item>
+        <item>Freezer</item>
     </string-array>
-
 </resources>
