@@ -235,7 +235,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     // FIXME THIS IS TEMPORARY
     private String TEMP_RANDOM_GENERATE_CATEGORY()
     {
-        return "Meat";
+        return "Food";
     }
 
     /**
