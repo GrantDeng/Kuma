@@ -137,6 +137,8 @@ public class DbDocument
         return (String) document.getProperty("type");
     }
 
+
+
     /**
      * Return the data type of a given document.
      * @return The data type of the given document, or null if it is not defined.

@@ -38,7 +38,9 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     private final String pageTitle = "Input";
     private TextView pageTitleTextView;
     private String selectedLocation;
+    private String inputItemName;
     private Handler handler;
+    private EditText nameView;
 
     public Handler getHandler()
     {
@@ -64,6 +66,13 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         // set page title
         pageTitleTextView = (TextView) findViewById(R.id.page_title);
         pageTitleTextView.setText(pageTitle);
+
+        inputItemName = intent.getStringExtra("ItemName");
+        if(inputItemName != null)
+        {
+            nameView = (EditText) findViewById(R.id.input_item_name);
+            nameView.setText(inputItemName);
+        }
 
         // handle the spinner
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -300,12 +309,9 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
             System.err.println("Something is wrong");
             return;
         }
-        System.err.println("Barcode is " + scanResult.getContents());
 
         // spawn a new thread to look up the scanned product online.
-        System.err.println("It's a new thread");
         ClassificationThread thread = new ClassificationThread(this, scanResult.getContents());
-        System.err.println("STARTING NEW THREAD");
         thread.start();
     }
 
@@ -326,13 +332,11 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
 
     public void setGroceryName(String name)
     {
-        System.err.println("Calling setGroceryName with " + name);
         ((EditText) findViewById(R.id.input_item_name)).setText(name);
     }
 
     public void setGroceryNameFromOtherThread(String itemName)
     {
-        System.err.println("CALLING SETFROMOTHERTHREAD");
         Message message = this.handler.obtainMessage();
         message.obj = itemName;
         message.sendToTarget();

@@ -57,7 +57,6 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
         {
             Log.e("Shopping list", "fail to check item: " + e.toString());
         }
-
     }
 
     @Override
@@ -78,7 +77,16 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
     @Override
     public void onItemInput(int pos)
     {
-        // need implement
+        try{
+            Intent intent = new Intent(this, InputActivity.class);
+            intent.putExtra("curPage","input");
+            intent.putExtra("prevPage","shoplist");
+            intent.putExtra("ItemName",data.get(pos).getName());
+            startActivity(intent);
+        }
+        catch(Exception e){
+            Log.e("Shopping list", "fail to open input page while checking item: " + e.toString());
+        }
     }
 
     @Override
@@ -136,7 +144,6 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
 
         // fake shop list item handler setup - for test
         vh = new ShopListViewHandler(listviewContent,this);
-        //FakeDataHandler fh = new FakeDataHandler("shoplist");
         db_handler = new ShopListDataHandler(getApplicationContext());
         try{
             data = db_handler.generateList();
@@ -146,7 +153,6 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
             Log.e("Shopping List","empty data - " + e.toString());
         }
 
-        //data = fh.generateShopList();
         if(data != null)
         {
             vh.setData(data);
