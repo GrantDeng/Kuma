@@ -5,12 +5,13 @@ public class Shoppinglist extends Savable
     private boolean bought;
     private String dataName;
     private String relatedDataId;
+    private String category;
     /**
      *
      * @return
      *     The bought
      */
-    public boolean isBought()
+    public boolean getBought()
     {
         return bought;
     }
@@ -45,4 +46,8 @@ public class Shoppinglist extends Savable
     public String getRelatedDataId(){ return relatedDataId; }
 
     public void setRelatedDataId(String id) { relatedDataId = id; }
+
+    public String getCategory() { return category; }
+
+    public void setCategory(String category) { this.category = category; }
 }

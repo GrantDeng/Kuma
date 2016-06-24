@@ -5,6 +5,7 @@ import android.content.Context;
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Emitter;
 import com.couchbase.lite.Mapper;
+import com.couchbase.lite.support.LazyJsonObject;
 import com.github.kuma.db_object.Savable;
 
 import java.io.IOException;
@@ -63,8 +64,19 @@ public final class TypeConnector
         return klass.getMethod("get" + TypeConnector.getCapitalizedFieldName(fieldType));
     }
 
+    /**
+     * Convert a Savable to the corresponding DbDocument.
+     * @param context Application context.
+     * @param obj The object to convert.
+     * @return The created DBDocument.
+     * @throws CouchbaseLiteException
+     * @throws IOException
+     * @throws NoSuchMethodException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     */
     public static DbDocument savable2DbDocument(Context context, Savable obj) throws CouchbaseLiteException,
-        IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException
+        IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, NullDocumentException
     {
         DbDocument objDoc = new DbDocument(context, obj.getId());
         Class<? extends Savable> objClass = obj.getClass();
@@ -72,11 +84,64 @@ public final class TypeConnector
         properties.putAll(objDoc.getProperties());
         for(Field field: TypeConnector.getSavableFields(obj.getClass()))
         {
-            Object fieldValue = TypeConnector.getGetterMethod(objClass, field).invoke(obj);
-            properties.put(field.getName(), fieldValue);
+            try
+            {
+                Object fieldValue = TypeConnector.getGetterMethod(objClass, field).invoke(obj);
+                properties.put(field.getName(), fieldValue);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
         }
         objDoc.setProperties(properties);
         return objDoc;
+    }
+
+    public static Savable asSavable(Object value) throws ClassNotFoundException, IllegalAccessException,
+        InstantiationException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException
+    {
+        if(value instanceof Savable)
+        {
+            return (Savable) value;
+        }
+        else if(value instanceof LazyJsonObject)
+        {
+            LazyJsonObject lazyValue = (LazyJsonObject) value;
+            // type is something similar to "class com.github.kuma.db_object.Data"
+            String className = ((String) lazyValue.get("type")).split(" ")[1];
+            Class valueClass = Class.forName(className);
+            Savable savableValue = (Savable) valueClass.newInstance();
+            for(Object keyObj: lazyValue.keySet())
+            {
+                String key = (String) keyObj;
+                Field correspondingField = TypeConnector.getFieldByName(valueClass, key);
+                Method setterMethod = TypeConnector.getSetterMethod(valueClass, correspondingField);
+                setterMethod.invoke(savableValue, lazyValue.get(keyObj));
+            }
+            return savableValue;
+        }
+
+        //System.err.println("LAZY BAD");
+        return null;
+    }
+
+    /**
+     * Retrieves a field with the given name from the given class.
+     * @param klass The class to retrieve the field from.
+     * @param name The name of the field.
+     * @return The field, or null if it does not exist.
+     */
+    private static Field getFieldByName(Class klass, String name)
+    {
+        for(Field field: TypeConnector.getSavableFields(klass))
+        {
+            if(field.getName().equals(name))
+            {
+                return field;
+            }
+        }
+        return null;
     }
 
     /**
@@ -91,7 +156,12 @@ public final class TypeConnector
         return TypeConnector.typeMapper(klass, fields);
     }
 
-    private static List<Field> getNonStaticFields(Class klass)
+    /**
+     *
+     * @param klass
+     * @return
+     */
+    private static List<Field> getNonStaticFields(Class<? extends Savable> klass)
     {
         List<Field> fields = new LinkedList<Field>();
         for(Field field: klass.getDeclaredFields())
@@ -104,6 +174,11 @@ public final class TypeConnector
         return fields;
     }
 
+    /**
+     * Get all the savable fields of a Savable.
+     * @param klass The particular class to get savable fields for.
+     * @return An array of all savable fields.
+     */
     private static Field[] getSavableFields(Class<? extends Savable> klass)
     {
         Class myKlass = (Class) klass;
@@ -126,7 +201,7 @@ public final class TypeConnector
      * @param fields The fields we are interested in.
      * @return The created Mapper.
      */
-    public static Mapper typeMapper(final Class<?> klass, final Field[] fields)
+    public static Mapper typeMapper(final Class<? extends Savable> klass, final Field[] fields)
     {
         return new Mapper()
         {
@@ -136,13 +211,12 @@ public final class TypeConnector
                 try
                 {
                     // use reflection to deserialize the object
-                    Object modelObject = klass.newInstance();
+                    Savable modelObject = klass.newInstance();
 
                     for(Field field: fields)
                     {
                         String fieldName = field.getName();
                         Object value = document.get(fieldName);
-                        System.err.println("FIELD: " + fieldName + ", VALUE: " + value);
 
                         if(value != null)
                         {
@@ -150,11 +224,12 @@ public final class TypeConnector
                         }
                     }
 
+                    // FIXME NAME IS PROBABLY WRONG
                     emitter.emit(document.get("name"), modelObject);
                 }
                 catch(Exception e)
                 {
-                    System.err.println("Uh oh");
+                    //System.err.println("Uh oh");
                     e.printStackTrace();
                 }
             }

@@ -28,8 +28,8 @@ public class PantryListAdapter extends ArrayAdapter<ShopAndPantryListItem>
 
     public interface ItemButtonCallBackInterface
     {
-        void onItemCheck(int pos);
-        void onItemUnCheck(int pos);
+        void onItemCheck(int pos,int numCategoryPass);
+        void onItemUnCheck(int pos,int numCategoryPass);
     }
 
     ItemButtonCallBackInterface buttonCallBack;
@@ -84,6 +84,8 @@ public class PantryListAdapter extends ArrayAdapter<ShopAndPantryListItem>
         View view;
         ImageButton checkButton;
         ImageButton unCheckButton;
+        ShopAndPantryListSingleItem item = (ShopAndPantryListSingleItem)getItem(pos);
+        final int numOfCategoryPassed = item.getNumOfCategoryPassing();
 
         if(getItem(pos).isChecked())
         {
@@ -94,7 +96,7 @@ public class PantryListAdapter extends ArrayAdapter<ShopAndPantryListItem>
                 @Override
                 public void onClick(View v)
                 {
-                    buttonCallBack.onItemUnCheck(pos);
+                    buttonCallBack.onItemUnCheck(pos,numOfCategoryPassed);
                 }
             });
         }
@@ -107,12 +109,10 @@ public class PantryListAdapter extends ArrayAdapter<ShopAndPantryListItem>
                 @Override
                 public void onClick(View v)
                 {
-                    buttonCallBack.onItemCheck(pos);
+                    buttonCallBack.onItemCheck(pos,numOfCategoryPassed);
                 }
             });
         }
-
-        ShopAndPantryListSingleItem item = (ShopAndPantryListSingleItem) getItem(pos);
 
         // setting text
         TextView Name = (TextView) view.findViewById(R.id.input_item_name);

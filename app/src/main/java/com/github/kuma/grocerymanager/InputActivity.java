@@ -1,5 +1,6 @@
 package com.github.kuma.grocerymanager;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,14 +15,20 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.couchbase.lite.CouchbaseLiteException;
 import com.github.kuma.api.Nutritionix_UpcLookup;
 import com.github.kuma.api.api_data.NutritionixData;
+import com.github.kuma.data.db.CouchbaseHandler;
 import com.github.kuma.data.db.SimpleDbInterface;
+import com.github.kuma.data.db.NullDocumentException;
 import com.github.kuma.db_object.Data;
 import com.github.kuma.db_object.Grocery;
+import com.github.kuma.db_object.Savable;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,7 +39,9 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     private final String pageTitle = "Input";
     private TextView pageTitleTextView;
     private String selectedLocation;
+    private String inputItemName;
     private Handler handler;
+    private EditText nameView;
 
     public Handler getHandler()
     {
@@ -58,6 +67,13 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         // set page title
         pageTitleTextView = (TextView) findViewById(R.id.page_title);
         pageTitleTextView.setText(pageTitle);
+
+        inputItemName = intent.getStringExtra("ItemName");
+        if(inputItemName != null)
+        {
+            nameView = (EditText) findViewById(R.id.input_item_name);
+            nameView.setText(inputItemName);
+        }
 
         // handle the spinner
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -92,18 +108,25 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
      * Save the inputted item to the database.
      * @param view This view.
      */
-    public void save(View view)
+    public void save(View view) throws CouchbaseLiteException, IOException, ClassNotFoundException
     {
         if(!this.validate(view))
         {
             // FIXME: Need error decoration
-            System.err.println("Your input is wrong!");
+            //System.err.println("Your input is wrong!");
             return;
         }
-        Grocery grocery = constructGrocery();
 
-        // FIXME stub
-        System.err.println("Saving to database!");
+        Grocery grocery = null;
+        try
+        {
+            grocery = constructGrocery();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
         try
         {
             SimpleDbInterface.saveToDatabase(grocery, getApplicationContext());
@@ -112,13 +135,30 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         {
             e.printStackTrace();
         }
+
+        // show success dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(grocery.getName() + " was added!")
+            .setTitle("Success");
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        this.clearInput();
+    }
+
+    /**
+     * Clear the input fields.
+     */
+    private void clearInput()
+    {
+        ((EditText) findViewById(R.id.input_item_name)).setText("");
+        ((EditText) findViewById(R.id.input_expire_date)).setText("");
     }
 
     /**
      * Create a new Grocery based on the input.
      * @return The constructed grocery.
      */
-    private Grocery constructGrocery()
+    private Grocery constructGrocery() throws ClassNotFoundException, IOException, CouchbaseLiteException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, NoSuchFieldException, InstantiationException, NullDocumentException
     {
         Grocery grocery = new Grocery();
         grocery.setDataType("food"); // FIXME: this will have to change
@@ -129,8 +169,33 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         // find the associated type of grocery data, if it exists
         String name = ((EditText) findViewById(R.id.input_item_name)).getText().toString();
         grocery.setName(name);
-        Data associatedData = DataUtils.getByName(name);
-        // FIXME: have to find a way to create it if it doesn't exist yet
+
+        // FIXME: BOB DO THIS BETTER
+        CouchbaseHandler cbhandler = new CouchbaseHandler(this.getApplicationContext());
+
+        Data associatedData = DataUtils.getByName(name, cbhandler);
+        if(associatedData == null)
+        {
+            Data newData = new Data();
+
+            // FIXME NEED AN INPUT FIELD FOR THIS
+            newData.setDataType("food");
+
+            // FIXME NEED BETTER CATEGORY HANDLING
+            String category = TEMP_RANDOM_GENERATE_CATEGORY();
+            newData.setCategory(category);
+
+            // FIXME: NEED BETTER DURATION GUESSING
+            newData.setGuessDuration(7);
+
+            newData.setName(name);
+            newData.setIsInShoppingList(false);
+            newData.setTotalQuantity(Grocery.FULL);
+            newData.setId(Savable.generateId());
+            associatedData = newData;
+            SimpleDbInterface.saveToDatabase(newData, this.getApplicationContext());
+        }
+        grocery.setRelatedDataId(associatedData.getId());
 
         int duration = 0;
         String expiryDateString = ((EditText) findViewById(R.id.input_expire_date)).getText().toString();
@@ -146,7 +211,8 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
                 // FIXME: have to handle the subtraction
                 duration = 5; // FIXME: obviously wrong
 
-            } catch(ParseException pe)
+            }
+            catch(ParseException pe)
             {
                 System.err.println("HAVE NOT DEALT WITH THIS!");
                 // FIXME: figure out what to do about this
@@ -166,6 +232,12 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         return grocery;
     }
 
+    // FIXME THIS IS TEMPORARY
+    private String TEMP_RANDOM_GENERATE_CATEGORY()
+    {
+        return "Food";
+    }
+
     /**
      * Set the currently selected location.
      * @param parent The spinner.
@@ -177,7 +249,6 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
                                int pos, long id)
     {
         this.selectedLocation = parent.getItemAtPosition(pos).toString();
-        System.err.println("selected location is " + selectedLocation);
     }
 
     /**
@@ -198,7 +269,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     private boolean validate(View view)
     {
         // FIXME stub
-        System.err.println("Validating!");
+        //System.err.println("Validating!");
         return true;
     }
 
@@ -208,7 +279,6 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
      */
     public void showDatePickerDialog(View view)
     {
-        System.err.println("Are we here");
         KumaDatePicker datePicker = new KumaDatePicker();
         datePicker.show(getFragmentManager(), "datePicker");
     }
@@ -219,7 +289,6 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
      */
     public void scanBarcode(View view)
     {
-        System.err.println("Barcode Button clicked");
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.initiateScan();
     }
@@ -240,12 +309,9 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
             System.err.println("Something is wrong");
             return;
         }
-        System.err.println("Barcode is " + scanResult.getContents());
 
         // spawn a new thread to look up the scanned product online.
-        System.err.println("It's a new thread");
         ClassificationThread thread = new ClassificationThread(this, scanResult.getContents());
-        System.err.println("STARTING NEW THREAD");
         thread.start();
     }
 
@@ -266,13 +332,11 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
 
     public void setGroceryName(String name)
     {
-        System.err.println("Calling setGroceryName with " + name);
         ((EditText) findViewById(R.id.input_item_name)).setText(name);
     }
 
     public void setGroceryNameFromOtherThread(String itemName)
     {
-        System.err.println("CALLING SETFROMOTHERTHREAD");
         Message message = this.handler.obtainMessage();
         message.obj = itemName;
         message.sendToTarget();
@@ -304,18 +368,16 @@ class ClassificationThread extends Thread
     @Override
     public void run()
     {
-        System.err.println("RUNNING");
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
 
         NutritionixData data = new Nutritionix_UpcLookup().searchByUpc(this.upcCode);
         if(data == null)
         {
             // FIXME
-            System.err.println("NOT GOOD");
+            //System.err.println("NOT GOOD");
             return;
         }
         this.itemName = data.getItemName(); // FIXME: not sure if this is correct
-        System.err.println("ITEM IS " + this.itemName);
         this.activity.setGroceryNameFromOtherThread(itemName);
     }
 }

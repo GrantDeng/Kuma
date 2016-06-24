@@ -1,5 +1,8 @@
 package com.github.kuma.db_object;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Data extends Savable
 {
     private String name;
@@ -136,14 +139,14 @@ public class Data extends Savable
      * @return isInShoppingList
      *      Determine whether this food is moved into shopping list
      */
-    public boolean isInShoppingList() { return isInShoppingList; }
+    public boolean getIsInShoppingList() { return isInShoppingList; }
 
     /**
      *
      * @param isInShoppingList
      *      Set the boolean value for isInShoppingList
      */
-    public void setInShoppingList(boolean isInShoppingList) { this.isInShoppingList = isInShoppingList; }
+    public void setIsInShoppingList(boolean isInShoppingList) { this.isInShoppingList = isInShoppingList; }
 
     /**
      *

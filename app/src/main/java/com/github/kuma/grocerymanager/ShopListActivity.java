@@ -9,12 +9,14 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.github.kuma.data.db.SimpleDbInterface;
+
 import java.util.List;
 
 /**
  *
  */
-public class ShopListActivity extends BaseActivity implements AddShopListItemDialog.addShopListItemListenerInterface, ListAdapter.ItemButtonCallBackInterface
+public class ShopListActivity extends BaseActivity implements AddShopListItemDialog.addShopListItemListenerInterface, ShopListAdapter.ItemButtonCallBackInterface
 {
     private final String pageTitle = "Shopping List";
     private TextView pageTitleTextView;
@@ -44,10 +46,10 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
     }
 
     @Override
-    public void onItemCheck(int pos)
+    public void onItemCheck(int pos,int numOfCategoryPass)
     {
         try{
-            db_handler.checkItem(pos);
+            db_handler.checkItem(pos,numOfCategoryPass);
             data = db_handler.generateList();
             // reset adapter with new data
             vh.setData(data);
@@ -57,14 +59,13 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
         {
             Log.e("Shopping list", "fail to check item: " + e.toString());
         }
-
     }
 
     @Override
-    public void onItemDelete(int pos)
+    public void onItemDelete(int pos,int numOfCategoryPass)
     {
         try{
-            db_handler.deleteItem(pos);
+            db_handler.deleteItem(pos,numOfCategoryPass);
             data = db_handler.generateList();
             vh.setData(data);
             vh.setListAdapter();
@@ -76,9 +77,18 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
     }
 
     @Override
-    public void onItemInput(int pos)
+    public void onItemInput(int pos,int numOfCategoryPass)
     {
-        // need implement
+        try{
+            Intent intent = new Intent(this, InputActivity.class);
+            intent.putExtra("curPage","input");
+            intent.putExtra("prevPage","shoplist");
+            intent.putExtra("ItemName",data.get(pos).getName());
+            startActivity(intent);
+        }
+        catch(Exception e){
+            Log.e("Shopping list", "fail to open input page while checking item: " + e.toString());
+        }
     }
 
     @Override
@@ -99,7 +109,7 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
             }
             catch (Exception e)
             {
-                Log.e("Shopping List","Cannot add new shopping list item : " + e.toString());
+                e.printStackTrace();
             }
         }
     }
@@ -136,7 +146,6 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
 
         // fake shop list item handler setup - for test
         vh = new ShopListViewHandler(listviewContent,this);
-        //FakeDataHandler fh = new FakeDataHandler("shoplist");
         db_handler = new ShopListDataHandler(getApplicationContext());
         try{
             data = db_handler.generateList();
@@ -146,11 +155,11 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
             Log.e("Shopping List","empty data - " + e.toString());
         }
 
-        //data = fh.generateShopList();
         if(data != null)
         {
             vh.setData(data);
             vh.setListAdapter();
         }
+
     }
 }
