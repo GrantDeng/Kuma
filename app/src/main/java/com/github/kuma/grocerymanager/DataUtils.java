@@ -37,7 +37,7 @@ public final class DataUtils
         while(queryEnumerator.hasNext())
         {
             QueryRow row = queryEnumerator.next();
-            System.err.println("key: " + row.getKey() + ", value: " + row.getValue());
+            //System.err.println("key: " + row.getKey() + ", value: " + row.getValue());
             Data data = (Data) ViewUtils.asSavable(row.getValue());
             if(data.getName().equals(name))
             {

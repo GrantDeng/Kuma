@@ -40,7 +40,7 @@ public final class DbUtils
      * @throws IllegalAccessException
      */
     public static void saveToDatabase(Savable object, Context context) throws NoSuchMethodException,
-        InvocationTargetException, IllegalAccessException, CouchbaseLiteException, IOException
+        InvocationTargetException, IllegalAccessException, CouchbaseLiteException, IOException, NullDocumentException
     {
         String objectId = object.getId();
         object.setId(objectId != null ? objectId : Savable.generateId());
@@ -49,7 +49,7 @@ public final class DbUtils
     }
 
     public static void saveShopListItemToDatabase(Savable object, Context context) throws NoSuchMethodException,
-        InvocationTargetException, IllegalAccessException, CouchbaseLiteException, IOException
+        InvocationTargetException, IllegalAccessException, CouchbaseLiteException, IOException, NullDocumentException
     {
         String objectId = object.getId();
         object.setId(objectId != null ? objectId : Savable.generateId());
@@ -63,8 +63,8 @@ public final class DbUtils
         HashMap<String,Object> fields = new HashMap<String, Object>();
         fields.putAll(object.getAdditionalProperties());
         fields.put("dataName",shoplistobject.getDataName());
-        fields.put("bought",shoplistobject.isBought());
-        fields.put("ObjectType",objectType);
+        fields.put("bought",shoplistobject.getBought());
+        fields.put("type",objectType);
         fields.put("relatedDataId",shoplistobject.getRelatedDataId());
 
         dbDoc.setProperties(fields);
@@ -92,17 +92,17 @@ public final class DbUtils
             QueryRow row = it.next();
             DbDocument dbDoc = new DbDocument(context, row.getDocumentId());
 
-            Object returnProperty = dbDoc.getProperty("ObjectType");
+            String returnProperty = dbDoc.getDataType();
+
             if(returnProperty != null)
             {
-                String objectType = returnProperty.toString();
+                String objectType = returnProperty;
                 if (objectType.contains("Shoppinglist"))
                 {
                     list_of_doc.add(dbDoc);
                 }
             }
         }
-
         return list_of_doc;
     }
 
@@ -128,16 +128,34 @@ public final class DbUtils
             QueryRow row = it.next();
             DbDocument dbDoc = new DbDocument(context, row.getDocumentId());
 
-            Object returnProperty = dbDoc.getProperty("ObjectType");
+            String returnProperty = dbDoc.getDataType();
             if(returnProperty != null)
             {
-                String objectType = returnProperty.toString();
+                String objectType = returnProperty;
                 if (objectType.contains("Grocery"))
                 {
                     list_of_doc.add(dbDoc);
+                    Log.e("getall",objectType);
                 }
             }
         }
         return list_of_doc;
+    }
+
+    public static void deleteDB(Context context) throws Exception    // don't know what exceptions to throw
+    {
+        CouchbaseHandler ch = new CouchbaseHandler(context);
+        Database db = ch.getDbInstance();
+        List<DbDocument> list_of_doc = new ArrayList<DbDocument>();
+
+        Query query = db.createAllDocumentsQuery();
+        query.setAllDocsMode(Query.AllDocsMode.ALL_DOCS);
+        QueryEnumerator result = query.run();
+
+        for (Iterator<QueryRow> it = result; it.hasNext(); ) {
+            QueryRow row = it.next();
+            DbDocument dbDoc = new DbDocument(context, row.getDocumentId());
+            dbDoc.delete();
+        }
     }
 }

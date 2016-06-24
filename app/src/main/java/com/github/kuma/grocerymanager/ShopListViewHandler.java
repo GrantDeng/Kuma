@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class ShopListViewHandler
 {
-    private ListAdapter adapter;
+    private ShopListAdapter adapter;
     private Context context;
     private ListView listview;
     private List<ShopAndPantryListItem> data;
@@ -30,7 +30,7 @@ public class ShopListViewHandler
 
     public void setListAdapter()
     {
-        adapter = new ListAdapter(context,data);
+        adapter = new ShopListAdapter(context,data);
         listview.setAdapter(adapter);
     }
 }

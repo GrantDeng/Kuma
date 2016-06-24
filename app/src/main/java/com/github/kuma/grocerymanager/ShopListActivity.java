@@ -9,12 +9,14 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.github.kuma.data.db.DbUtils;
+
 import java.util.List;
 
 /**
  *
  */
-public class ShopListActivity extends BaseActivity implements AddShopListItemDialog.addShopListItemListenerInterface, ListAdapter.ItemButtonCallBackInterface
+public class ShopListActivity extends BaseActivity implements AddShopListItemDialog.addShopListItemListenerInterface, ShopListAdapter.ItemButtonCallBackInterface
 {
     private final String pageTitle = "Shopping List";
     private TextView pageTitleTextView;
@@ -44,10 +46,10 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
     }
 
     @Override
-    public void onItemCheck(int pos)
+    public void onItemCheck(int pos,int numOfCategoryPass)
     {
         try{
-            db_handler.checkItem(pos);
+            db_handler.checkItem(pos,numOfCategoryPass);
             data = db_handler.generateList();
             // reset adapter with new data
             vh.setData(data);
@@ -60,10 +62,10 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
     }
 
     @Override
-    public void onItemDelete(int pos)
+    public void onItemDelete(int pos,int numOfCategoryPass)
     {
         try{
-            db_handler.deleteItem(pos);
+            db_handler.deleteItem(pos,numOfCategoryPass);
             data = db_handler.generateList();
             vh.setData(data);
             vh.setListAdapter();
@@ -75,7 +77,7 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
     }
 
     @Override
-    public void onItemInput(int pos)
+    public void onItemInput(int pos,int numOfCategoryPass)
     {
         try{
             Intent intent = new Intent(this, InputActivity.class);
@@ -107,7 +109,7 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
             }
             catch (Exception e)
             {
-                Log.e("Shopping List","Cannot add new shopping list item : " + e.toString());
+                e.printStackTrace();
             }
         }
     }
@@ -158,5 +160,6 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
             vh.setData(data);
             vh.setListAdapter();
         }
+
     }
 }

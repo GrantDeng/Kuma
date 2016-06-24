@@ -24,10 +24,15 @@ public class DbDocument
      * @param context Associated context (needed by the Couchbase handler). Only pass application contexts!
      * @param documentId Name of the document to open
      */
-    public DbDocument(Context context, String documentId) throws CouchbaseLiteException, IOException
-    {
+    public DbDocument(Context context, String documentId) throws CouchbaseLiteException, IOException, NullDocumentException {
+        if(documentId == null)
+        {
+            throw new NullDocumentException();
+        }
+
         this.handler = new CouchbaseHandler(context);
         this.document = this.handler.getDbInstance().getDocument(documentId);
+
 
         if(this.document.getCurrentRevision() == null)
         {

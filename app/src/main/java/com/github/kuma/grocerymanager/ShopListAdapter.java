@@ -13,12 +13,12 @@ import java.util.List;
 /**
  *
  */
-public class ListAdapter extends ArrayAdapter<ShopAndPantryListItem>
+public class ShopListAdapter extends ArrayAdapter<ShopAndPantryListItem>
 {
     private LayoutInflater minflater;
     private Activity activity;
 
-    public ListAdapter(Context context, List<ShopAndPantryListItem> data)
+    public ShopListAdapter(Context context, List<ShopAndPantryListItem> data)
     {
         super(context,0,data);
         minflater = LayoutInflater.from(context);
@@ -27,9 +27,9 @@ public class ListAdapter extends ArrayAdapter<ShopAndPantryListItem>
 
     public interface ItemButtonCallBackInterface
     {
-        void onItemCheck(int pos);
-        void onItemInput(int pos);
-        void onItemDelete(int pos);
+        void onItemCheck(int pos,int numOfCategoryPass);
+        void onItemInput(int pos,int numOfCategoryPass);
+        void onItemDelete(int pos,int numOfCategoryPass);
     }
 
     ItemButtonCallBackInterface buttonCallBack;
@@ -85,6 +85,8 @@ public class ListAdapter extends ArrayAdapter<ShopAndPantryListItem>
         ImageButton checkButton;
         ImageButton deleteButton;
         ImageButton inputButton;
+        ShopAndPantryListSingleItem item = (ShopAndPantryListSingleItem)getItem(pos);
+        final int numOfCategoryPassed = item.getNumOfCategoryPassing();
 
         if(getItem(pos).isChecked())
         {
@@ -96,7 +98,7 @@ public class ListAdapter extends ArrayAdapter<ShopAndPantryListItem>
                 @Override
                 public void onClick(View v)
                 {
-                    buttonCallBack.onItemInput(pos);
+                    buttonCallBack.onItemInput(pos,numOfCategoryPassed);
                 }
             });
         }
@@ -111,7 +113,7 @@ public class ListAdapter extends ArrayAdapter<ShopAndPantryListItem>
                 @Override
                 public void onClick(View v)
                 {
-                    buttonCallBack.onItemCheck(pos);
+                    buttonCallBack.onItemCheck(pos,numOfCategoryPassed);
                 }
             });
 
@@ -120,7 +122,7 @@ public class ListAdapter extends ArrayAdapter<ShopAndPantryListItem>
                 @Override
                 public void onClick(View v)
                 {
-                    buttonCallBack.onItemDelete(pos);
+                    buttonCallBack.onItemDelete(pos,numOfCategoryPassed);
                 }
             });
 

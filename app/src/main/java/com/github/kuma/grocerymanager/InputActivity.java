@@ -20,6 +20,7 @@ import com.github.kuma.api.Nutritionix_UpcLookup;
 import com.github.kuma.api.api_data.NutritionixData;
 import com.github.kuma.data.db.CouchbaseHandler;
 import com.github.kuma.data.db.DbUtils;
+import com.github.kuma.data.db.NullDocumentException;
 import com.github.kuma.db_object.Data;
 import com.github.kuma.db_object.Grocery;
 import com.github.kuma.db_object.Savable;
@@ -107,12 +108,12 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
      * Save the inputted item to the database.
      * @param view This view.
      */
-    public void save(View view)
+    public void save(View view) throws CouchbaseLiteException, IOException, ClassNotFoundException
     {
         if(!this.validate(view))
         {
             // FIXME: Need error decoration
-            System.err.println("Your input is wrong!");
+            //System.err.println("Your input is wrong!");
             return;
         }
 
@@ -126,8 +127,6 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
             e.printStackTrace();
         }
 
-        // FIXME stub
-        System.err.println("Saving to database!");
         try
         {
             DbUtils.saveToDatabase(grocery, getApplicationContext());
@@ -137,6 +136,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
             e.printStackTrace();
         }
 
+        // show success dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(grocery.getName() + " was added!")
             .setTitle("Success");
@@ -158,7 +158,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
      * Create a new Grocery based on the input.
      * @return The constructed grocery.
      */
-    private Grocery constructGrocery() throws ClassNotFoundException, IOException, CouchbaseLiteException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, NoSuchFieldException, InstantiationException
+    private Grocery constructGrocery() throws ClassNotFoundException, IOException, CouchbaseLiteException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, NoSuchFieldException, InstantiationException, NullDocumentException
     {
         Grocery grocery = new Grocery();
         grocery.setDataType("food"); // FIXME: this will have to change
@@ -269,7 +269,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     private boolean validate(View view)
     {
         // FIXME stub
-        System.err.println("Validating!");
+        //System.err.println("Validating!");
         return true;
     }
 
@@ -374,7 +374,7 @@ class ClassificationThread extends Thread
         if(data == null)
         {
             // FIXME
-            System.err.println("NOT GOOD");
+            //System.err.println("NOT GOOD");
             return;
         }
         this.itemName = data.getItemName(); // FIXME: not sure if this is correct

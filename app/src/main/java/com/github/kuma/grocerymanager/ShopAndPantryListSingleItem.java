@@ -9,12 +9,14 @@ public class ShopAndPantryListSingleItem implements ShopAndPantryListItem
     private int expiry;
     private String storageLevel;
     private boolean isChecked;
+    private int numOfCategoryPassing;
 
     /* CONSTRUCTOR FOR SHOPPING LIST ITEM */
     public ShopAndPantryListSingleItem(String name)
     {
         this.name = name;
         isChecked = false;
+        numOfCategoryPassing = 0;
     }
 
     /* CONSTRUCTOR FOR PANTRY ITEM */
@@ -34,5 +36,7 @@ public class ShopAndPantryListSingleItem implements ShopAndPantryListItem
     public String getName(){return name;}
     public int getExpiry(){return expiry;}
     public String getStorageLevel(){return storageLevel;}
+    public void setNumOfCategoryPassing(int num) { numOfCategoryPassing = num; }
+    public int getNumOfCategoryPassing() {return numOfCategoryPassing;}
 
 }

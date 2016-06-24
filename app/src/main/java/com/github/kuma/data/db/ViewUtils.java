@@ -75,7 +75,7 @@ public final class ViewUtils
      * @throws InvocationTargetException
      */
     public static DbDocument savable2DbDocument(Context context, Savable obj) throws CouchbaseLiteException,
-        IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException
+        IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, NullDocumentException
     {
         DbDocument objDoc = new DbDocument(context, obj.getId());
         Class<? extends Savable> objClass = obj.getClass();
@@ -121,7 +121,7 @@ public final class ViewUtils
             return savableValue;
         }
 
-        System.err.println("LAZY BAD");
+        //System.err.println("LAZY BAD");
         return null;
     }
 
@@ -216,7 +216,6 @@ public final class ViewUtils
                     {
                         String fieldName = field.getName();
                         Object value = document.get(fieldName);
-                        System.err.println("FIELD: " + fieldName + ", VALUE: " + value);
 
                         if(value != null)
                         {
@@ -229,7 +228,7 @@ public final class ViewUtils
                 }
                 catch(Exception e)
                 {
-                    System.err.println("Uh oh");
+                    //System.err.println("Uh oh");
                     e.printStackTrace();
                 }
             }
