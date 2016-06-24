@@ -135,7 +135,6 @@ public final class SimpleDbInterface
                 if (objectType.contains("Grocery"))
                 {
                     list_of_doc.add(dbDoc);
-                    Log.e("getall",objectType);
                 }
             }
         }

@@ -235,7 +235,9 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     // FIXME THIS IS TEMPORARY
     private String TEMP_RANDOM_GENERATE_CATEGORY()
     {
-        return "Food";
+        String[] categories = { "Vegetables", "Meat", "Junk Food" };
+        int index = ((int) (Math.random() * 2));
+        return categories[index];
     }
 
     /**

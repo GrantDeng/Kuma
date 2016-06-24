@@ -19,9 +19,7 @@ import java.util.Set;
 public class PantryListDataHandler
 {
     List<DbDocument> data;
-    //List<Grocery> javaData;
-    //List<Grocery> sortJavaData;
-    //List<String> cat;
+    List<Grocery> javaData;
     HashMap<String,List<Grocery>> listData;
     Context context;
     int categoryCount;
@@ -36,9 +34,7 @@ public class PantryListDataHandler
     {
         List<ShopAndPantryListItem> list_of_listItem;
         data = SimpleDbInterface.getAllGroceryDocuments(context);
-        //javaData = new ArrayList<Grocery>();
-        //sortJavaData = new ArrayList<Grocery>();
-        //cat = new ArrayList<String>();
+        javaData = new ArrayList<Grocery>();
 
         loadListData();
         list_of_listItem = makeList();
@@ -48,10 +44,8 @@ public class PantryListDataHandler
     public void addItemToShopList(int pos, int numOfCategoryPassing) throws Exception
     {
         int realPos = pos - numOfCategoryPassing;
-        //System.err.println("click pos = " + Integer.toString(pos) + "cat count: " + Integer.toString(numOfCategoryPassing));
 
-        String dataId =  data.get(realPos).getProperty("relatedDataId").toString();
-        //String dataId = sortJavaData.get(realPos).getRelatedDataId();
+        String dataId = javaData.get(realPos).getRelatedDataId();
 
         DbDocument dbDoc = new DbDocument(context,dataId);
         dbDoc.setProperty("isInShoppingList",true);
@@ -72,63 +66,20 @@ public class PantryListDataHandler
     public void removeItemFromShopList(int pos,int numOfCategoryPassing) throws Exception
     {
         int realPos = pos - numOfCategoryPassing;
-        //System.err.println("click pos = " + Integer.toString(pos) + "cat count: " + Integer.toString(numOfCategoryPassing));
 
-        String dataId =  data.get(realPos).getProperty("relatedDataId").toString();
-        //String dataId = sortJavaData.get(realPos).getRelatedDataId();
+        String dataId = javaData.get(realPos).getRelatedDataId();
 
         DbDocument dbDoc = new DbDocument(context,dataId);
         dbDoc.setProperty("isInShoppingList",false);
-
+        System.err.println("remove start");
         // remove shopping list item
         String shopListItemId = (String)dbDoc.getProperty("shopListId");
         DbDocument dbDoc_shoplist = new DbDocument(context,shopListItemId);
         dbDoc_shoplist.delete();
         dbDoc.setProperty("shopListId",null);
-    }
-/*
-    private void genJavaData() throws Exception
-    {
-        for(DbDocument dbDoc : data)
-        {
-            String itemName = (String) dbDoc.getProperty("name");
-            int duration = (Integer)dbDoc.getProperty("duration");
-            String DataId = (String)dbDoc.getProperty("relatedDataId");
-
-            Grocery item = new Grocery();
-            item.setName(itemName);
-            item.setDuration(duration);
-            item.setRelatedDataId(DataId);
-
-            //if (item == null) System.err.println("its null");
-            //javaData.add(item);
-        }
+        System.err.println("remove finish");
     }
 
-    private void sortJavaDataByCategory() throws  Exception
-    {
-        for(Grocery item : javaData)
-        {
-            String category = getDataCategory(item.getRelatedDataId());
-            if(cat.contains(category) == false)
-            {
-               // cat.add(category);
-            }
-        }
-        for (int i = 0; i < cat.size(); i++){
-            for(Grocery item : javaData) {
-                if (getDataCategory(item.getRelatedDataId()).equals(cat.get(i)))
-                {
-                    sortJavaData.add(item);
-                }
-            }
-        }
-        System.err.println("print out things in sortjavadata");
-        for (Grocery item : sortJavaData){
-            System.err.println(item.getName());
-        }
-    }
-*/
     private void loadListData() throws Exception
     {
         listData = new HashMap<String, List<Grocery>>();
@@ -173,7 +124,6 @@ public class PantryListDataHandler
 
         for(String category : categorySet)
         {
-            //if(cat.contains(category) == false) cat.add(category);
             List<Grocery> itemlist = listData.get(category);
             ShopAndPantryListItemHeader header = new ShopAndPantryListItemHeader(category);
             genList.add(header);
@@ -190,14 +140,13 @@ public class PantryListDataHandler
                 {
                     singleItem.checkItem();
                 }
+
+                javaData.add(item);
                 genList.add(singleItem);
             }
 
             categoryCount++;
         }
-/*
-        genJavaData();
-        sortJavaDataByCategory();*/
         return genList;
     }
 }

@@ -22,6 +22,7 @@ import java.util.Set;
 public class ShopListDataHandler
 {
     List<DbDocument> data;
+    List<Shoppinglist> javaData;
     HashMap<String,List<Shoppinglist>> listData;
     Context context;
     int categoryCount;
@@ -36,6 +37,7 @@ public class ShopListDataHandler
     {
         List<ShopAndPantryListItem> list_of_listItem;
         data = SimpleDbInterface.getAllShopListDocuments(context);
+        javaData = new ArrayList<Shoppinglist>();
 
         loadListData();
         list_of_listItem = makeList();
@@ -45,7 +47,10 @@ public class ShopListDataHandler
     public void checkItem(int pos,int numOfCategoryPass) throws Exception
     {
         int realPos = pos - numOfCategoryPass;
-        data.get(realPos).setProperty("bought",true);
+
+        javaData.get(realPos).setBought(true);
+        DbDocument dbDoc = new DbDocument(context,javaData.get(realPos).getId());
+        dbDoc.setProperty("bought",true);
     }
 
     public void deleteItem(int pos,int numOfCategoryPass) throws Exception
@@ -53,14 +58,15 @@ public class ShopListDataHandler
         int realPos = pos - numOfCategoryPass;
 
         // Uncheck relative food item on pantry
-        Object dataIdObject = data.get(realPos).getProperty("relatedDataId");
+        Object dataIdObject = javaData.get(realPos).getRelatedDataId();
         if(dataIdObject != null)
         {
             DbDocument data_dbDoc = new DbDocument(context,dataIdObject.toString());
             data_dbDoc.setProperty("isInShoppingList",false);
         }
 
-        data.get(realPos).delete();
+        DbDocument shopListDoc = new DbDocument(context,javaData.get(realPos).getId());
+        shopListDoc.delete();
     }
 
     public void addItem(String name) throws Exception
@@ -96,15 +102,17 @@ public class ShopListDataHandler
             ShopAndPantryListItemHeader header = new ShopAndPantryListItemHeader(category);
             genList.add(header);
             categoryCount++;
-//System.err.println("categoryCount = " + Integer.toString(categoryCount));
+
             for(Shoppinglist item: itemlist)
             {
                 ShopAndPantryListSingleItem singleItem = new ShopAndPantryListSingleItem(item.getDataName());
                 singleItem.setNumOfCategoryPassing(categoryCount);
+
                 if(item.getBought())
                 {
                     singleItem.checkItem();
                 }
+                javaData.add(item);
                 genList.add(singleItem);
             }
         }
@@ -129,6 +137,8 @@ public class ShopListDataHandler
             item.setDataName(itemName);
             item.setBought(bought);
             item.setCategory(category);
+            item.setId((String)dbDoc.getProperty("id"));
+            item.setRelatedDataId((String)dbDoc.getProperty("relatedDataId"));
 
             if(listData.containsKey(category))
             {

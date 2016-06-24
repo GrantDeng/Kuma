@@ -144,7 +144,7 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
         // set list view
         listviewContent = (ListView) findViewById(R.id.shoplistView);
 
-        // fake shop list item handler setup - for test
+        // setup data handler and view handler, generate view data list
         vh = new ShopListViewHandler(listviewContent,this);
         db_handler = new ShopListDataHandler(getApplicationContext());
         try{
@@ -152,7 +152,7 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
         }
         catch (Exception e)
         {
-            Log.e("Shopping List","empty data - " + e.toString());
+            e.printStackTrace();
         }
 
         if(data != null)

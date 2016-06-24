@@ -22,16 +22,11 @@ public class PantryActivity extends BaseActivity implements PantryListAdapter.It
     @Override
     public void onItemUnCheck(int pos,int numCategoryPass)
     {
-        /*ShopAndPantryListSingleItem item = (ShopAndPantryListSingleItem) data.get(pos);
-        item.unCheckItem();
-        data.set(pos,item);*/
-
         try{
             db_handler.removeItemFromShopList(pos,numCategoryPass);
             data = db_handler.generateList();
             vh.setData(data);
             vh.setPantryListAdapter();
-            //System.err.println("position is  " + pos);
         }
         catch (Exception e)
         {
@@ -42,19 +37,11 @@ public class PantryActivity extends BaseActivity implements PantryListAdapter.It
     @Override
     public void onItemCheck(int pos,int numCategoryPass)
     {
-        /*ShopAndPantryListSingleItem item = (ShopAndPantryListSingleItem) data.get(pos);
-        item.checkItem();
-        data.set(pos,item);
-
-        vh.setData(data);
-        vh.setPantryListAdapter();*/
-
         try{
             db_handler.addItemToShopList(pos,numCategoryPass);
             data = db_handler.generateList();
             vh.setData(data);
             vh.setPantryListAdapter();
-            //System.err.println("position is " + pos);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -81,11 +68,9 @@ public class PantryActivity extends BaseActivity implements PantryListAdapter.It
         pageTitleTextView = (TextView)findViewById(R.id.page_title);
         pageTitleTextView.setText(pageTitle);
 
-        // fake shop list item handler setup - for test
+        // setup view and data handlers, generate view data list
         listviewContent = (ListView) findViewById(R.id.PantrylistView);
         vh = new PantryListViewHandler(listviewContent,this);
-        //FakeDataHandler fh = new FakeDataHandler("pantry");
-        //data = fh.generatePantryList();
         try{
             db_handler = new PantryListDataHandler(getApplicationContext());
             data = db_handler.generateList();

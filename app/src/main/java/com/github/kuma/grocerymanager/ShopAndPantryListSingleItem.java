@@ -38,5 +38,4 @@ public class ShopAndPantryListSingleItem implements ShopAndPantryListItem
     public String getStorageLevel(){return storageLevel;}
     public void setNumOfCategoryPassing(int num) { numOfCategoryPassing = num; }
     public int getNumOfCategoryPassing() {return numOfCategoryPassing;}
-
 }
