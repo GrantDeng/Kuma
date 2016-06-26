@@ -88,7 +88,6 @@ public class PantryListDataHandler
         {
             String itemName = (String) dbDoc.getProperty("name");
             int duration = (Integer)dbDoc.getProperty("duration");
-            System.err.println("load list data: "+duration);
             String DataId = (String)dbDoc.getProperty("relatedDataId");
             String category = getDataCategory(DataId);
 
