@@ -88,6 +88,7 @@ public class PantryListDataHandler
         {
             String itemName = (String) dbDoc.getProperty("name");
             int duration = (Integer)dbDoc.getProperty("duration");
+            System.err.println("load list data: "+duration);
             String DataId = (String)dbDoc.getProperty("relatedDataId");
             String category = getDataCategory(DataId);
 
@@ -131,7 +132,9 @@ public class PantryListDataHandler
             for(Grocery item: itemlist)
             {
                 ShopAndPantryListSingleItem singleItem = new ShopAndPantryListSingleItem(item.getName());
+
                 singleItem.setNumOfCategoryPassing(categoryCount);
+                singleItem.setExpiry(item.getDuration());
 
                 DbDocument dbDoc = new DbDocument(context,item.getRelatedDataId());
                 boolean isInShoppingList = (Boolean)dbDoc.getProperty("isInShoppingList");

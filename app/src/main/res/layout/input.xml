@@ -77,7 +77,8 @@
             android:layout_below="@+id/textView6"
             android:layout_toRightOf="@+id/textView8"
             android:layout_toEndOf="@+id/textView8"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:hint="MM/DD/YYYY"/>
 
         <Spinner
             android:layout_width="wrap_content"

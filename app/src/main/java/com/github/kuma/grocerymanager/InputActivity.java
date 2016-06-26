@@ -2,7 +2,9 @@ package com.github.kuma.grocerymanager;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -24,33 +26,45 @@ import com.github.kuma.data.db.NullDocumentException;
 import com.github.kuma.db_object.Data;
 import com.github.kuma.db_object.Grocery;
 import com.github.kuma.db_object.Savable;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.security.cert.CertificateExpiredException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class InputActivity extends BaseActivity implements AdapterView.OnItemSelectedListener,
-    DatePickerDialog.OnDateSetListener
-{
+        DatePickerDialog.OnDateSetListener {
     private final String pageTitle = "Input";
     private TextView pageTitleTextView;
     private String selectedLocation;
     private String inputItemName;
     private Handler handler;
     private EditText nameView;
+    //private EditText expiryView;
 
-    public Handler getHandler()
-    {
+    private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+
+    public Handler getHandler() {
         return this.handler;
     }
 
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.input);
 
@@ -64,13 +78,17 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         // set button listeners
         setButtonListener(this);
 
+
         // set page title
         pageTitleTextView = (TextView) findViewById(R.id.page_title);
         pageTitleTextView.setText(pageTitle);
 
+        // set expiration date
+        //expiryView = (EditText) findViewById(R.id.input_expire_date);
+        //setExpiryListener();
+
         inputItemName = intent.getStringExtra("ItemName");
-        if(inputItemName != null)
-        {
+        if (inputItemName != null) {
             nameView = (EditText) findViewById(R.id.input_item_name);
             nameView.setText(inputItemName);
         }
@@ -78,9 +96,9 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         // handle the spinner
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-            this,
-            R.array.storage_locations_array,
-            android.R.layout.simple_spinner_item
+                this,
+                R.array.storage_locations_array,
+                android.R.layout.simple_spinner_item
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -88,58 +106,52 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
 
         // handle network threads
         final InputActivity thisActivity = this;
-        this.handler = new Handler(Looper.getMainLooper())
-        {
+        this.handler = new Handler(Looper.getMainLooper()) {
             @Override
-            public void handleMessage(Message m)
-            {
+            public void handleMessage(Message m) {
                 String itemName = (String) m.obj;
-                if(itemName == null)
-                {
+                if (itemName == null) {
                     super.handleMessage(m);
                     return;
                 }
                 thisActivity.setGroceryName(itemName);
             }
         };
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     /**
      * Save the inputted item to the database.
+     *
      * @param view This view.
      */
-    public void save(View view) throws CouchbaseLiteException, IOException, ClassNotFoundException
-    {
-        if(!this.validate(view))
-        {
+    public void save(View view) throws CouchbaseLiteException, IOException, ClassNotFoundException {
+        if (!this.validate(view)) {
             // FIXME: Need error decoration
             //System.err.println("Your input is wrong!");
             return;
         }
 
         Grocery grocery = null;
-        try
-        {
+        try {
             grocery = constructGrocery();
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        try
-        {
+        try {
+            System.err.println(grocery.getDuration());
             SimpleDbInterface.saveToDatabase(grocery, getApplicationContext());
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         // show success dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(grocery.getName() + " was added!")
-            .setTitle("Success");
+                .setTitle("Success");
         AlertDialog dialog = builder.create();
         dialog.show();
         this.clearInput();
@@ -148,23 +160,44 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     /**
      * Clear the input fields.
      */
-    private void clearInput()
-    {
+    private void clearInput() {
         ((EditText) findViewById(R.id.input_item_name)).setText("");
-        ((EditText) findViewById(R.id.input_expire_date)).setText("");
+        ((EditText) findViewById(R.id.input_expire_date)).setText("MM/DD/YYYY");
     }
+
+/*
+    /**
+     * Clear the Expiration Date EditText when clicked
+
+    public void setExpiryListener()
+    {
+        expiryView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expiryView.setText("");
+            }
+        });
+    }
+*/
 
     /**
      * Create a new Grocery based on the input.
+     *
      * @return The constructed grocery.
      */
-    private Grocery constructGrocery() throws ClassNotFoundException, IOException, CouchbaseLiteException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, NoSuchFieldException, InstantiationException, NullDocumentException
-    {
+    private Grocery constructGrocery() throws ClassNotFoundException, IOException, CouchbaseLiteException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, NoSuchFieldException, InstantiationException, NullDocumentException {
         Grocery grocery = new Grocery();
         grocery.setDataType("food"); // FIXME: this will have to change
 
-        Date purchaseDate = new Date(); // assuming was purchased today
-        grocery.setPurchaseDate(purchaseDate);
+        //Date purchaseDate = new Date(); // assuming was purchased today
+        try {
+            ;
+            Date purchaseDate = sdf.parse(sdf.format(new Date()));
+            grocery.setPurchaseDate(purchaseDate);
+        } catch (ParseException pe) {
+            System.err.println("HAVE NOT DEALT WITH THIS!");
+        }
+
 
         // find the associated type of grocery data, if it exists
         String name = ((EditText) findViewById(R.id.input_item_name)).getText().toString();
@@ -174,8 +207,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         CouchbaseHandler cbhandler = CouchbaseHandler.getCouchbaseHandler(this.getApplicationContext());
 
         Data associatedData = DataUtils.getByName(name, cbhandler);
-        if(associatedData == null)
-        {
+        if (associatedData == null) {
             Data newData = new Data();
 
             // FIXME NEED AN INPUT FIELD FOR THIS
@@ -199,21 +231,20 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
 
         int duration = 0;
         String expiryDateString = ((EditText) findViewById(R.id.input_expire_date)).getText().toString();
-        if(expiryDateString == null)
-        {
+        if (expiryDateString == null) {
             duration = associatedData.getGuessDuration();
-        }
-        else
-        {
-            try
-            {
-                Date expiryDate = new SimpleDateFormat().parse(expiryDateString);
-                // FIXME: have to handle the subtraction
-                duration = 5; // FIXME: obviously wrong
+        } else {
+            try {
+                Date expiryDate = sdf.parse(expiryDateString);
+                long diff = (expiryDate.getTime() - grocery.getPurchaseDate().getTime());
+                duration = (int) (TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+                System.err.println("duration: " + duration);
+                //duration = 5;
 
-            }
-            catch(ParseException pe)
-            {
+                // FIXME: have to handle the subtraction
+                //duration = 5; // FIXME: obviously wrong
+
+            } catch (ParseException pe) {
                 System.err.println("HAVE NOT DEALT WITH THIS!");
                 // FIXME: figure out what to do about this
             }
@@ -221,8 +252,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         grocery.setDuration(duration); // FIXME: THIS IS COMPLETELY WRONG!
 
         // because of Android's weirdness, this.selectedLocation has to be set in this.onItemSelected
-        if(this.selectedLocation != null)
-        {
+        if (this.selectedLocation != null) {
             grocery.setLocation(this.selectedLocation);
         }
 
@@ -233,43 +263,43 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     }
 
     // FIXME THIS IS TEMPORARY
-    private String TEMP_RANDOM_GENERATE_CATEGORY()
-    {
-        String[] categories = { "Vegetables", "Meat", "Junk Food" };
+    private String TEMP_RANDOM_GENERATE_CATEGORY() {
+        String[] categories = {"Vegetables", "Meat", "Junk Food"};
         int index = ((int) (Math.random() * 2));
         return categories[index];
     }
 
     /**
      * Set the currently selected location.
+     *
      * @param parent The spinner.
-     * @param view Unused.
-     * @param pos Position of the selected item.
-     * @param id Unused.
+     * @param view   Unused.
+     * @param pos    Position of the selected item.
+     * @param id     Unused.
      */
     public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id)
-    {
+                               int pos, long id) {
         this.selectedLocation = parent.getItemAtPosition(pos).toString();
     }
 
+
     /**
      * Clear the currently selected location.
+     *
      * @param parent Unused
      */
-    public void onNothingSelected(AdapterView<?> parent)
-    {
+    public void onNothingSelected(AdapterView<?> parent) {
         this.selectedLocation = null;
     }
 
 
     /**
      * Validate the input to make sure it's all sane.
+     *
      * @param view This view.
      * @return True if validation was successful, false otherwise.
      */
-    private boolean validate(View view)
-    {
+    private boolean validate(View view) {
         // FIXME stub
         //System.err.println("Validating!");
         return true;
@@ -277,36 +307,35 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
 
     /**
      * Display the date picker.
+     *
      * @param view Not used.
      */
-    public void showDatePickerDialog(View view)
-    {
+    public void showDatePickerDialog(View view) {
         KumaDatePicker datePicker = new KumaDatePicker();
         datePicker.show(getFragmentManager(), "datePicker");
     }
 
     /**
      * Scan a barcode.
+     *
      * @param view Not used.
      */
-    public void scanBarcode(View view)
-    {
+    public void scanBarcode(View view) {
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.initiateScan();
     }
 
     /**
      * Handle intent callbacks.
+     *
      * @param requestCode Request code.
-     * @param resultCode Result code.
-     * @param intent Intent we returned from.
+     * @param resultCode  Result code.
+     * @param intent      Intent we returned from.
      */
-    public void onActivityResult(int requestCode, int resultCode, Intent intent)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         final IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 
-        if(scanResult == null)
-        {
+        if (scanResult == null) {
             // FIXME: have to deal with this case!
             System.err.println("Something is wrong");
             return;
@@ -319,29 +348,67 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
 
     /**
      * Set the chosen date.
-     * @param view The date picker.
-     * @param year The chosen year.
+     *
+     * @param view  The date picker.
+     * @param year  The chosen year.
      * @param month The chosen month.
-     * @param day The chosen day.
+     * @param day   The chosen day.
      */
     @Override
-    public void onDateSet(DatePicker view, int year, int month, int day)
-    {
+    public void onDateSet(DatePicker view, int year, int month, int day) {
         Date date = KumaDatePicker.makeDate(year, month, day);
-        // FIXME: we may want to have a single class instance of SimpleDateFormat
-        ((EditText) findViewById(R.id.input_expire_date)).setText(new SimpleDateFormat().format(date));
+        // FIXME: we may want to have a single class instance of SimpleDateFormat (Gillien: Fixed? Is this what you mean?)
+        ((EditText) findViewById(R.id.input_expire_date)).setText(sdf.format(date));
     }
 
-    public void setGroceryName(String name)
-    {
+    public void setGroceryName(String name) {
         ((EditText) findViewById(R.id.input_item_name)).setText(name);
     }
 
-    public void setGroceryNameFromOtherThread(String itemName)
-    {
+    public void setGroceryNameFromOtherThread(String itemName) {
         Message message = this.handler.obtainMessage();
         message.obj = itemName;
         message.sendToTarget();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Input Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.github.kuma.grocerymanager/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Input Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.github.kuma.grocerymanager/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
     }
 }
 
