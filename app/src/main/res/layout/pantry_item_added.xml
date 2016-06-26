@@ -45,7 +45,7 @@
         android:id="@+id/uncheck_button"
         android:src="@mipmap/ic_check_circle_black_24dp"
         android:clickable="true"
-        android:background="#ffffff"
+        android:background="@android:color/transparent"
         android:minWidth="50dp"
         android:layout_alignTop="@+id/input_item_name"
         android:layout_alignParentRight="true"

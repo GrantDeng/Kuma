@@ -14,32 +14,29 @@
         android:textSize="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:minHeight="50dp"
+        android:textAlignment="center"
+        android:gravity="center_vertical" />
 
-    <ScrollView
-        android:layout_width="fill_parent"
+    <ListView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView"
-        android:layout_below="@+id/day_period">
-
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/list_of_recipe" />
-    </ScrollView>
+        android:id="@+id/list_of_recipe"
+        android:layout_below="@+id/day_period" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/add_recipe"
-        android:layout_below="@+id/scrollView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
         android:layout_marginRight="15dp"
         android:src="@android:drawable/ic_input_add"
-        android:background="#ffffff"
+        android:background="@android:color/transparent"
         android:minWidth="50dp"
-        android:minHeight="50dp" />
+        android:minHeight="50dp"
+        android:layout_alignBottom="@+id/day_period" />
 
 </RelativeLayout>

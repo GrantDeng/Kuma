@@ -28,7 +28,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:src="@mipmap/ic_camera_alt_black_24dp"
-        android:background="#ffffff"
+        android:background="@android:color/transparent"
         android:layout_marginRight="10dp"
         android:minWidth="100dp" />
 

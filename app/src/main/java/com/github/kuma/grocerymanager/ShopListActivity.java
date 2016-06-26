@@ -97,9 +97,6 @@ public class ShopListActivity extends BaseActivity implements AddShopListItemDia
 
         if(newItemName != "")
         {
-            // in future, should modify the database and regenerate the list<listitem> based on the new dataset and reset adapter
-            // for now it just add the new item to the end
-            //ShopAndPantryListItem newInsertItem = new ShopAndPantryListSingleItem(newItemName);
             try{
                 db_handler.addItem(newItemName);
                 data = db_handler.generateList();

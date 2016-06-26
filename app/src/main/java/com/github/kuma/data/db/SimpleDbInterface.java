@@ -135,6 +135,12 @@ public final class SimpleDbInterface
         return list_of_doc;
     }
 
+    public static List<DbDocument> getAllMealPlanDocuments(Context context) throws Exception
+    {
+        List<DbDocument> list_of_doc = new ArrayList<DbDocument>();
+        return list_of_doc;
+    }
+
     public static void deleteDB(Context context) throws Exception    // don't know what exceptions to throw
     {
         CouchbaseHandler ch = CouchbaseHandler.getCouchbaseHandler(context);

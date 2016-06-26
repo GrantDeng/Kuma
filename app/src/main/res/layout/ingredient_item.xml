@@ -55,7 +55,7 @@
         android:id="@+id/imageButton"
         android:layout_toRightOf="@+id/quantity_level"
         android:src="@android:drawable/ic_input_add"
-        android:background="#ffffff"
+        android:background="@android:color/transparent"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true" />
 
