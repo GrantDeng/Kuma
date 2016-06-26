@@ -282,6 +282,9 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     public void showDatePickerDialog(View view)
     {
         KumaDatePicker datePicker = new KumaDatePicker();
+        Bundle bundle = new Bundle();
+        bundle.putLong("startDate", new Date().getTime());
+        datePicker.setArguments(bundle);
         datePicker.show(getFragmentManager(), "datePicker");
     }
 
