@@ -2,7 +2,9 @@ package com.github.kuma.grocerymanager;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -32,6 +34,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class InputActivity extends BaseActivity implements AdapterView.OnItemSelectedListener,
     DatePickerDialog.OnDateSetListener
@@ -42,6 +45,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     private String inputItemName;
     private Handler handler;
     private EditText nameView;
+    private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
     /**
      * Return the handler for this activity.
@@ -171,8 +175,15 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         Grocery grocery = new Grocery();
         grocery.setDataType("food"); // FIXME: this will have to change
 
-        Date purchaseDate = new Date(); // assuming was purchased today
-        grocery.setPurchaseDate(purchaseDate);
+        try
+        {
+            Date purchaseDate = sdf.parse(sdf.format(new Date()));
+            grocery.setPurchaseDate(purchaseDate);
+        }
+        catch (ParseException pe)
+        {
+            System.err.println("HAVE NOT DEALT WITH THIS!");
+        }
 
         // find the associated type of grocery data, if it exists
         String name = ((EditText) findViewById(R.id.input_item_name)).getText().toString();
@@ -215,10 +226,10 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
         {
             try
             {
-                Date expiryDate = new SimpleDateFormat().parse(expiryDateString);
-                // FIXME: have to handle the subtraction
-                duration = 5; // FIXME: obviously wrong
-
+                Date expiryDate = sdf.parse(expiryDateString);
+                long diff = (expiryDate.getTime() - grocery.getPurchaseDate().getTime());
+                duration = (int) (TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+                System.err.println("duration: " + duration);
             }
             catch(ParseException pe)
             {
@@ -243,13 +254,14 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     // FIXME THIS IS TEMPORARY
     private String TEMP_RANDOM_GENERATE_CATEGORY()
     {
-        String[] categories = { "Vegetables", "Meat", "Junk Food" };
+        String[] categories = {"Vegetables", "Meat", "Junk Food"};
         int index = ((int) (Math.random() * 2));
         return categories[index];
     }
 
     /**
      * Set the currently selected location.
+     *
      * @param parent The spinner.
      * @param view Unused.
      * @param pos Position of the selected item.
@@ -269,7 +281,6 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     {
         this.selectedLocation = null;
     }
-
 
     /**
      * Validate the input to make sure it's all sane.
@@ -339,8 +350,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     public void onDateSet(DatePicker view, int year, int month, int day)
     {
         Date date = DateUtils.makeDate(year, month, day);
-        // FIXME: we may want to have a single class instance of SimpleDateFormat
-        ((EditText) findViewById(R.id.input_expire_date)).setText(new SimpleDateFormat().format(date));
+        ((EditText) findViewById(R.id.input_expire_date)).setText(sdf.format(date));
     }
 
     public void setGroceryName(String name)

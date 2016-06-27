@@ -37,5 +37,6 @@ public class ShopAndPantryListSingleItem implements ShopAndPantryListItem
     public int getExpiry(){return expiry;}
     public String getStorageLevel(){return storageLevel;}
     public void setNumOfCategoryPassing(int num) { numOfCategoryPassing = num; }
+    public void setExpiry(int e){expiry = e;}
     public int getNumOfCategoryPassing() {return numOfCategoryPassing;}
 }

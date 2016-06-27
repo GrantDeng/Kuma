@@ -131,7 +131,9 @@ public class PantryListDataHandler
             for(Grocery item: itemlist)
             {
                 ShopAndPantryListSingleItem singleItem = new ShopAndPantryListSingleItem(item.getName());
+
                 singleItem.setNumOfCategoryPassing(categoryCount);
+                singleItem.setExpiry(item.getDuration());
 
                 DbDocument dbDoc = new DbDocument(context,item.getRelatedDataId());
                 boolean isInShoppingList = (Boolean)dbDoc.getProperty("isInShoppingList");
