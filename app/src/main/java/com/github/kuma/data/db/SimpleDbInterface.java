@@ -137,7 +137,29 @@ public final class SimpleDbInterface
 
     public static List<DbDocument> getAllMealPlanDocuments(Context context) throws Exception
     {
+        CouchbaseHandler ch = CouchbaseHandler.getCouchbaseHandler(context);
+        Database db = ch.getDbInstance();
         List<DbDocument> list_of_doc = new ArrayList<DbDocument>();
+
+        Query query = db.createAllDocumentsQuery();
+        query.setAllDocsMode(Query.AllDocsMode.ALL_DOCS);
+        QueryEnumerator result = query.run();
+
+        for (Iterator<QueryRow> it = result; it.hasNext(); )
+        {
+            QueryRow row = it.next();
+            DbDocument dbDoc = new DbDocument(context, row.getDocumentId());
+
+            String returnProperty = dbDoc.getDataType();
+            if(returnProperty != null)
+            {
+                String objectType = returnProperty;
+                if (objectType.contains("Mealplan"))
+                {
+                    list_of_doc.add(dbDoc);
+                }
+            }
+        }
         return list_of_doc;
     }
 

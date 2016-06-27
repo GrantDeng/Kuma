@@ -59,4 +59,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.couchbase.lite:couchbase-lite-android:1.2.1'
     compile group: 'com.google.zxing', name: 'android-integration', version: '3.2.1'
+    compile 'joda-time:joda-time:2.9.4' // for joda time
 }
