@@ -28,7 +28,7 @@
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@+id/textView2"
         android:src="@android:drawable/ic_delete"
-        android:background="#ffffff"
+        android:background="@android:color/transparent"
         android:layout_alignTop="@+id/textView2"
         android:layout_alignBottom="@+id/textView2"
         android:clickable="true" />

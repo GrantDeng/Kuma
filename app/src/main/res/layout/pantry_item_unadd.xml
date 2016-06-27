@@ -45,12 +45,13 @@
         android:id="@+id/pantry_to_shoplist"
         android:src="@android:drawable/ic_input_add"
         android:clickable="true"
-        android:background="#ffffff"
+        android:background="@android:color/transparent"
         android:minWidth="50dp"
         android:layout_alignTop="@+id/input_item_name"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:layout_alignBottom="@+id/expiry" />
 
 </RelativeLayout>

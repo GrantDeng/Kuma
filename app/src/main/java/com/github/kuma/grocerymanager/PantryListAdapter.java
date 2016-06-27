@@ -74,7 +74,7 @@ public class PantryListAdapter extends ArrayAdapter<ShopAndPantryListItem>
     private  View getHeaderView(int pos)
     {
         View view = minflater.inflate(R.layout.listheader,null);
-        TextView text = (TextView) view.findViewById(R.id.category_header);
+        TextView text = (TextView) view.findViewById(R.id.ListHeader);
         text.setText(getItem(pos).getName());
         return view;
     }

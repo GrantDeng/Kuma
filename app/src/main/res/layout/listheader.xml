@@ -8,8 +8,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Category"
-        android:id="@+id/category_header"
+        android:text="Header"
+        android:id="@+id/ListHeader"
         android:layout_marginTop="5dp"
         android:paddingLeft="10dp"
         android:textColor="#ffffff" />

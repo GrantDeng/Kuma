@@ -98,7 +98,7 @@
             android:layout_below="@+id/input_item_name"
             android:layout_toRightOf="@+id/input_expire_date"
             android:src="@mipmap/ic_date_range_black_24dp"
-            android:background="#fefefe"
+            android:background="@android:color/transparent"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:clickable="true"

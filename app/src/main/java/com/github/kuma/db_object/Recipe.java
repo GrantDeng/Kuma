@@ -6,6 +6,7 @@ import java.util.List;
 public class Recipe extends Savable
 {
     private String nutrition;
+    private String name;
     private List<String> ingredientsNames = new ArrayList<String>();
 
     /**
@@ -47,4 +48,7 @@ public class Recipe extends Savable
     {
         this.ingredientsNames = ingredientsNames;
     }
+
+    public void setName(String name) {this.name = name;}
+    public String getName() {return name;}
 }
