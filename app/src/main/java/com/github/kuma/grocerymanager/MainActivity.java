@@ -2,6 +2,10 @@ package com.github.kuma.grocerymanager;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import com.github.kuma.api.api_data.*;
+
+import com.github.kuma.api.api_data.SummarizeRecipe;
+import java.io.IOException;
 
 import com.github.kuma.api.Spoonacular_getdata;
 import com.github.kuma.api.api_data.SearchRecipes;
@@ -23,19 +27,34 @@ public class MainActivity extends ActionBarActivity
                 //System.err.println("into the new thread");
                 Spoonacular_getdata sp = new Spoonacular_getdata();
 
-                SearchRecipes a = sp.SearchRecipes("burger", "main course");
-/*
-                System.err.println(a.getNumber());
-                System.err.println(a.getBaseUri());
-                System.err.println(a.getResults().get(0).getImage());
 
-                Searchby_Ingredients b = sp.Searchby_Ingredients("apples,flour,sugar");
+                SearchRecipes a = sp.SearchRecipes("beef", "main course");
+
+                System.err.println(a.getNumber());
+                System.err.println(a.getProcessingTimeMs());
+                System.err.println(a.getResults().size());
+
+
+                Searchby_Ingredients b = sp.Searchby_Ingredients("beef, orion");
                 System.err.println(b.getId());
                 System.err.println(b.getLikes());
                 System.err.println(b.getTitle());
 
-                //ComplexSearch e = sp.ComplexRecipes("onions, lettuce, tomato", "burger", "main course");
+                ComplexSearch e = sp.ComplexRecipes("onions, lettuce, tomato", "burger", "main course");
+                System.err.println(e.getTotalResults());
+                System.err.println("aaaaa");
+                //System.err.println(e.getResults().get(0).getTitle());
+
+                //RecipeInformation c = sp.get_recipe_information(b.getId());
+                //System.err.println(c.getExtendedIngredients().size());
+
+                //SummarizeRecipe d = sp.get_recipe_summary(a.getResults().get(0).getId());
+                //System.err.println(d.getSummary());
+
+
+
                 //System.err.println(e.getTotalResults());
+                //System.err.println(c.getSummary());
                 //System.err.println("aaaaa");
                 //System.err.println(e.getResults().get(0).getTitle());
 
@@ -44,7 +63,7 @@ public class MainActivity extends ActionBarActivity
 
                 //SummarizeRecipe d = sp.get_recipe_summary(a.getResults().get(0).getId());
                 //System.err.println(d.getSummary());
-				*/
+
             }
         };
         thread.start();

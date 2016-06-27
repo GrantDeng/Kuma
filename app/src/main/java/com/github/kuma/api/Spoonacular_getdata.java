@@ -48,6 +48,8 @@ public class Spoonacular_getdata
     }
 
 
+
+
     public RecipeInformation get_recipe_information(int id)
     {
 
@@ -79,8 +81,6 @@ public class Spoonacular_getdata
         try
         {
             Response<SearchRecipes> response = result.execute();
-            //return response.body();
-            System.err.println(response.body().getBaseUri());
             return response.body();
         }
         catch (IOException e)
@@ -111,7 +111,12 @@ public class Spoonacular_getdata
         return null;
     }
 
-    // complex search
+    /**
+     * Complex search
+     *  ingradient is a string contain the require ingredient
+     * type can be : main course, side dish, dessert, appetizer,
+     * salad, bread, breakfast, soup, beverage, sauce, or drink.
+     */
     public ComplexSearch ComplexRecipes(String ingredient, String query, String type)
     {
         final Call<ComplexSearch> result = service.complex_search(true, ingredient, false, 5, 0, query, 2, type);
