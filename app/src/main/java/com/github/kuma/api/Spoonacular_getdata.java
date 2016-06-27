@@ -14,7 +14,7 @@ import java.util.List;
 public class Spoonacular_getdata
 {
     private Retrofit retrofit;
-    String URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/";
+    private static String URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/";
     private static Spoonacular_api service;
     private static Spoonacular_SearchRecipe search_service;
     private static Spoonacular_ClassifyProduct classificationService;
