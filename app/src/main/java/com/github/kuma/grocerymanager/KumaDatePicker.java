@@ -49,7 +49,7 @@ public class KumaDatePicker extends DialogFragment
     /**
      * Utility method to create a Date automatically.
      * @param year The year.
-     * @param month The month.
+     * @param month The month (0 to 11, for compatibility with DatePickerDialog).
      * @param day The day.
      * @return The created date.
      */
