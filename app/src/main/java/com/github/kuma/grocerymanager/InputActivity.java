@@ -43,11 +43,19 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     private Handler handler;
     private EditText nameView;
 
+    /**
+     * Return the handler for this activity.
+     * @return the handler for this activity.
+     */
     public Handler getHandler()
     {
         return this.handler;
     }
 
+    /**
+     * Called when this activity is created.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -330,7 +338,7 @@ public class InputActivity extends BaseActivity implements AdapterView.OnItemSel
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day)
     {
-        Date date = KumaDatePicker.makeDate(year, month, day);
+        Date date = DateUtils.makeDate(year, month, day);
         // FIXME: we may want to have a single class instance of SimpleDateFormat
         ((EditText) findViewById(R.id.input_expire_date)).setText(new SimpleDateFormat().format(date));
     }
