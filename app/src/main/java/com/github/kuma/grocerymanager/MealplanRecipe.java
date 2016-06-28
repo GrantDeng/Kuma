@@ -3,10 +3,10 @@ package com.github.kuma.grocerymanager;
 public class MealplanRecipe
 {
     private int dayNum;
-    private String planType;    // "breakfast" "lunch" "dinner"
+    private int planType;    // 1:"breakfast" 2:"lunch" 3:"dinner"
     private String recipeName;
 
-    public MealplanRecipe(int num, String type, String name)
+    public MealplanRecipe(int num, int type, String name)
     {
         dayNum = num;
         planType = type;
@@ -14,6 +14,6 @@ public class MealplanRecipe
     }
 
     public int getDayNum()  {return dayNum;}
-    public String getPlanType() {return planType;}
+    public int getPlanType() {return planType;}
     public String getRecipeName() {return  recipeName;}
 }

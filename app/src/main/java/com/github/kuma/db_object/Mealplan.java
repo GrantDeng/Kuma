@@ -6,6 +6,9 @@ import java.util.Date;
 
 public class Mealplan extends Savable
 {
+    public static final String BREAKFAST = "breakfast";
+    public static final String LUNCH = "lunch";
+    public static final String DINNER = "dinner";
     private Date date;
     private String mealType;
     private List<String> recipesIds = new ArrayList<String>();

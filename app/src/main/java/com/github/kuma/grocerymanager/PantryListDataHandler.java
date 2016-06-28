@@ -71,13 +71,11 @@ public class PantryListDataHandler
 
         DbDocument dbDoc = new DbDocument(context,dataId);
         dbDoc.setProperty("isInShoppingList",false);
-        System.err.println("remove start");
         // remove shopping list item
         String shopListItemId = (String)dbDoc.getProperty("shopListId");
         DbDocument dbDoc_shoplist = new DbDocument(context,shopListItemId);
         dbDoc_shoplist.delete();
         dbDoc.setProperty("shopListId",null);
-        System.err.println("remove finish");
     }
 
     private void loadListData() throws Exception

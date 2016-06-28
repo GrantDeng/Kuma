@@ -42,28 +42,6 @@ public final class SimpleDbInterface
         TypeConnector.savable2DbDocument(context, object);
     }
 
-    public static void saveShopListItemToDatabase(Savable object, Context context) throws NoSuchMethodException,
-        InvocationTargetException, IllegalAccessException, CouchbaseLiteException, IOException, NullDocumentException
-    {
-        String objectId = object.getId();
-        object.setId(objectId != null ? objectId : Savable.generateId());
-        object.setType(object.determineTypeString());
-
-        Shoppinglist shoplistobject = (Shoppinglist) object;
-
-        DbDocument dbDoc = new DbDocument(context, object.getId());
-        String objectType = object.determineTypeString();
-
-        HashMap<String,Object> fields = new HashMap<String, Object>();
-        fields.putAll(object.getAdditionalProperties());
-        fields.put("dataName",shoplistobject.getDataName());
-        fields.put("bought",shoplistobject.getBought());
-        fields.put("type",objectType);
-        fields.put("relatedDataId",shoplistobject.getRelatedDataId());
-
-        dbDoc.setProperties(fields);
-    }
-
     /**
      * Retrieve all shop list documents stored inside database
      *
