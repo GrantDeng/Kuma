@@ -21,11 +21,18 @@ interface NutritionixUpcLookupInterface
 }
 
 // FIXME: a lot of this should be static
+
+/**
+ * Support for looking up a barcode with Nutritionix.
+ */
 public class Nutritionix_UpcLookup
 {
     private Retrofit retrofit;
     private NutritionixUpcLookupInterface service;
 
+    /**
+     * Constructor for Nutritionix UPC Lookup initializes the service.
+     */
     public Nutritionix_UpcLookup()
     {
         this.retrofit = new Retrofit.Builder()
