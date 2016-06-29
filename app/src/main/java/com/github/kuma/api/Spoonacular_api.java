@@ -4,10 +4,19 @@ package com.github.kuma.api;
  * Created by Grant on 2016-06-05.
  */
 
-import com.github.kuma.api.api_data.*;
-import retrofit2.http.*;
-import retrofit2.Call;
+import com.github.kuma.api.api_data.ComplexSearch;
+import com.github.kuma.api.api_data.RecipeInformation;
+import com.github.kuma.api.api_data.SearchRecipes;
+import com.github.kuma.api.api_data.Searchby_Ingredients;
+import com.github.kuma.api.api_data.SummarizeRecipe;
+
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface Spoonacular_api
 {

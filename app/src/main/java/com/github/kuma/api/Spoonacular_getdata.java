@@ -1,15 +1,20 @@
 package com.github.kuma.api;
 
-import com.github.kuma.api.api_data.*;
+import com.github.kuma.api.api_data.ClassifiedProduct;
+import com.github.kuma.api.api_data.ComplexSearch;
+import com.github.kuma.api.api_data.RecipeInformation;
+import com.github.kuma.api.api_data.SearchRecipes;
+import com.github.kuma.api.api_data.Searchby_Ingredients;
+import com.github.kuma.api.api_data.SummarizeRecipe;
+
+import java.io.IOException;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import java.io.IOException;
-import java.util.List;
 
 public class Spoonacular_getdata
 {

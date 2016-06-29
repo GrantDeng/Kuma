@@ -1,8 +1,8 @@
 package com.github.kuma.db_object;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 public class Mealplan extends Savable
 {
