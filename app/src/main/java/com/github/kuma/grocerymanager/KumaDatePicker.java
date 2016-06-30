@@ -7,7 +7,6 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Generic date picker dialog.

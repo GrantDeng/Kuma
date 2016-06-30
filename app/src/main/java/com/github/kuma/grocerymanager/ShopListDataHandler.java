@@ -3,8 +3,8 @@ package com.github.kuma.grocerymanager;
 import android.content.Context;
 
 import com.github.kuma.data.db.CouchbaseHandler;
-import com.github.kuma.data.db.SimpleDbInterface;
 import com.github.kuma.data.db.DbDocument;
+import com.github.kuma.data.db.SimpleDbInterface;
 import com.github.kuma.db_object.Data;
 import com.github.kuma.db_object.Shoppinglist;
 
