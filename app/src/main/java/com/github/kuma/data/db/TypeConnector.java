@@ -223,8 +223,9 @@ public final class TypeConnector
                         }
                     }
 
-                    // FIXME NAME IS PROBABLY WRONG
-                    emitter.emit(document.get("name"), modelObject);
+                    String id = modelObject.getId();
+                    assert(id != null);
+                    emitter.emit(id, modelObject);
                 }
                 catch(Exception e)
                 {
